@@ -1,3 +1,4 @@
+package gameProject;
 
 public class TestingTheGit {
 
