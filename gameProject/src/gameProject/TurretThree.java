@@ -1,5 +1,6 @@
 package gameProject;
 
-public class TurretThree {
+public class TurretThree extends Turret
+{
 
 }

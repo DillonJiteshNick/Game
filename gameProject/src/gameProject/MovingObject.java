@@ -1,6 +1,6 @@
 package gameProject;
 
-public abstract class MovingObject implements Runnable
+public abstract class MovingObject
 {
 	private double x, y, xSpeed, ySpeed;
 	private Boolean moving;
@@ -25,6 +25,16 @@ public abstract class MovingObject implements Runnable
 		this.y = y;
 	}
 
+	public double getXSpeed()
+	{
+		return xSpeed;
+	}
+
+	public double getYSpeed()
+	{
+		return ySpeed;
+	}
+
 	public void setXSpeed(double xSpeed) 
 	{
 		this.xSpeed = xSpeed;
@@ -32,5 +42,6 @@ public abstract class MovingObject implements Runnable
 
 	public void setYSpeed (double ySpeed)
 	{
-		this.ySpeed = ySpeed;	}
+		this.ySpeed = ySpeed;	
+	}
 }
