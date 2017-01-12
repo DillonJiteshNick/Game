@@ -12,6 +12,7 @@ public abstract class MovingObject
 
 	public double getY()
 	{
+		
 		return y;
 	}
 
