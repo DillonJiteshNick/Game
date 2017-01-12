@@ -1,6 +1,6 @@
 package gameProject;
 
-public abstract class MovingObject implements Runnable
+public abstract class MovingObject 
 {
 	private double x, y, xSpeed, ySpeed;
 	private Boolean moving;

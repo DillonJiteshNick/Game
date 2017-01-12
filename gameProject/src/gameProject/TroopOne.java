@@ -1,5 +1,5 @@
 package gameProject;
 
-public class TroopOne {
-
+public class TroopOne extends Troop {
+	
 }

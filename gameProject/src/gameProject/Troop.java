@@ -21,18 +21,18 @@ public class Troop extends MovingObject {
 		damage=decidedDamage;
 	}
 	public int getCost() {
-		return damage;
+		return cost;
 	}
 	
-	public void setCost(int decidedDamage) {
-		damage=decidedDamage;
+	public void setCost(int decidedCost) {
+		cost=decidedCost;
 	}
-	public int getRange() {
-		return damage;
+	public double getRange() {
+		return range;
 	}
 	
-	public void setRange(int decidedDamage) {
-		damage=decidedDamage;
+	public void setRange(double decidedRange) {
+		range=decidedRange;
 	}
 	
 }
