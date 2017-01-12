@@ -3,7 +3,7 @@ package gameProject;
 public abstract class MovingObject
 {
 	private double x, y, xSpeed, ySpeed;
-	private Boolean moving;
+	private Boolean isMoving;
 
 	public double getX() 
 	{
@@ -12,7 +12,6 @@ public abstract class MovingObject
 
 	public double getY()
 	{
-		
 		return y;
 	}
 
