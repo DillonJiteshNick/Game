@@ -12,9 +12,9 @@ public class Turret
 		return range;
 	}
 	
-	public void setRange(int rnge)
+	public void setRange(int setRange)
 	{
-		this.range = rnge;
+		this.range = setRange;
 	}
 	
 	public int getDamage()
@@ -22,9 +22,9 @@ public class Turret
 		return damage;
 	}
 	
-	public void setDamage(int dmge)
+	public void setDamage(int setDamage)
 	{
-		this.damage = dmge;
+		this.damage = setDamage;
 	}
 	
 	public int getCost ()
@@ -32,9 +32,9 @@ public class Turret
 		return cost;
 	}
 	
-	public void setCost(int cst)
+	public void setCost(int setCost)
 	{
-		this.cost = cst;
+		this.cost = setCost;
 	}
 	
 	public int getPosition()
@@ -42,9 +42,9 @@ public class Turret
 		return position;
 	}
 	
-	public void setPosition(int psitin)
+	public void setPosition(int setPosition)
 	{
-		this.position = psitin;
+		this.position = setPosition;
 	}
 	
 	
