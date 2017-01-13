@@ -12,4 +12,9 @@ public class TurretOne extends Turret
 		setCost(100);
 	}
 	
+	public void setRnge()
+	{
+		setRange(5);
+	}
+	
 }
