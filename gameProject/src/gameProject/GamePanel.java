@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,11 +20,12 @@ import javax.imageio.ImageIO;
 
 public class GamePanel extends JPanel implements Runnable{
 	
-	public static BufferedImage image;
-	
+	//public static BufferedImage base;
+	public static boolean mouseButtonDown=false;
+	public static int x=0;
+	public static int y=0;
 	public static void main(String[] args) {
 
-		// Set up main window (using Swing's Jframe)
 		JFrame frame = new JFrame("Age of War");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.setSize(new Dimension(1000, 500));
@@ -43,28 +45,27 @@ public class GamePanel extends JPanel implements Runnable{
 
 	}
 	public void paintComponent(Graphics g){
-		 try {                
-	          image = ImageIO.read(new File("/hd-backgrounds-19.jpg"));
-	       } catch (IOException ex) {
-	            // handle exception...
-	       }
+//		 try {                
+//	          base = ImageIO.read(new File("/base.png"));
+//	       } catch (IOException ex) {
+//	            // handle exception...
+//	       }
 		super.paintComponent(g);
+		//g.drawImage(base, 0, 0, this);
 		g.drawRect(0, 0, 1265, 100);
 		g.drawLine(1150, 0, 1150, 100);
 		g.drawLine(1150, 50, 1265, 50);
 		g.drawString("Money:", 1185, 20);
 		g.drawString("Units:", 10, 20);
 		g.drawString("Turrets:", 550, 20);
-		g.drawRect(50, 200, 100, 100);
-		g.drawRect(1100, 200, 100, 100);
-		g.drawImage(image, 0, 0, this);
-		int x=51;
-		int y=15;
-		while (true) {
-			
-		}
-		
-		
+		g.drawRect(50, 20, 90, 60);
+		g.drawRect(170, 20, 90, 60);
+		g.drawRect(290, 20, 90, 60);
+		//g.drawRect(20, 50, 1000, 1000);
+		g.drawRect(1100, 200, 100, 100);		
+	}
+	public void paint(Graphics g)
+	{
 		
 	}
 	
@@ -72,6 +73,27 @@ public class GamePanel extends JPanel implements Runnable{
 	{
 		
 	}
+	  /**
+	    * called when a mouse button is pressed
+	    * @param e The mouse event
+	    **/
+	    public void mousePressed (MouseEvent e)
+	    {
+	    	mouseButtonDown = true;
+			x = e.getX ();
+			y = e.getY ();
+			repaint ();
+	    }
+	    
+	    /**
+	    * called when a mouse button is released
+	    * @param e The mouse event
+	    **/
+	    public void mouseReleased (MouseEvent e)
+	    {
+	    	mouseButtonDown = false;
+	    	repaint ();
+	    }
 	int[] postionArray=new int[15];
 	
 }
