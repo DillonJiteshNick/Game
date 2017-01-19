@@ -6,10 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,14 +18,15 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable{
 
 	Timer timer;
 	int counter=30;
 	public static BufferedImage base;
-	public static boolean mouseButtonDown=false;
-	public static int x=0;
-	public static int y=0;
+	public static boolean mouseButtonDown = false;
+	public static int x = 0;
+	public static int y = 0;
 	public static int[] positionArray=new int[15];
 
 	public static void main(String[] args) {
@@ -46,8 +45,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	}
 	public GamePanel(){
-		//		this.setPreferredSize(new Dimension(1265, 950));
-		//		this.setBackground(Color.WHITE);
+		//				this.setPreferredSize(new Dimension(1265, 950));
+		//				this.setBackground(Color.WHITE);
 
 
 		//		JPanel panelPlayBTN;
@@ -101,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable{
 		mouseButtonDown = true;
 		x = e.getX ();
 		y = e.getY ();
-		System.out.println(x+","+y);
+		System.out.println(x + "," + y);
 		repaint ();
 	}
 
@@ -124,3 +123,4 @@ public class GamePanel extends JPanel implements Runnable{
 		positionArray = GamePanel.positionArray;
 	}
 
+}

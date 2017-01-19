@@ -5,7 +5,6 @@ public class AIPlayer {
 	public static void main(String[] args) {
 		int AIBaseHealth = 1000;
 		int AIMoney = 0;
-
 		int AIChoice = (int) (Math.random() * 10);
 		int AICharacterChoice = (int) (Math.random() * 3);
 
@@ -20,7 +19,7 @@ public class AIPlayer {
 			{
 				AIMoney = AIMoney - 80;
 
-			}
+			} 
 			else if (AICharacterChoice == 3 && AIMoney >= 250)
 			{
 				AIMoney = AIMoney - 250;
@@ -45,10 +44,5 @@ public class AIPlayer {
 
 			}
 		}
-
-
-
-
 	}
-
 }
