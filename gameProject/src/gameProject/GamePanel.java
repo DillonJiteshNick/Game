@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -20,11 +22,14 @@ import javax.imageio.ImageIO;
 
 public class GamePanel extends JPanel implements Runnable{
 	
-	//public static BufferedImage base;
+	Timer timer;
+	int counter=30;
+	public static BufferedImage base;
 	public static boolean mouseButtonDown=false;
 	public static int x=0;
 	public static int y=0;
 	public static void main(String[] args) {
+		
 
 		JFrame frame = new JFrame("Age of War");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,10 +44,26 @@ public class GamePanel extends JPanel implements Runnable{
 
 	}
 	public GamePanel(){
-		this.setPreferredSize(new Dimension(1265, 950));
-		this.setBackground(Color.WHITE);
+//		this.setPreferredSize(new Dimension(1265, 950));
+//		this.setBackground(Color.WHITE);
 		
-
+		
+//		JPanel panelPlayBTN;
+//		panelPlayBTN = new JPanel();
+//		panelPlay.setBounds(0,0, 100, 100);
+//		
+//		Timer timer = new Timer(1000,new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e){
+//				int r+=110;
+//				if (r>=1000){
+//					r=1000;
+//					((Timer)e.getSource()).stop*();
+//				}
+//				//repaint();
+//			}
+//		});
+		
 	}
 	public void paintComponent(Graphics g){
 //		 try {                
@@ -61,14 +82,10 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawRect(50, 20, 90, 60);
 		g.drawRect(170, 20, 90, 60);
 		g.drawRect(290, 20, 90, 60);
-		//g.drawRect(20, 50, 1000, 1000);
+		g.drawRect(20, 50, 1000, 1000);
 		g.drawRect(1100, 200, 100, 100);		
 	}
-	public void paint(Graphics g)
-	{
-		
-	}
-	
+
 	public void run()
 	{
 		
@@ -82,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
 	    	mouseButtonDown = true;
 			x = e.getX ();
 			y = e.getY ();
+			System.out.println(x+","+y);
 			repaint ();
 	    }
 	    
