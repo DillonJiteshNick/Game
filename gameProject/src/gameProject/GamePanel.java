@@ -2,6 +2,7 @@ package gameProject;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -43,9 +44,17 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	final int pauseDuration = 50;
 	
-	static int numTroopOne = 10;
+	static int numTroopOne = 1;
 	
-	TroopOne2[] troopOne = new TroopOne2[numTroopOne];
+	TroopOne[] troopOne = new TroopOne[numTroopOne];
+	
+	static int numTroopTwo = 1;
+	
+	TroopTwo[] troopTwo = new TroopTwo[numTroopTwo];
+	
+	static int numTroopThree = 1;
+	
+	TroopThree[] troopThree = new TroopThree[numTroopThree];
 
 	public static void main(String[] args) {
 
@@ -77,6 +86,12 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public GamePanel(){
+		
+		Cursor cursor = Cursor.getDefaultCursor();
+
+		//Change the cursor
+		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR); 
+		setCursor(cursor);
 		
 		
 		MouseAdapter mouseListener = new MouseAdapter() {
@@ -145,9 +160,27 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < numTroopOne; i++) {
 			
 			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
-			troopOne[i] = new TroopOne2(650, 300, 0, width, 0, height);
+			troopOne[i] = new TroopOne(650, 300, 0, width, 0, height);
 			troopOne[i].setXSpeed(Math.random() * 16-8);
 			troopOne[i].setYSpeed(Math.random() * 16-8);
+
+		}
+		
+		for (int i = 0; i < numTroopTwo; i++) {
+			
+			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
+			troopTwo[i] = new TroopTwo(650, 300, 0, width, 0, height);
+			troopTwo[i].setXSpeed(Math.random() * 16-8);
+			troopTwo[i].setYSpeed(Math.random() * 16-8);
+
+		}
+		
+		for (int i = 0; i < numTroopThree; i++) {
+			
+			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
+			troopThree[i] = new TroopThree(650, 300, 0, width, 0, height);
+			troopThree[i].setXSpeed(Math.random() * 16-8);
+			troopThree[i].setYSpeed(Math.random() * 16-8);
 
 		}
 		
@@ -180,8 +213,18 @@ public class GamePanel extends JPanel implements Runnable{
 
 		}
 		
+		for (int i = 0; i < numTroopTwo; i++) {
+			troopTwo[i].draw(g);
+
+		}
 		
-		troopOne[0].draw(g);
+		for (int i = 0; i < numTroopTwo; i++) {
+			troopThree[i].draw(g);
+
+		}
+		
+		
+		//troopOne[0].draw(g);
 	}
 
 	public void run()
