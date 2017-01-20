@@ -7,7 +7,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,6 +35,17 @@ public class GamePanel extends JPanel implements Runnable{
 	public static int x = 0;
 	public static int y = 0;
 	public static int[] positionArray=new int[15];
+	
+	int width = 1350;
+	int height = 700;
+	//Dimension width2 = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	
+	final int pauseDuration = 50;
+	
+	static int numTroopOne = 10;
+	
+	TroopOne2[] troopOne = new TroopOne2[numTroopOne];
 
 	public static void main(String[] args) {
 
@@ -56,7 +70,33 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setBackground(Color.WHITE);*/
 
 	}
+
+	//or if it is the same coordinates of the image- get image coordinates, then it is a click and hit
+	
+	
+	
+	
 	public GamePanel(){
+		
+		
+		MouseAdapter mouseListener = new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) { 	
+		    System.out.println("Image Hit");
+	    
+		    setBackground(Color.BLACK);
+//		    try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e1) {
+//			// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		    
+//		    setBackground(Color.WHITE);
+		    	
+		    }
+		  };
+		
+		  addMouseListener(mouseListener);
 					this.setPreferredSize(new Dimension(1350, 700));
 						this.setBackground(Color.WHITE);
 
@@ -75,6 +115,16 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 		turret1Panel.add(turret1BTN);
+		
+		turret1BTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setBackground(Color.WHITE);
+			}
+		});
+		
+		//addActionListener(turret1BTN);
+		
+		
 
 		//		
 		//		Timer timer = new Timer(1000,new ActionListener(){
@@ -89,6 +139,21 @@ public class GamePanel extends JPanel implements Runnable{
 		//			}
 		//		});
 
+		
+		this.setPreferredSize(new Dimension(width, height));
+		
+		for (int i = 0; i < numTroopOne; i++) {
+			
+			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
+			troopOne[i] = new TroopOne2(650, 300, 0, width, 0, height);
+			troopOne[i].setXSpeed(Math.random() * 16-8);
+			troopOne[i].setYSpeed(Math.random() * 16-8);
+
+		}
+		
+		Thread gameThread = new Thread(this);
+		gameThread.start();
+		
 	}
 	public void paintComponent(Graphics g){
 		//		 try {                
@@ -108,12 +173,26 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawRect(170, 20, 90, 60);
 		g.drawRect(290, 20, 90, 60);
 		g.drawRect(20, 50, 1000, 1000);
-		g.drawRect(1100, 200, 100, 100);		
+		g.drawRect(1100, 200, 100, 100);
+		
+		for (int i = 0; i < numTroopOne; i++) {
+			troopOne[i].draw(g);
+
+		}
+		
+		
+		troopOne[0].draw(g);
 	}
 
 	public void run()
 	{
-
+		while (true) {
+			repaint();
+			try {
+				Thread.sleep(pauseDuration);
+			} catch (InterruptedException e) {
+			}
+		}
 	}
 	/**
 	 * called when a mouse button is pressed
@@ -146,5 +225,12 @@ public class GamePanel extends JPanel implements Runnable{
 	{
 		positionArray = GamePanel.positionArray;
 	}
+	
+	
+	/**
+	 * 
+	 * Paint component- draw the Nacks on the frame in their set location
+	 */
+	
 
 }
