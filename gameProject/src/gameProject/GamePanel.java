@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public static int y = 0;
 	public static int[] positionArray=new int[15];
 	
+	public static int troopOneCurrent = -1;
+	public static int troopTwoCurrent = -1;
+	public static int troopThreeCurrent = -1;
+	
 	int width = 1350;
 	int height = 700;
 	//Dimension width2 = Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,17 +49,22 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	final int pauseDuration = 50;
 	
-	static int numTroopOne = 1;
+	//static int numTroopOne = 1;
 	
-	TroopOne[] troopOne = new TroopOne[numTroopOne];
+	//TroopOne[] troopOne = new TroopOne[numTroopOne];
+	ArrayList<TroopOne> troopOne = new ArrayList<TroopOne>();
 	
-	static int numTroopTwo = 1;
+	ArrayList<TroopTwo> troopTwo = new ArrayList<TroopTwo>();
 	
-	TroopTwo[] troopTwo = new TroopTwo[numTroopTwo];
+	ArrayList<TroopThree> troopThree = new ArrayList<TroopThree>();
 	
-	static int numTroopThree = 1;
+	//static int numTroopTwo = 1;
 	
-	TroopThree[] troopThree = new TroopThree[numTroopThree];
+	//TroopTwo[] troopTwo = new TroopTwo[numTroopTwo];
+	
+	//static int numTroopThree = 1;
+	
+	//TroopThree[] troopThree = new TroopThree[numTroopThree];
 
 	public static void main(String[] args) {
 
@@ -68,8 +78,8 @@ public class GamePanel extends JPanel implements Runnable{
 		JFrame frame = new JFrame("Age of War");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setBounds(0, 0, screenSize.width, screenSize.height);
-	//	frame.setSize(new Dimension(1350, 700));
+		//frame.setBounds(0, 0, screenSize.width, screenSize.height);
+	frame.setSize(new Dimension(1200, 700));
 		frame.setAutoRequestFocus(false);
 		frame.setVisible(true);
 		Container c = frame.getContentPane();
@@ -98,7 +108,8 @@ public class GamePanel extends JPanel implements Runnable{
 		    public void mouseClicked(MouseEvent e) { 	
 		    System.out.println("Image Hit");
 	    
-		    setBackground(Color.BLACK);
+		    System.out.println("X Click: " + e.getX() + " Y Click: " + e.getY());
+		    //setBackground(Color.BLACK);
 //		    try {
 //				Thread.sleep(1000);
 //			} catch (InterruptedException e1) {
@@ -112,32 +123,106 @@ public class GamePanel extends JPanel implements Runnable{
 		  };
 		
 		  addMouseListener(mouseListener);
-					this.setPreferredSize(new Dimension(1350, 700));
+					this.setPreferredSize(new Dimension(1200, 700));
 						this.setBackground(Color.WHITE);
 
 
-		JPanel turret1Panel;
-		turret1Panel=new JPanel();
-		turret1Panel.setBounds(0, 0, 100, 100);
-		add(turret1Panel);
+		JPanel troop1Panel;
+		troop1Panel=new JPanel();
+		troop1Panel.setBounds(0, 0, 100, 100);
+		add(troop1Panel);
 
 
-		JButton turret1BTN;
-		turret1BTN = new JButton ("Play");
-		turret1BTN.setFont(new Font("Arial", Font.PLAIN, 375));
+		JButton troop1BTN;
+		troop1BTN = new JButton ("Troop 1");
+		troop1BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
-		turret1BTN.setPreferredSize(new Dimension(100, 100));
+		troop1BTN.setPreferredSize(new Dimension(100, 100));
 
 
-		turret1Panel.add(turret1BTN);
+		troop1Panel.add(troop1BTN);
 		
-		turret1BTN.addActionListener(new ActionListener() {
+		troop1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				troopOneCurrent = troopOneCurrent +1;
+				troopOne.add(new TroopOne(0, 465, 0, width, 0, height));
+				troopOne.get(troopOne.size()-1).setXSpeed(10);
+				troopOne.get(troopOne.size()-1).setYSpeed(0);
+				
+				
+				
+				
+				
+				//troopOne.get(0).setY(300);
+//				troopOne[i].setXSpeed(1);
+//				troopOne[i].setYSpeed(0);
+//				troopOne[i].setX(0);
+//				troopOne[i].setY(500);
 				setBackground(Color.WHITE);
 			}
 		});
 		
-		//addActionListener(turret1BTN);
+		
+		
+		JPanel troop2Panel;
+		troop2Panel=new JPanel();
+		troop2Panel.setBounds(100, 0, 100, 100);
+		add(troop2Panel);
+
+
+		JButton troop2BTN;
+		troop2BTN = new JButton ("Troop 2");
+		troop2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
+		setLayout(null);
+		troop2BTN.setPreferredSize(new Dimension(100, 100));
+
+
+		troop2Panel.add(troop2BTN);
+		
+		troop2BTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				troopTwoCurrent = troopTwoCurrent +1;
+				troopTwo.add(new TroopTwo(0, 460, 0, width, 0, height));
+				troopTwo.get(troopTwo.size()-1).setXSpeed(10);
+				troopTwo.get(troopTwo.size()-1).setYSpeed(0);
+				
+			
+				setBackground(Color.WHITE);
+			}
+		});
+		
+		
+		JPanel troop3Panel;
+		troop3Panel=new JPanel();
+		troop3Panel.setBounds(200, 0, 100, 100);
+		add(troop3Panel);
+
+
+		JButton troop3BTN;
+		troop3BTN = new JButton ("Troop 3");
+		troop3BTN.setFont(new Font("Arial", Font.PLAIN, 12));
+		setLayout(null);
+		troop3BTN.setPreferredSize(new Dimension(100, 100));
+
+
+		troop3Panel.add(troop3BTN);
+		
+		troop3BTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				troopThreeCurrent = troopThreeCurrent +1;
+				troopThree.add(new TroopThree(0, 520, 0, width, 0, height));
+				troopThree.get(troopThree.size()-1).setXSpeed(10);
+				troopThree.get(troopThree.size()-1).setYSpeed(0);
+				
+			
+				setBackground(Color.WHITE);
+			}
+		});
+		
+		//addActionListener(troop1BTN);
 		
 		
 
@@ -155,34 +240,25 @@ public class GamePanel extends JPanel implements Runnable{
 		//		});
 
 		
-		this.setPreferredSize(new Dimension(width, height));
+	//	this.setPreferredSize(new Dimension(width, height));
+		this.setPreferredSize(new Dimension(1200, 600));
 		
-		for (int i = 0; i < numTroopOne; i++) {
-			
-			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
-			troopOne[i] = new TroopOne(650, 300, 0, width, 0, height);
-			troopOne[i].setXSpeed(Math.random() * 16-8);
-			troopOne[i].setYSpeed(Math.random() * 16-8);
+//		for (int i = 0; i < numTroopOne; i++) {
+//			
+//			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
+//			//troopOne[i] = new TroopOne(650, 300, 0, width, 0, height);
+//			
+//			//troopOne[i] = new TroopOne(0, 300, 0, width, 0, height);
+//			
+//			
+//			///troopOne.add(new TroopOne(0, 300, 0, width, 0, height));
+//		
+//			//troopOne[i].setX(0);
+////			troopOne[i].setXSpeed(10);
+////			troopOne[i].setYSpeed(0);
+////			troopOne[i].setXSpeed(Math.random() * 16-8);
+////			troopOne[i].setYSpeed(Math.random() * 16-8);
 
-		}
-		
-		for (int i = 0; i < numTroopTwo; i++) {
-			
-			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
-			troopTwo[i] = new TroopTwo(650, 300, 0, width, 0, height);
-			troopTwo[i].setXSpeed(Math.random() * 16-8);
-			troopTwo[i].setYSpeed(Math.random() * 16-8);
-
-		}
-		
-		for (int i = 0; i < numTroopThree; i++) {
-			
-			//troopOne[i] = new TroopOne2(650, 300, 0, 100, 0, 100);
-			troopThree[i] = new TroopThree(650, 300, 0, width, 0, height);
-			troopThree[i].setXSpeed(Math.random() * 16-8);
-			troopThree[i].setYSpeed(Math.random() * 16-8);
-
-		}
 		
 		Thread gameThread = new Thread(this);
 		gameThread.start();
@@ -208,20 +284,55 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawRect(20, 50, 1000, 1000);
 		g.drawRect(1100, 200, 100, 100);
 		
-		for (int i = 0; i < numTroopOne; i++) {
-			troopOne[i].draw(g);
-
+		for (int i = 0; i < troopOneCurrent + 1; i ++) {
+		if (troopOneCurrent > -1) {
+			troopOne.get(i).draw(g);
 		}
 		
-		for (int i = 0; i < numTroopTwo; i++) {
-			troopTwo[i].draw(g);
-
 		}
 		
-		for (int i = 0; i < numTroopTwo; i++) {
-			troopThree[i].draw(g);
+		for (int i = 0; i < troopTwoCurrent + 1; i ++) {
+			if (troopTwoCurrent > -1) {
+				troopTwo.get(i).draw(g);
+			}
+			
+			}
+		
+		for (int i = 0; i < troopThreeCurrent + 1; i ++) {
+			if (troopThreeCurrent > -1) {
+				troopThree.get(i).draw(g);
+			}
+			
+			}
+		
+		
+		
+		
+		//for (int i = 0; i < numTroopOne; i++) {
+			
+			//System.out.println("Random Speed: " + (Math.random() * 16-8));
+			
+//			troopOne[i].setXSpeed(1);
+//			troopOne[i].setYSpeed(0);
+//			troopOne[i].setX(0);
+//			troopOne[i].setY(500);
+			//troopOne.get(i).draw(g);
+			//troopOne[i].draw(g);
+			
+		//troopOne.get(troopOne.size()-1).draw(g);
+			
 
-		}
+		//}
+		
+//		for (int i = 0; i < numTroopTwo; i++) {
+//			troopTwo[i].draw(g);
+//
+//		}
+//		
+//		for (int i = 0; i < numTroopTwo; i++) {
+//			troopThree[i].draw(g);
+//
+//		}
 		
 		
 		//troopOne[0].draw(g);

@@ -44,7 +44,7 @@ public class TroopThree extends MovingObject
 	    	super(x, y, left + 10, right - 10, top + 10, bottom - 10);
 	    	//Set the image from the selected file
 	       try {                
-	          image = ImageIO.read(new File("src/Troop3.png"));
+	          image = ImageIO.read(new File("src/TroopThreeGood.png"));
 	       } catch (IOException ex) {
 	            System.out.println("Error with Image");
 	       }

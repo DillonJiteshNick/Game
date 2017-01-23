@@ -154,7 +154,7 @@ public abstract class MovingObject implements Runnable {
 			animateOneStep();
 			x += xSpeed;
 			y += ySpeed;
-			if (x >= right | x <= left)
+			if (x >= right | x < left)
 				xSpeed *= -1;
 			if (y >= bottom | y <= top)
 				ySpeed *= -1;
