@@ -28,7 +28,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
+import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -37,7 +37,12 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable{
 
+	//public static int AIChoice = (int) (Math.random() * 10);
+	public static int AICharacterChoice = ((int) (Math.random() * 11) + 1);
+	
 	Timer timer;
+	//int counter = 30;
+	//Timer timer;
 	int counter=30;
 	public static BufferedImage base;
 	public static boolean mouseButtonDown = false;
@@ -196,6 +201,87 @@ public class GamePanel extends JPanel implements Runnable{
 		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR); 
 		setCursor(cursor);
 		
+		timer = new Timer(3000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AICharacterChoice = ((int) (Math.random() * 11) + 1);
+				
+				if (AICharacterChoice <=4) {
+					troopOneCurrentAI = troopOneCurrentAI +1;
+					troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
+					troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
+					troopOneAI.get(troopOneAI.size()-1).setYSpeed(0);
+					
+					if (troopOneAI.get(troopOneAI.size()-1).getX() == 0) {
+						troopOneAI.remove(troopOneAI.size()-1);
+					}
+					
+				}
+				else if (AICharacterChoice <=8) {
+					//Makes AI Troop Two appear
+					troopTwoCurrentAI = troopTwoCurrentAI +1;
+					troopTwoAI.add(new AITroopTwo(1200, 460, 0, width, 0, height));
+					troopTwoAI.get(troopTwoAI.size()-1).setXSpeed(-5);
+					troopTwoAI.get(troopTwoAI.size()-1).setYSpeed(0);
+					
+					if (troopTwoAI.get(troopTwoAI.size()-1).getX() == 0) {
+						troopTwoAI.remove(troopTwoAI.size()-1);
+					}
+				}
+				else {
+					//Makes AI Troop Three appear
+					troopThreeCurrentAI = troopThreeCurrentAI +1;
+					troopThreeAI.add(new AITroopThree(1200, 520, 0, width, 0, height));
+					troopThreeAI.get(troopThreeAI.size()-1).setXSpeed(-5);
+					troopThreeAI.get(troopThreeAI.size()-1).setYSpeed(0);
+					
+					if (troopThreeAI.get(troopThreeAI.size()-1).getX() == 0) {
+						troopThreeAI.remove(troopThreeAI.size()-1);
+					}
+				}
+				
+			}
+		});
+		timer.start();
+
+		 
+
+		
+			
+	
+		
+//		//Makes AI Troop One appear
+//		troopOneCurrentAI = troopOneCurrentAI +1;
+//		troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
+//		troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
+//		troopOneAI.get(troopOneAI.size()-1).setYSpeed(0);
+//		
+//		if (troopOneAI.get(troopOneAI.size()-1).getX() == 0) {
+//			troopOneAI.remove(troopOneAI.size()-1);
+//		}
+		
+//		//Makes AI Troop Two appear
+//		troopTwoCurrentAI = troopTwoCurrentAI +1;
+//		troopTwoAI.add(new AITroopTwo(1200, 460, 0, width, 0, height));
+//		troopTwoAI.get(troopTwoAI.size()-1).setXSpeed(-5);
+//		troopTwoAI.get(troopTwoAI.size()-1).setYSpeed(0);
+//		
+//		if (troopTwoAI.get(troopTwoAI.size()-1).getX() == 0) {
+//			troopTwoAI.remove(troopTwoAI.size()-1);
+//		}
+		
+//		//Makes AI Troop Three appear
+//		troopThreeCurrentAI = troopThreeCurrentAI +1;
+//		troopThreeAI.add(new AITroopThree(1200, 520, 0, width, 0, height));
+//		troopThreeAI.get(troopThreeAI.size()-1).setXSpeed(-5);
+//		troopThreeAI.get(troopThreeAI.size()-1).setYSpeed(0);
+//		
+//		if (troopThreeAI.get(troopThreeAI.size()-1).getX() == 0) {
+//			troopThreeAI.remove(troopThreeAI.size()-1);
+//		}
+	
+		
+		
 		
 		MouseAdapter mouseListener = new MouseAdapter() {
 		    public void mouseClicked(MouseEvent e) { 	
@@ -265,15 +351,6 @@ public class GamePanel extends JPanel implements Runnable{
 				troopOne.get(troopOne.size()-1).setXSpeed(5);
 				troopOne.get(troopOne.size()-1).setYSpeed(0);
 				
-				//Makes AI Troop One appear
-				troopOneCurrentAI = troopOneCurrentAI +1;
-				troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
-				troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
-				troopOneAI.get(troopOneAI.size()-1).setYSpeed(0);
-				
-				if (troopOneAI.get(troopOneAI.size()-1).getX() == 0) {
-					troopOneAI.remove(troopOneAI.size()-1);
-				}
 				
 				
 				
@@ -319,14 +396,7 @@ public class GamePanel extends JPanel implements Runnable{
 					troopTwo.remove(troopTwo.size()-1);
 				}
 				
-				troopTwoCurrentAI = troopTwoCurrentAI +1;
-				troopTwoAI.add(new AITroopTwo(1200, 460, 0, width, 0, height));
-				troopTwoAI.get(troopTwoAI.size()-1).setXSpeed(-5);
-				troopTwoAI.get(troopTwoAI.size()-1).setYSpeed(0);
 				
-				if (troopTwoAI.get(troopTwoAI.size()-1).getX() == 0) {
-					troopTwoAI.remove(troopTwoAI.size()-1);
-				}
 				
 			
 				setBackground(Color.WHITE);
@@ -361,15 +431,7 @@ public class GamePanel extends JPanel implements Runnable{
 					troopThree.remove(troopThree.size()-1);
 				}
 				
-				troopThreeCurrentAI = troopThreeCurrentAI +1;
-				troopThreeAI.add(new AITroopThree(1200, 520, 0, width, 0, height));
-				troopThreeAI.get(troopThreeAI.size()-1).setXSpeed(-5);
-				troopThreeAI.get(troopThreeAI.size()-1).setYSpeed(0);
 				
-				if (troopThreeAI.get(troopThreeAI.size()-1).getX() == 0) {
-					troopThreeAI.remove(troopThreeAI.size()-1);
-				}
-			
 				setBackground(Color.WHITE);
 			}
 		});
