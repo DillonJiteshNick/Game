@@ -1,5 +1,9 @@
 package gameProject;
 
+
+//Have a counter for number of troops defeated and how many of your troops died
+//Put this at the end, save to a file, and then sort
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
