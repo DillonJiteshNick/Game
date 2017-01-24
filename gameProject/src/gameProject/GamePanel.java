@@ -49,6 +49,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public static int troopTwoCurrent = -1;
 	public static int troopThreeCurrent = -1;
 	
+	public static int troopOneCurrentAI = -1;
+	public static int troopTwoCurrentAI = -1;
+	public static int troopThreeCurrentAI = -1;
+	
 	public static boolean turretOneClicked = false;
 	public static boolean turretTwoClicked = false;
 	public static boolean turretThreeClicked = false;
@@ -78,6 +82,17 @@ public class GamePanel extends JPanel implements Runnable{
 	ArrayList<TroopTwo> troopTwo = new ArrayList<TroopTwo>();
 	
 	ArrayList<TroopThree> troopThree = new ArrayList<TroopThree>();
+	
+	ArrayList<AITroopOne> troopOneAI = new ArrayList<AITroopOne>();
+	ArrayList<AITroopTwo> troopTwoAI = new ArrayList<AITroopTwo>();
+	ArrayList<AITroopThree> troopThreeAI = new ArrayList<AITroopThree>();
+	
+	
+	
+	
+	
+	
+	
 	
 	ArrayList<turretShooter> turretRock = new ArrayList<turretShooter>();
 	
@@ -250,8 +265,14 @@ public class GamePanel extends JPanel implements Runnable{
 				troopOne.get(troopOne.size()-1).setXSpeed(5);
 				troopOne.get(troopOne.size()-1).setYSpeed(0);
 				
-				if (troopOne.get(troopOne.size()-1).getX() == 1200) {
-					troopOne.remove(troopOne.size()-1);
+				//Makes AI Troop One appear
+				troopOneCurrentAI = troopOneCurrentAI +1;
+				troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
+				troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
+				troopOneAI.get(troopOneAI.size()-1).setYSpeed(0);
+				
+				if (troopOneAI.get(troopOneAI.size()-1).getX() == 0) {
+					troopOneAI.remove(troopOneAI.size()-1);
 				}
 				
 				
@@ -298,6 +319,15 @@ public class GamePanel extends JPanel implements Runnable{
 					troopTwo.remove(troopTwo.size()-1);
 				}
 				
+				troopTwoCurrentAI = troopTwoCurrentAI +1;
+				troopTwoAI.add(new AITroopTwo(1200, 460, 0, width, 0, height));
+				troopTwoAI.get(troopTwoAI.size()-1).setXSpeed(-5);
+				troopTwoAI.get(troopTwoAI.size()-1).setYSpeed(0);
+				
+				if (troopTwoAI.get(troopTwoAI.size()-1).getX() == 0) {
+					troopTwoAI.remove(troopTwoAI.size()-1);
+				}
+				
 			
 				setBackground(Color.WHITE);
 			}
@@ -329,6 +359,15 @@ public class GamePanel extends JPanel implements Runnable{
 				
 				if (troopThree.get(troopThree.size()-1).getX() == 1200) {
 					troopThree.remove(troopThree.size()-1);
+				}
+				
+				troopThreeCurrentAI = troopThreeCurrentAI +1;
+				troopThreeAI.add(new AITroopThree(1200, 520, 0, width, 0, height));
+				troopThreeAI.get(troopThreeAI.size()-1).setXSpeed(-5);
+				troopThreeAI.get(troopThreeAI.size()-1).setYSpeed(0);
+				
+				if (troopThreeAI.get(troopThreeAI.size()-1).getX() == 0) {
+					troopThreeAI.remove(troopThreeAI.size()-1);
 				}
 			
 				setBackground(Color.WHITE);
@@ -733,6 +772,27 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			}
+		
+		for (int i = 0; i < troopOneCurrentAI + 1; i ++) {
+			if (troopOneCurrentAI > -1) {
+				troopOneAI.get(i).draw(g);
+			}
+			
+			}
+		
+		for (int i = 0; i < troopTwoCurrentAI + 1; i ++) {
+			if (troopTwoCurrentAI > -1) {
+				troopTwoAI.get(i).draw(g);
+			}
+			
+			}
+		for (int i = 0; i < troopThreeCurrentAI + 1; i ++) {
+			if (troopThreeCurrentAI > -1) {
+				troopThreeAI.get(i).draw(g);
+			}
+			
+			}
+			
 		
 //		
 //		for (i = 0; i <turretRockCurrent +1; i++) {
