@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	     // pack()
 
-		JFrame frame = new JFrame("Age of War");
+		JFrame frame = new JFrame("Endless War");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//frame.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -560,7 +560,23 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		g.drawString("Units:", 10, 20);
 		g.drawString("Turrets:", 400, 20);
-		g.drawString("Money:", 1050, 20);
+		g.drawString("Money:", 800, 20);
+		
+		JPanel moneyPanel = new JPanel();
+		moneyPanel.setBounds(875, 0, 100, 100);
+		//moneyPanel.setBackground(new Color(181,164,13));
+		moneyPanel.setBackground(new Color(205,185,10));
+		add(moneyPanel);
+		
+		JLabel moneyLabel = new JLabel();
+		moneyLabel.setBounds(875, 0, 100, 100);
+		setLayout(null);
+		moneyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		
+		moneyLabel.setText("100 Coins");
+		moneyPanel.add(moneyLabel);
+		
+		//g.drawString("Money:", 1050, 20);
 		
 		//Troop Boxes
 		//g.drawRect(50, 20, 90, 60);
