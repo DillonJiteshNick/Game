@@ -71,6 +71,10 @@ public class GamePanel extends JPanel implements Runnable{
 	JLabel refreshTurretLabel;
 	
 	
+	//ArrayList<JLabel> troopOneLabel = new ArrayList<JLabel>();
+	
+	
+	
 	
 	int width = 1350;
 	int height = 700;
@@ -347,6 +351,11 @@ public class GamePanel extends JPanel implements Runnable{
 //				turretRock.get(turretRock.size()-1).setY(10);
 //				
 				troopOneCurrent = troopOneCurrent +1;
+				
+				
+				
+				
+				
 				troopOne.add(new TroopOne(0, 465, 0, width, 0, height));
 				troopOne.get(troopOne.size()-1).setXSpeed(5);
 				troopOne.get(troopOne.size()-1).setYSpeed(0);
@@ -618,6 +627,9 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		});
 		
+		
+		
+		
 		//addActionListener(troop1BTN);
 		
 		
@@ -817,9 +829,18 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopOneCurrent + 1; i ++) {
 		if (troopOneCurrent > -1) {
 			troopOne.get(i).draw(g);
+//			if (troopOne.get(i).getX() == troopOneAI.get(i).getX()) {
+//				troopOne.remove(i);
+//			}
 		}
+		//put the image in a label and then remove the label
+//		if (troopOne.get().getX() == troopOneAI.get(0).getX()) {
+//			troopOne.remove(0);
+//		}
 		
 		}
+		
+		
 		
 		for (int i = 0; i < troopTwoCurrent + 1; i ++) {
 			if (troopTwoCurrent > -1) {
