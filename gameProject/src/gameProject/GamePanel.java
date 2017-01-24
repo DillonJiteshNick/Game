@@ -447,6 +447,8 @@ public class GamePanel extends JPanel implements Runnable{
 		turret2BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				turretActive = true;
+				
 				turretTwoClicked= true;
 				
 //				turretTwoLabel = new JLabel(new ImageIcon(turretTwoImage));
@@ -488,6 +490,8 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		turret3BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				turretActive = true;
 				
 				turretThreeClicked = true;
 				
