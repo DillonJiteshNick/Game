@@ -1,6 +1,7 @@
 package gameProject;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -13,8 +14,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -43,6 +46,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public static int troopThreeCurrent = -1;
 	
 	public static boolean turretOneClicked = false;
+	public static boolean turretTwoClicked = false;
+	public static boolean turretThreeClicked = false;
+	
+	JLabel turretOneLabel;
+	JLabel turretTwoLabel;
+	JLabel turretThreeLabel;
+	JLabel refreshTurretLabel;
+	
+	
 	
 	int width = 1350;
 	int height = 700;
@@ -72,10 +84,16 @@ public class GamePanel extends JPanel implements Runnable{
 	private BufferedImage castleImageRight;
 	
 	private BufferedImage turretOneImage;
+	
+	private BufferedImage turretTwoImage;
+	
+	private BufferedImage turretThreeImage;
+	
+	public BufferedImage refreshTurretImage;
+	
+	
 
 	public static void main(String[] args) {
-		
-		 
 
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -124,6 +142,24 @@ public class GamePanel extends JPanel implements Runnable{
 	            System.out.println("Error with Image");
 	       }
 		
+		try {                
+	          turretTwoImage = ImageIO.read(new File("src/TurretTwo.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
+		try {                
+	          turretThreeImage = ImageIO.read(new File("src/TurretThree.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
+		try {                
+	          refreshTurretImage = ImageIO.read(new File("src/BlankWhiteBackground.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
 		
 		
 		Cursor cursor = Cursor.getDefaultCursor();
@@ -155,7 +191,17 @@ public class GamePanel extends JPanel implements Runnable{
 					this.setPreferredSize(new Dimension(1200, 700));
 						this.setBackground(Color.WHITE);
 
+						
+						
+//		JPanel imagePanel = new JPanel();
+//		imagePanel.setBounds(0, 0, 100, 100);
+//		add(imagePanel);
+//		
+//		imagePanel.add(turretOneImage);
 
+//		JLabel picLabel = new JLabel(new ImageIcon(turretOneImage));
+//		add(picLabel);
+						
 		JPanel troop1Panel;
 		troop1Panel=new JPanel();
 		troop1Panel.setBounds(75, 0, 100, 100);
@@ -281,9 +327,54 @@ public class GamePanel extends JPanel implements Runnable{
 
 		turret1Panel.add(turret1BTN);
 		
+		
+		turretOneLabel = new JLabel(new ImageIcon(turretOneImage));
+		turretOneLabel.setBounds(0, 100, turretOneImage.getWidth(), turretOneImage.getHeight());
+		add(turretOneLabel);
+		
+		turretOneLabel.setVisible(false);
+		
+		turretTwoLabel = new JLabel(new ImageIcon(turretTwoImage));
+		turretTwoLabel.setBounds(0, 100, turretTwoImage.getWidth(), turretTwoImage.getHeight());
+		add(turretTwoLabel);
+		
+		turretTwoLabel.setVisible(false);
+		
+		turretThreeLabel = new JLabel(new ImageIcon(turretThreeImage));
+		turretThreeLabel.setBounds(0, 100, turretThreeImage.getWidth(), turretThreeImage.getHeight());
+		add(turretThreeLabel);
+		
+		turretThreeLabel.setVisible(false);
+		
 		turret1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//making a new label each time, therefore doesn't remove all of them
+				
 				turretOneClicked = true;
+				
+//				turretOneLabel = new JLabel(new ImageIcon(turretOneImage));
+//				turretOneLabel.setBounds(0, 100, turretOneImage.getWidth(), turretOneImage.getHeight());
+//				add(turretOneLabel);
+				
+				turretOneLabel.setVisible(true);
+				
+				if (turretTwoClicked)  {
+					
+//					refreshTurretLabel = new JLabel(new ImageIcon(refreshTurretImage));
+//					refreshTurretLabel.setBounds(0, 100, refreshTurretImage.getWidth(), refreshTurretImage.getHeight());
+//					add(refreshTurretLabel);
+					
+				turretTwoLabel.setVisible(false);
+				
+				}
+				if (turretThreeClicked) {
+					turretThreeLabel.setVisible(false);
+				}
+				
+				//turretOneClicked = false;
+				
+			
 				System.out.println("Turret 1 Clicked");
 			}
 		});
@@ -308,6 +399,24 @@ public class GamePanel extends JPanel implements Runnable{
 		turret2BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				turretTwoClicked= true;
+				
+//				turretTwoLabel = new JLabel(new ImageIcon(turretTwoImage));
+//				turretTwoLabel.setBounds(0, 100, turretTwoImage.getWidth(), turretTwoImage.getHeight());
+//				add(turretTwoLabel);
+				
+				turretTwoLabel.setVisible(true);
+				
+				if (turretOneClicked ) {
+				turretOneLabel.setVisible(false);
+				
+				}
+				if (turretThreeClicked) {
+					turretThreeLabel.setVisible(false);
+				}
+				
+				//turretTwoClicked= false;
+				
 				System.out.println("Turret 2 Clicked");
 			}
 		});
@@ -331,6 +440,26 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		turret3BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				turretThreeClicked = true;
+				
+//				turretThreeLabel = new JLabel(new ImageIcon(turretThreeImage));
+//				turretThreeLabel.setBounds(0, 100, turretThreeImage.getWidth(), turretThreeImage.getHeight());
+//				add(turretThreeLabel);
+				
+				turretThreeLabel.setVisible(true);
+				
+				if (turretOneClicked)  {
+				turretOneLabel.setVisible(false);
+				
+				}
+				if (turretTwoClicked) {
+				turretTwoLabel.setVisible(false);
+				}
+				
+				
+			//	turretThreeClicked = false;
+				
 				
 				System.out.println("Turret 3 Clicked");
 			}
@@ -374,6 +503,14 @@ public class GamePanel extends JPanel implements Runnable{
 ////			troopOne[i].setYSpeed(Math.random() * 16-8);
 
 		
+		
+		
+//		JLabel turretOneLabel = new JLabel(new ImageIcon(turretOneImage));
+//		turretOneLabel.setBounds(0, 100, turretOneImage.getWidth(), turretOneImage.getHeight());
+//		add(turretOneLabel);
+		
+		
+		
 		Thread gameThread = new Thread(this);
 		gameThread.start();
 		
@@ -390,9 +527,27 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawImage(castleImageLeft, -75, 180, null);
 		g.drawImage(castleImageRight, 1070, 180, null);
 		
-		if (turretOneClicked) {
-			g.drawImage(turretOneImage, 0, 100, null);
-		}
+//		if (turretOneClicked) {
+//			g.drawImage(turretOneImage, 0, 100, null);
+//			if (turretTwoClicked || turretThreeClicked) {
+//				g.drawImage(refreshTurret, 0, 100, null);
+//			}
+//			g.drawImage(turretOneImage, 0, 100, null);
+//		}
+//		
+//		if (turretTwoClicked) {
+//			if (turretOneClicked || turretThreeClicked) {
+//				g.drawImage(refreshTurret, 0, 100, null);
+//			}
+//			g.drawImage(turretTwoImage, 0, 100, null);
+//		}
+//		
+//		if (turretThreeClicked) {
+//			if (turretOneClicked || turretTwoClicked) {
+//				g.drawImage(refreshTurret, 0, 100, null);
+//			}
+//			g.drawImage(turretThreeImage, 0, 100, null);
+//		}
 		
 		
 		//g.drawImage(base, 0, 0, this);
