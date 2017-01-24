@@ -53,6 +53,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public static boolean turretTwoClicked = false;
 	public static boolean turretThreeClicked = false;
 	
+	public static boolean turretActive = false;
+	public static int turretRockCurrent = -1;
+	
 	JLabel turretOneLabel;
 	JLabel turretTwoLabel;
 	JLabel turretThreeLabel;
@@ -75,6 +78,8 @@ public class GamePanel extends JPanel implements Runnable{
 	ArrayList<TroopTwo> troopTwo = new ArrayList<TroopTwo>();
 	
 	ArrayList<TroopThree> troopThree = new ArrayList<TroopThree>();
+	
+	ArrayList<turretShooter> turretRock = new ArrayList<turretShooter>();
 	
 	//static int numTroopTwo = 1;
 	
@@ -127,6 +132,10 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public GamePanel(){
+		
+		
+		
+		
 		
 		try {                
 	          castleImageLeft = ImageIO.read(new File("src/CastleGood.png"));
@@ -221,9 +230,21 @@ public class GamePanel extends JPanel implements Runnable{
 
 		troop1Panel.add(troop1BTN);
 		
+		
+		
+		
+		//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+		
+		
+		
 		troop1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+//				turretRock.get(turretRock.size()-1).setX(10);
+//				turretRock.get(turretRock.size()-1).setY(10);
+//				
 				troopOneCurrent = troopOneCurrent +1;
 				troopOne.add(new TroopOne(0, 465, 0, width, 0, height));
 				troopOne.get(troopOne.size()-1).setXSpeed(5);
@@ -352,6 +373,29 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		turret1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//Have the turret shoot a rock about every three seconds
+//				
+//				Timer timer = new Timer(1000, new ActionListener() {
+//	                @Override
+//	                public void actionPerformed(ActionEvent e) {
+//	                    x += 110;
+//	                    if (x >= 1000) {
+//	                        x = 1000;
+//	                        ((Timer)e.getSource()).stop();
+//	                    }
+//	                    repaint();
+//	                }
+//	            });
+//	            timer.start();
+				
+				turretActive = true;
+				
+//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+//				turretRock.get(turretRock.size()-1).setX(10);
+//				turretRock.get(turretRock.size()-1).setY(10);
+				
 				
 				//making a new label each time, therefore doesn't remove all of them
 				
@@ -518,6 +562,11 @@ public class GamePanel extends JPanel implements Runnable{
 		Thread gameThread = new Thread(this);
 		gameThread.start();
 		
+		
+		
+		
+		
+		
 	}
 	public void paintComponent(Graphics g){
 		//		 try {                
@@ -528,8 +577,29 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		
+		//g.drawImage(turretRock,  300,  null);
+		
+	//	turretRock.get(0).draw(g);
+		
 		g.drawImage(castleImageLeft, -75, 180, null);
 		g.drawImage(castleImageRight, 1070, 180, null);
+		
+		//if (turretActive == true) {
+		
+//		Timer timer = new Timer(1000, new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    x += 110;
+//                    if (x >= 1000) {
+//                        x = 1000;
+//                        ((Timer)e.getSource()).stop();
+//                    }
+//                    repaint();
+//              }
+//          });
+//          timer.start();
+			
+		//}
 		
 //		if (turretOneClicked) {
 //			g.drawImage(turretOneImage, 0, 100, null);
@@ -565,11 +635,13 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawString("Units:", 10, 20);
 		g.drawString("Turrets:", 400, 20);
 		g.drawString("Money:", 800, 20);
+		g.drawString("Base Health:", 1000, 20);
 		
 		JPanel moneyPanel = new JPanel();
 		moneyPanel.setBounds(875, 0, 100, 100);
 		//moneyPanel.setBackground(new Color(181,164,13));
-		moneyPanel.setBackground(new Color(205,185,10));
+		//moneyPanel.setBackground(new Color(205,185,10));
+		moneyPanel.setBackground(Color.LIGHT_GRAY);
 		add(moneyPanel);
 		
 		JLabel moneyLabel = new JLabel();
@@ -577,8 +649,52 @@ public class GamePanel extends JPanel implements Runnable{
 		setLayout(null);
 		moneyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 		
+		BufferedImage coinImage = null;
+		try {                
+	          coinImage = ImageIO.read(new File("src/coinImage.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
+		JLabel coinImageLabel = new JLabel(new ImageIcon(coinImage));
+		
+		moneyPanel.add(coinImageLabel);
+		
 		moneyLabel.setText("100 Coins");
 		moneyPanel.add(moneyLabel);
+		
+		
+		JPanel baseHealthUserPanel = new JPanel();
+		baseHealthUserPanel.setBounds(1100, 0, 85, 50);
+		//moneyPanel.setBackground(new Color(181,164,13));
+		baseHealthUserPanel.setBackground(Color.LIGHT_GRAY);
+		add(baseHealthUserPanel);
+		
+		JLabel baseHealthUserLabel = new JLabel();
+		baseHealthUserLabel.setBounds(1100, 0, 85, 50);
+		setLayout(null);
+		baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		
+		//baseHealthUserLabel.setLineWrap(true);
+		//baseHealthUserLabel.setText("User Base Health:");
+		baseHealthUserLabel.setText("<html>User Base<br>"
+                + "Health: 100");
+		baseHealthUserPanel.add(baseHealthUserLabel);
+		
+		JPanel baseHouseComPanel = new JPanel();
+		baseHouseComPanel.setBounds(1100, 50, 85, 50);
+		//moneyPanel.setBackground(new Color(181,164,13));
+		baseHouseComPanel.setBackground(Color.LIGHT_GRAY);
+		add(baseHouseComPanel);
+		
+		JLabel baseHouseComLabel = new JLabel();
+		baseHouseComLabel.setBounds(1100, 50, 85, 50);
+		setLayout(null);
+		baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		
+		baseHouseComLabel.setText("<html>Comp Base<br>"
+                + "Health: 100");
+		baseHouseComPanel.add(baseHouseComLabel);
 		
 		//g.drawString("Money:", 1050, 20);
 		
@@ -614,9 +730,33 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			}
 		
+//		
+//		for (i = 0; i <turretRockCurrent +1; i++) {
+//			
+//		}
+//		
 		
+//		turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+//		//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+//		turretRock.get(turretRock.size()-1).setX(10);
+//		turretRock.get(turretRock.size()-1).setY(10);
 		
-		
+		if (turretActive) {
+			turretRock.add(new turretShooter(0, 10, 0, width, 0, height));
+			//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+			turretRock.get(turretRock.size()-1).setXSpeed(10);
+			turretRock.get(turretRock.size()-1).setYSpeed(10);
+			turretRock.get(0).draw(g);
+			for (int i = 0; i < turretRockCurrent+1; i++) {
+				//turretRock.get(i).draw(g);
+				if (turretRock.get(i).getY() == 600) {
+					turretRock.add(new turretShooter(0, 10, 0, width, 0, height));
+					turretRock.get(turretRock.size()-1).setXSpeed(10);
+					turretRock.get(turretRock.size()-1).setYSpeed(10);
+					turretRock.get(i).draw(g);
+				}
+			}
+		}
 		
 		
 		//for (int i = 0; i < numTroopOne; i++) {
