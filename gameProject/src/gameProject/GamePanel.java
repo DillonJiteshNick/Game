@@ -42,6 +42,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public static int troopTwoCurrent = -1;
 	public static int troopThreeCurrent = -1;
 	
+	public static boolean turretOneClicked = false;
+	
 	int width = 1350;
 	int height = 700;
 	//Dimension width2 = Toolkit.getDefaultToolkit().getScreenSize();
@@ -65,8 +67,15 @@ public class GamePanel extends JPanel implements Runnable{
 	//static int numTroopThree = 1;
 	
 	//TroopThree[] troopThree = new TroopThree[numTroopThree];
+	
+	private BufferedImage castleImageLeft;
+	private BufferedImage castleImageRight;
+	
+	private BufferedImage turretOneImage;
 
 	public static void main(String[] args) {
+		
+		 
 
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -96,6 +105,26 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public GamePanel(){
+		
+		try {                
+	          castleImageLeft = ImageIO.read(new File("src/CastleGood.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
+		try {                
+	          castleImageRight = ImageIO.read(new File("src/CastleGood 2.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
+		try {                
+	          turretOneImage = ImageIO.read(new File("src/TurretOne.png"));
+	       } catch (IOException ex) {
+	            System.out.println("Error with Image");
+	       }
+		
+		
 		
 		Cursor cursor = Cursor.getDefaultCursor();
 
@@ -129,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		JPanel troop1Panel;
 		troop1Panel=new JPanel();
-		troop1Panel.setBounds(0, 0, 100, 100);
+		troop1Panel.setBounds(75, 0, 100, 100);
 		add(troop1Panel);
 
 
@@ -147,8 +176,14 @@ public class GamePanel extends JPanel implements Runnable{
 				
 				troopOneCurrent = troopOneCurrent +1;
 				troopOne.add(new TroopOne(0, 465, 0, width, 0, height));
-				troopOne.get(troopOne.size()-1).setXSpeed(10);
+				troopOne.get(troopOne.size()-1).setXSpeed(5);
 				troopOne.get(troopOne.size()-1).setYSpeed(0);
+				
+				if (troopOne.get(troopOne.size()-1).getX() == 1200) {
+					troopOne.remove(troopOne.size()-1);
+				}
+				
+				
 				
 				
 				
@@ -167,7 +202,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		JPanel troop2Panel;
 		troop2Panel=new JPanel();
-		troop2Panel.setBounds(100, 0, 100, 100);
+		troop2Panel.setBounds(175, 0, 100, 100);
 		add(troop2Panel);
 
 
@@ -185,8 +220,12 @@ public class GamePanel extends JPanel implements Runnable{
 				
 				troopTwoCurrent = troopTwoCurrent +1;
 				troopTwo.add(new TroopTwo(0, 460, 0, width, 0, height));
-				troopTwo.get(troopTwo.size()-1).setXSpeed(10);
+				troopTwo.get(troopTwo.size()-1).setXSpeed(5);
 				troopTwo.get(troopTwo.size()-1).setYSpeed(0);
+				
+				if (troopTwo.get(troopTwo.size()-1).getX() == 1200) {
+					troopTwo.remove(troopTwo.size()-1);
+				}
 				
 			
 				setBackground(Color.WHITE);
@@ -196,7 +235,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		JPanel troop3Panel;
 		troop3Panel=new JPanel();
-		troop3Panel.setBounds(200, 0, 100, 100);
+		troop3Panel.setBounds(275, 0, 100, 100);
 		add(troop3Panel);
 
 
@@ -214,11 +253,86 @@ public class GamePanel extends JPanel implements Runnable{
 				
 				troopThreeCurrent = troopThreeCurrent +1;
 				troopThree.add(new TroopThree(0, 520, 0, width, 0, height));
-				troopThree.get(troopThree.size()-1).setXSpeed(10);
+				troopThree.get(troopThree.size()-1).setXSpeed(5);
 				troopThree.get(troopThree.size()-1).setYSpeed(0);
 				
+				if (troopThree.get(troopThree.size()-1).getX() == 1200) {
+					troopThree.remove(troopThree.size()-1);
+				}
 			
 				setBackground(Color.WHITE);
+			}
+		});
+		
+		
+		
+		JPanel turret1Panel;
+		turret1Panel=new JPanel();
+		turret1Panel.setBounds(465, 0, 100, 100);
+		add(turret1Panel);
+
+
+		JButton turret1BTN;
+		turret1BTN = new JButton ("Turret 1");
+		turret1BTN.setFont(new Font("Arial", Font.PLAIN, 12));
+		setLayout(null);
+		turret1BTN.setPreferredSize(new Dimension(100, 100));
+
+
+		turret1Panel.add(turret1BTN);
+		
+		turret1BTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				turretOneClicked = true;
+				System.out.println("Turret 1 Clicked");
+			}
+		});
+		
+		
+		
+		JPanel turret2Panel;
+		turret2Panel=new JPanel();
+		turret2Panel.setBounds(565, 0, 100, 100);
+		add(turret2Panel);
+
+
+		JButton turret2BTN;
+		turret2BTN = new JButton ("Turret 2");
+		turret2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
+		setLayout(null);
+		turret2BTN.setPreferredSize(new Dimension(100, 100));
+
+
+		turret2Panel.add(turret2BTN);
+		
+		turret2BTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Turret 2 Clicked");
+			}
+		});
+		
+		
+		
+		JPanel turret3Panel;
+		turret3Panel=new JPanel();
+		turret3Panel.setBounds(665, 0, 100, 100);
+		add(turret3Panel);
+
+
+		JButton turret3BTN;
+		turret3BTN = new JButton ("Turret 3");
+		turret3BTN.setFont(new Font("Arial", Font.PLAIN, 12));
+		setLayout(null);
+		turret3BTN.setPreferredSize(new Dimension(100, 100));
+
+
+		turret3Panel.add(turret3BTN);
+		
+		turret3BTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Turret 3 Clicked");
 			}
 		});
 		
@@ -271,18 +385,38 @@ public class GamePanel extends JPanel implements Runnable{
 		//	            // handle exception...
 		//	       }
 		super.paintComponent(g);
+		
+		
+		g.drawImage(castleImageLeft, -75, 180, null);
+		g.drawImage(castleImageRight, 1070, 180, null);
+		
+		if (turretOneClicked) {
+			g.drawImage(turretOneImage, 0, 100, null);
+		}
+		
+		
 		//g.drawImage(base, 0, 0, this);
-		g.drawRect(0, 0, 1265, 100);
-		g.drawLine(1150, 0, 1150, 100);
-		g.drawLine(1150, 50, 1265, 50);
-		g.drawString("Money:", 1185, 20);
+		
+		g.drawRect(0, 0, 1200, 100);
+		
+		//Right side money boxes
+		//g.drawLine(1150, 0, 1150, 100);
+		//g.drawLine(1150, 50, 1265, 50);
+		
 		g.drawString("Units:", 10, 20);
-		g.drawString("Turrets:", 550, 20);
-		g.drawRect(50, 20, 90, 60);
-		g.drawRect(170, 20, 90, 60);
-		g.drawRect(290, 20, 90, 60);
-		g.drawRect(20, 50, 1000, 1000);
-		g.drawRect(1100, 200, 100, 100);
+		g.drawString("Turrets:", 400, 20);
+		g.drawString("Money:", 1050, 20);
+		
+		//Troop Boxes
+		//g.drawRect(50, 20, 90, 60);
+		//g.drawRect(170, 20, 90, 60);
+		//g.drawRect(290, 20, 90, 60);
+		
+		//Larger rectangle
+		//g.drawRect(20, 50, 1000, 1000);
+		
+		//Turret rectangle
+		//g.drawRect(1100, 200, 100, 100);
 		
 		for (int i = 0; i < troopOneCurrent + 1; i ++) {
 		if (troopOneCurrent > -1) {
@@ -304,6 +438,8 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			}
+		
+		
 		
 		
 		
