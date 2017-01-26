@@ -65,9 +65,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public static boolean turretActive = false;
 	public static int turretRockCurrent = -1;
 	
+	public int troopOneDamage = 2;
+	public int troopTwoDamage = 5;
+	public int troopThreeDamage = 10;
+	
 	public static int userBaseHealth = 100;
-	
-	
+	public static int compBaseHealth = 100;
 
 	JLabel turretOneLabel;
 	JLabel turretTwoLabel;
@@ -813,7 +816,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//baseHealthUserLabel.setLineWrap(true);
 		//baseHealthUserLabel.setText("User Base Health:");
 		baseHealthUserLabel.setText("<html>User Base<br>"
-				+ "Health: 100");
+				+ "Health: " + userBaseHealth);
 		baseHealthUserPanel.add(baseHealthUserLabel);
 
 		JPanel baseHouseComPanel = new JPanel();
@@ -828,7 +831,7 @@ public class GamePanel extends JPanel implements Runnable{
 		baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		baseHouseComLabel.setText("<html>Comp Base<br>"
-				+ "Health: 100");
+				+ "Health: " + compBaseHealth);
 		baseHouseComPanel.add(baseHouseComLabel);
 
 		//g.drawString("Money:", 1050, 20);
@@ -857,7 +860,15 @@ public class GamePanel extends JPanel implements Runnable{
 				if (troopOne.get(troopOneCurrent).getX() - 1200 > -15 && troopOne.get(troopOneCurrent).getX()- 1200 < 15) {
 					troopOne.remove(troopOneCurrent);
 					troopOneCurrent = troopOneCurrent - 1;
-					System.out.println("Troop One Removed");
+					compBaseHealth = compBaseHealth - troopOneDamage;
+					
+					
+					baseHouseComLabel.setText("<html>Comp Base<br>"
+							+ "Health: " + compBaseHealth);
+					baseHouseComPanel.repaint();
+					baseHouseComLabel.repaint();
+					
+					System.out.println("Troop One Removed" + compBaseHealth);
 				}
 				//			if (troopOne.get(i).getX() == troopOneAI.get(i).getX()) {
 				//				troopOne.remove(i);
