@@ -371,7 +371,11 @@ public class GamePanel extends JPanel implements Runnable{
 //						}
 //					}
 //				}
-
+//				if (troopOne.get(troopOne.size()-1).getX() - 1200 > -15 && troopOne.get(troopOne.size()-1).getX()- 1200 < 15) {
+//					troopOne.remove(troopOne.size()-1);
+//					troopOneCurrent = troopOneCurrent - 1;
+//					System.out.println("Troop One Removed");
+//				}
 
 
 
@@ -839,6 +843,18 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopOneCurrent + 1; i ++) {
 			if (troopOneCurrent > -1) {
 				troopOne.get(i).draw(g);
+//				
+//				if (troopOne.get(troopOne.size()-1).getX() - 1200 > -15 && troopOne.get(troopOne.size()-1).getX()- 1200 < 15) {
+//					troopOne.remove(troopOne.size()-1);
+//					troopOneCurrent = troopOneCurrent - 1;
+//					System.out.println("Troop One Removed");
+//				}
+				
+				if (troopOne.get(troopOneCurrent).getX() - 1200 > -15 && troopOne.get(troopOneCurrent).getX()- 1200 < 15) {
+					troopOne.remove(troopOneCurrent);
+					troopOneCurrent = troopOneCurrent - 1;
+					System.out.println("Troop One Removed");
+				}
 				//			if (troopOne.get(i).getX() == troopOneAI.get(i).getX()) {
 				//				troopOne.remove(i);
 				//			}
@@ -855,6 +871,14 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopTwoCurrent + 1; i ++) {
 			if (troopTwoCurrent > -1) {
 				troopTwo.get(i).draw(g);
+				
+				
+				if (troopTwo.get(troopTwoCurrent).getX() - 1200 > -15 && troopTwo.get(troopTwoCurrent).getX()- 1200 < 15) {
+					troopTwo.remove(troopTwo.size()-1);
+					troopTwoCurrent = troopTwoCurrent - 1;
+					System.out.println("Troop Two Removed");
+				}
+				
 			}
 
 		}
@@ -862,6 +886,12 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopThreeCurrent + 1; i ++) {
 			if (troopThreeCurrent > -1) {
 				troopThree.get(i).draw(g);
+				
+				if (troopThree.get(troopThreeCurrent).getX() - 1200 > -15 && troopThree.get(troopThreeCurrent).getX()- 1200 < 15) {
+					troopThree.remove(troopThree.size()-1);
+					troopThreeCurrent = troopThreeCurrent - 1;
+					System.out.println("Troop Three Removed");
+				}
 			}
 
 		}
@@ -874,11 +904,11 @@ public class GamePanel extends JPanel implements Runnable{
 				if (troopOneAI.get(i).getX() - troopOne.get(0).getX() >-10 && troopOneAI.get(i).getX() - troopOne.get(0).getX() < 10) {
 					troopOneAI.remove(i);
 					troopOneCurrentAI = troopOneCurrentAI -1;
-					System.out.println("Troops Hit");
+					System.out.println("Troop One Hit");
 				}
 				}
 				catch (IndexOutOfBoundsException e) {
-					System.out.println("Hit Error");
+					System.out.println("Troop One Enemy");
 				}
 				
 //				if (troopOneCurrentAI > -1) {
@@ -900,12 +930,35 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopTwoCurrentAI + 1; i ++) {
 			if (troopTwoCurrentAI > -1) {
 				troopTwoAI.get(i).draw(g);
+				
+				try {
+					if (troopTwoAI.get(i).getX() - troopTwo.get(0).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(0).getX() < 10) {
+						troopTwoAI.remove(i);
+						troopTwoCurrentAI = troopTwoCurrentAI -1;
+						System.out.println("Troop Two Hit");
+					}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Two Hit Enemy");
+					}
 			}
 
 		}
 		for (int i = 0; i < troopThreeCurrentAI + 1; i ++) {
 			if (troopThreeCurrentAI > -1) {
 				troopThreeAI.get(i).draw(g);
+				
+				try {
+					if (troopThreeAI.get(i).getX() - troopThree.get(0).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(0).getX() < 10) {
+						troopThreeAI.remove(i);
+						troopThreeCurrentAI = troopThreeCurrentAI -1;
+						System.out.println("Troop Three Hit");
+					}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Three Hit Enemy");
+					}
+				
 			}
 
 		}
