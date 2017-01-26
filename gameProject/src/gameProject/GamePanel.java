@@ -64,6 +64,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public static boolean turretActive = false;
 	public static int turretRockCurrent = -1;
+	
+	public static int userBaseHealth = 100;
+	
+	
 
 	JLabel turretOneLabel;
 	JLabel turretTwoLabel;
