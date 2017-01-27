@@ -1074,13 +1074,13 @@ public class GamePanel extends JPanel implements Runnable{
 							if (troopTwoAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopOne.get(k).getX() < 10) {
 								int troopOneNum = ((int)(Math.random() * 25) + 1);
 								int troopTwoNumAI = ((int)(Math.random() * 75) + 1);
-								
+
 								if (troopOneNum > troopTwoNumAI) {
 									troopTwoAI.remove(i);
 									troopTwoCurrentAI = troopTwoCurrentAI -1;
 									System.out.println("Troop TwoAI Hit");
 								}
-								
+
 								else if (troopOneNum < troopTwoNumAI) {
 									troopOne.remove(k);
 									troopOneCurrent = troopOneCurrent -1;
@@ -1092,22 +1092,22 @@ public class GamePanel extends JPanel implements Runnable{
 					catch (IndexOutOfBoundsException e) {
 						System.out.println("Troop Two Enemy");
 					}
-					
-					
-					
+
+
+
 					try {
 						for (int k = 0; k <troopTwo.size(); k++) {
 							//this k loop works
 							if (troopTwoAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
 								int troopTwoNum = ((int)(Math.random() * 50) + 1);
 								int troopTwoNumAI = ((int)(Math.random() * 50) + 1);
-								
+
 								if (troopTwoNum > troopTwoNumAI) {
 									troopTwoAI.remove(i);
 									troopTwoCurrentAI = troopTwoCurrentAI -1;
 									System.out.println("Troop TwoAI Hit");
 								}
-								
+
 								else if (troopTwoNum < troopTwoNumAI) {
 									troopTwo.remove(k);
 									troopTwoCurrent = troopTwoCurrent -1;
@@ -1119,20 +1119,20 @@ public class GamePanel extends JPanel implements Runnable{
 					catch (IndexOutOfBoundsException e) {
 						System.out.println("Troop Two Enemy");
 					}
-					
+
 					try {
 						for (int k = 0; k <troopThree.size(); k++) {
 							//something is wrong with troop three
 							if (troopTwoAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopTwoAI.get(i).getX() - troopThree.get(k).getX() < 20) {
 								int troopThreeNum = ((int)(Math.random() * 75) + 1);
 								int troopTwoNumAI = ((int)(Math.random() * 25) + 1);
-								
+
 								if (troopThreeNum > troopTwoNumAI) {
 									troopTwoAI.remove(i);
 									troopTwoCurrentAI = troopTwoCurrentAI -1;
 									System.out.println("Troop TwoAI Hit");
 								}
-								
+
 								else if (troopThreeNum < troopTwoNumAI) {
 									troopThree.remove(k);
 									troopThreeCurrent = troopThreeCurrent -1;
@@ -1144,9 +1144,9 @@ public class GamePanel extends JPanel implements Runnable{
 					catch (IndexOutOfBoundsException e) {
 						System.out.println("Troop Two Enemy");
 					}
-					
-					
-					
+
+
+
 				}
 			}
 
@@ -1155,15 +1155,93 @@ public class GamePanel extends JPanel implements Runnable{
 			if (troopThreeCurrentAI > -1) {
 				troopThreeAI.get(i).draw(g);
 
-				try {
-					if (troopThreeAI.get(i).getX() - troopThree.get(0).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(0).getX() < 10) {
-						troopThreeAI.remove(i);
-						troopThreeCurrentAI = troopThreeCurrentAI -1;
-						System.out.println("Troop Three Hit");
-					}
+				if (troopThreeAI.get(i).getX() - 0 >-15 && troopThreeAI.get(i).getX() - 0 < 15) {
+					troopThreeAI.remove(i);
+					troopThreeCurrentAI = troopThreeCurrentAI -1;
+					System.out.println("Troop ThreeAI Removed");
+
+					userBaseHealth = userBaseHealth - troopThreeDamage;
+
+					baseHealthUserLabel.setText("<html>User Base<br>"
+							+ "Health: " + userBaseHealth);
+					System.out.println("Troop ThreeAI Remove: " + userBaseHealth);
+
 				}
-				catch (IndexOutOfBoundsException e) {
-					System.out.println("Troop Three Hit Enemy");
+				else {
+
+					try {
+						for (int k = 0; k < troopOne.size(); k++) {
+							if (troopThreeAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopOne.get(k).getX() < 10) {
+								int troopOneNum = ((int)(Math.random() * 10) + 1);
+								int troopThreeNumAI = ((int)(Math.random() * 90) + 1);
+								
+								if (troopOneNum > troopThreeNumAI) {
+								troopThreeAI.remove(i);
+								troopThreeCurrentAI = troopThreeCurrentAI -1;
+								System.out.println("Troop ThreeAI Hit");
+								}
+								else if (troopOneNum < troopThreeNumAI) {
+									troopOne.remove(k);
+									troopOneCurrent = troopOneCurrent - 1;
+									System.out.println("Troop One Hit");
+									
+								}
+							}
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Three Hit Enemy");
+					}
+					
+					
+					try {
+						for (int k = 0; k < troopTwo.size(); k++) {
+							if (troopThreeAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
+								int troopTwoNum = ((int)(Math.random() * 25) + 1);
+								int troopThreeNumAI = ((int)(Math.random() * 75) + 1);
+								
+								if (troopTwoNum > troopThreeNumAI) {
+								troopThreeAI.remove(i);
+								troopThreeCurrentAI = troopThreeCurrentAI -1;
+								System.out.println("Troop ThreeAI Hit");
+								}
+								else if (troopTwoNum < troopThreeNumAI) {
+									troopTwo.remove(k);
+									troopTwoCurrent = troopTwoCurrent - 1;
+									System.out.println("Troop Two Hit");
+									
+								}
+							}
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Three Hit Enemy");
+					}
+					
+					try {
+						for (int k = 0; k < troopThree.size(); k++) {
+							if (troopThreeAI.get(i).getX() - troopThree.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(k).getX() < 10) {
+								int troopThreeNum = ((int)(Math.random() * 50) + 1);
+								int troopThreeNumAI = ((int)(Math.random() * 50) + 1);
+								
+								if (troopThreeNum > troopThreeNumAI) {
+								troopThreeAI.remove(i);
+								troopThreeCurrentAI = troopThreeCurrentAI -1;
+								System.out.println("Troop ThreeAI Hit");
+								}
+								else if (troopThreeNum < troopThreeNumAI) {
+									troopThree.remove(k);
+									troopThreeCurrent = troopThreeCurrent - 1;
+									System.out.println("Troop Three Hit");
+									
+								}
+							}
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Three Hit Enemy");
+					}
+					
 				}
 
 			}
