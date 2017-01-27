@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable{
 	JLabel refreshTurretLabel;
 	JLabel moneyLabel;
 	
-	
+	public static int totalMoney = 100;
 	public int TROOP_ONE_MONEY = 5;
 	public int TROOP_TWO_MONEY = 15;
 	public int TROOP_THREE_MONEY = 25;
@@ -361,6 +361,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 		troop1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				totalMoney = totalMoney - TROOP_ONE_MONEY;
 
 				//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
 				//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
@@ -400,6 +402,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 		troop2BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				totalMoney = totalMoney - TROOP_TWO_MONEY;
 
 				troopTwoCurrent = troopTwoCurrent +1;
 				troopTwo.add(new TroopTwo(0, 460, 0, width, 0, height));
@@ -435,6 +439,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 		troop3BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				totalMoney = totalMoney - TROOP_THREE_MONEY;
 
 				troopThreeCurrent = troopThreeCurrent +1;
 				troopThree.add(new TroopThree(0, 520, 0, width, 0, height));
@@ -824,7 +830,7 @@ public class GamePanel extends JPanel implements Runnable{
 		moneyLabel = new JLabel();
 		moneyLabel.setBounds(875, 0, 100, 100);
 		setLayout(null);
-		moneyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		moneyLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 
 		BufferedImage coinImage = null;
 		try {                
@@ -837,7 +843,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		moneyPanel.add(coinImageLabel);
 
-		moneyLabel.setText("100 Coins");
+		moneyLabel.setText("" + totalMoney);
 		moneyPanel.add(moneyLabel);
 
 		baseHealthUserLabel.setText("<html>User Base<br>"
