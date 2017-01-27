@@ -1022,7 +1022,8 @@ public class GamePanel extends JPanel implements Runnable{
 					try {
 
 						for (int k = 0; k < troopThree.size(); k ++) {
-							if (troopOneAI.get(i).getX() - troopThree.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopThree.get(k).getX() < 10) {
+							//something is wrong with troop three
+							if (troopOneAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopOneAI.get(i).getX() - troopThree.get(k).getX() < 20) {
 								int troopThreeNum = ((int) (Math.random() * 90) + 1);
 								int troopOneNumAI = ((int) (Math.random() * 10) + 1);
 
@@ -1069,6 +1070,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 					try {
 						for (int k = 0; k <troopOne.size(); k++) {
+							//this k loop works
 							if (troopTwoAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopOne.get(k).getX() < 10) {
 								int troopOneNum = ((int)(Math.random() * 25) + 1);
 								int troopTwoNumAI = ((int)(Math.random() * 75) + 1);
@@ -1095,6 +1097,7 @@ public class GamePanel extends JPanel implements Runnable{
 					
 					try {
 						for (int k = 0; k <troopTwo.size(); k++) {
+							//this k loop works
 							if (troopTwoAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
 								int troopTwoNum = ((int)(Math.random() * 50) + 1);
 								int troopTwoNumAI = ((int)(Math.random() * 50) + 1);
@@ -1109,6 +1112,31 @@ public class GamePanel extends JPanel implements Runnable{
 									troopTwo.remove(k);
 									troopTwoCurrent = troopTwoCurrent -1;
 									System.out.println("Troop Two Hit");
+								}
+							}
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Two Enemy");
+					}
+					
+					try {
+						for (int k = 0; k <troopThree.size(); k++) {
+							//something is wrong with troop three
+							if (troopTwoAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopTwoAI.get(i).getX() - troopThree.get(k).getX() < 20) {
+								int troopThreeNum = ((int)(Math.random() * 75) + 1);
+								int troopTwoNumAI = ((int)(Math.random() * 25) + 1);
+								
+								if (troopThreeNum > troopTwoNumAI) {
+									troopTwoAI.remove(i);
+									troopTwoCurrentAI = troopTwoCurrentAI -1;
+									System.out.println("Troop TwoAI Hit");
+								}
+								
+								else if (troopThreeNum < troopTwoNumAI) {
+									troopThree.remove(k);
+									troopThreeCurrent = troopThreeCurrent -1;
+									System.out.println("Troop Three Hit");
 								}
 							}
 						}
