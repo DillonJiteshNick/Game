@@ -64,11 +64,11 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public static boolean turretActive = false;
 	public static int turretRockCurrent = -1;
-	
+
 	public int troopOneDamage = 2;
 	public int troopTwoDamage = 5;
 	public int troopThreeDamage = 10;
-	
+
 	public static int userBaseHealth = 100;
 	public static int compBaseHealth = 100;
 
@@ -131,6 +131,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public BufferedImage refreshTurretImage;
 
+	public JPanel baseHouseComPanel;
+	public JLabel baseHouseComLabel;
+
+	JPanel baseHealthUserPanel;
+	JLabel baseHealthUserLabel;
+
 
 
 	public static void main(String[] args) {
@@ -163,6 +169,38 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 	public GamePanel(){
+
+
+		baseHouseComPanel = new JPanel();
+		baseHouseComPanel.setBounds(1100, 50, 85, 50);
+		//moneyPanel.setBackground(new Color(181,164,13));
+		baseHouseComPanel.setBackground(Color.LIGHT_GRAY);
+		add(baseHouseComPanel);
+
+		baseHouseComLabel = new JLabel();
+		baseHouseComLabel.setBounds(1100, 50, 85, 50);
+		setLayout(null);
+		baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+
+
+		baseHouseComPanel.add(baseHouseComLabel);
+		baseHouseComLabel.setText("<html>Comp Base<br>"
+				+ "Health: " + compBaseHealth);
+
+
+		baseHealthUserPanel = new JPanel();
+		baseHealthUserPanel.setBounds(1100, 0, 85, 50);
+		//moneyPanel.setBackground(new Color(181,164,13));
+		baseHealthUserPanel.setBackground(Color.LIGHT_GRAY);
+		add(baseHealthUserPanel);
+
+		baseHealthUserLabel = new JLabel();
+		baseHealthUserLabel.setBounds(1100, 0, 85, 50);
+		setLayout(null);
+		baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		baseHealthUserPanel.add(baseHealthUserLabel);
+		baseHealthUserLabel.setText("<html>User Base<br>"
+				+ "Health: " + userBaseHealth);
 
 
 
@@ -299,15 +337,7 @@ public class GamePanel extends JPanel implements Runnable{
 				System.out.println("Image Hit");
 
 				System.out.println("X Click: " + e.getX() + " Y Click: " + e.getY());
-				//setBackground(Color.BLACK);
-				//		    try {
-				//				Thread.sleep(1000);
-				//			} catch (InterruptedException e1) {
-				//			// TODO Auto-generated catch block
-				//				e1.printStackTrace();
-				//			}
-				//		    
-				//		    setBackground(Color.WHITE);
+
 
 			}
 		};
@@ -367,22 +397,22 @@ public class GamePanel extends JPanel implements Runnable{
 				troopOne.get(troopOne.size()-1).setXSpeed(5);
 				troopOne.get(troopOne.size()-1).setYSpeed(0);
 
-//				if (troopOneCurrentAI > -1) {
-//					for (int i = 0; i < troopOneCurrent+1; i ++) {
-//						for (int j = 0; j < troopOneCurrent + 1; j++) {
-//							if (troopOne.get(i).getX() == troopOne.get(j).getX()) {
-//								troopOneAI.remove(i);
-//								System.out.println("Troops Hit");
-//							}
-//
-//						}
-//					}
-//				}
-//				if (troopOne.get(troopOne.size()-1).getX() - 1200 > -15 && troopOne.get(troopOne.size()-1).getX()- 1200 < 15) {
-//					troopOne.remove(troopOne.size()-1);
-//					troopOneCurrent = troopOneCurrent - 1;
-//					System.out.println("Troop One Removed");
-//				}
+				//				if (troopOneCurrentAI > -1) {
+				//					for (int i = 0; i < troopOneCurrent+1; i ++) {
+				//						for (int j = 0; j < troopOneCurrent + 1; j++) {
+				//							if (troopOne.get(i).getX() == troopOne.get(j).getX()) {
+				//								troopOneAI.remove(i);
+				//								System.out.println("Troops Hit");
+				//							}
+				//
+				//						}
+				//					}
+				//				}
+				//				if (troopOne.get(troopOne.size()-1).getX() - 1200 > -15 && troopOne.get(troopOne.size()-1).getX()- 1200 < 15) {
+				//					troopOne.remove(troopOne.size()-1);
+				//					troopOneCurrent = troopOneCurrent - 1;
+				//					System.out.println("Troop One Removed");
+				//				}
 
 
 
@@ -801,38 +831,26 @@ public class GamePanel extends JPanel implements Runnable{
 		moneyLabel.setText("100 Coins");
 		moneyPanel.add(moneyLabel);
 
-
-		JPanel baseHealthUserPanel = new JPanel();
-		baseHealthUserPanel.setBounds(1100, 0, 85, 50);
-		//moneyPanel.setBackground(new Color(181,164,13));
-		baseHealthUserPanel.setBackground(Color.LIGHT_GRAY);
-		add(baseHealthUserPanel);
-
-		JLabel baseHealthUserLabel = new JLabel();
-		baseHealthUserLabel.setBounds(1100, 0, 85, 50);
-		setLayout(null);
-		baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		//
+		//		JPanel baseHealthUserPanel = new JPanel();
+		//		baseHealthUserPanel.setBounds(1100, 0, 85, 50);
+		//		//moneyPanel.setBackground(new Color(181,164,13));
+		//		baseHealthUserPanel.setBackground(Color.LIGHT_GRAY);
+		//		add(baseHealthUserPanel);
+		//
+		//		JLabel baseHealthUserLabel = new JLabel();
+		//		baseHealthUserLabel.setBounds(1100, 0, 85, 50);
+		//		setLayout(null);
+		//		baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		//baseHealthUserLabel.setLineWrap(true);
 		//baseHealthUserLabel.setText("User Base Health:");
 		baseHealthUserLabel.setText("<html>User Base<br>"
 				+ "Health: " + userBaseHealth);
-		baseHealthUserPanel.add(baseHealthUserLabel);
 
-		JPanel baseHouseComPanel = new JPanel();
-		baseHouseComPanel.setBounds(1100, 50, 85, 50);
-		//moneyPanel.setBackground(new Color(181,164,13));
-		baseHouseComPanel.setBackground(Color.LIGHT_GRAY);
-		add(baseHouseComPanel);
-
-		JLabel baseHouseComLabel = new JLabel();
-		baseHouseComLabel.setBounds(1100, 50, 85, 50);
-		setLayout(null);
-		baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		baseHouseComLabel.setText("<html>Comp Base<br>"
 				+ "Health: " + compBaseHealth);
-		baseHouseComPanel.add(baseHouseComLabel);
 
 		//g.drawString("Money:", 1050, 20);
 
@@ -850,25 +868,28 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopOneCurrent + 1; i ++) {
 			if (troopOneCurrent > -1) {
 				troopOne.get(i).draw(g);
-//				
-//				if (troopOne.get(troopOne.size()-1).getX() - 1200 > -15 && troopOne.get(troopOne.size()-1).getX()- 1200 < 15) {
-//					troopOne.remove(troopOne.size()-1);
-//					troopOneCurrent = troopOneCurrent - 1;
-//					System.out.println("Troop One Removed");
-//				}
-				
+				//				
+				//				if (troopOne.get(troopOne.size()-1).getX() - 1200 > -15 && troopOne.get(troopOne.size()-1).getX()- 1200 < 15) {
+				//					troopOne.remove(troopOne.size()-1);
+				//					troopOneCurrent = troopOneCurrent - 1;
+				//					System.out.println("Troop One Removed");
+				//				}
+
 				if (troopOne.get(troopOneCurrent).getX() - 1200 > -15 && troopOne.get(troopOneCurrent).getX()- 1200 < 15) {
+
+
 					troopOne.remove(troopOneCurrent);
 					troopOneCurrent = troopOneCurrent - 1;
 					compBaseHealth = compBaseHealth - troopOneDamage;
-					
-					
-					baseHouseComLabel.setText("<html>Comp Base<br>"
-							+ "Health: " + compBaseHealth);
-					baseHouseComPanel.repaint();
-					baseHouseComLabel.repaint();
-					
-					System.out.println("Troop One Removed" + compBaseHealth);
+
+
+
+					//baseHouseComLabel.repaint();
+
+
+
+
+					System.out.println("Troop One Removed: " + compBaseHealth);
 				}
 				//			if (troopOne.get(i).getX() == troopOneAI.get(i).getX()) {
 				//				troopOne.remove(i);
@@ -886,14 +907,25 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopTwoCurrent + 1; i ++) {
 			if (troopTwoCurrent > -1) {
 				troopTwo.get(i).draw(g);
-				
-				
+
+
 				if (troopTwo.get(troopTwoCurrent).getX() - 1200 > -15 && troopTwo.get(troopTwoCurrent).getX()- 1200 < 15) {
 					troopTwo.remove(troopTwo.size()-1);
 					troopTwoCurrent = troopTwoCurrent - 1;
 					System.out.println("Troop Two Removed");
+
+					compBaseHealth = compBaseHealth - troopTwoDamage;
+
+					baseHouseComLabel.setText("<html>Comp Base<br>"
+							+ "Health: " + compBaseHealth);
+
+
+					System.out.println("Troop Two Remove: " + compBaseHealth);
+
+
+
 				}
-				
+
 			}
 
 		}
@@ -901,11 +933,19 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopThreeCurrent + 1; i ++) {
 			if (troopThreeCurrent > -1) {
 				troopThree.get(i).draw(g);
-				
+
 				if (troopThree.get(troopThreeCurrent).getX() - 1200 > -15 && troopThree.get(troopThreeCurrent).getX()- 1200 < 15) {
 					troopThree.remove(troopThree.size()-1);
 					troopThreeCurrent = troopThreeCurrent - 1;
 					System.out.println("Troop Three Removed");
+
+
+					compBaseHealth = compBaseHealth - troopThreeDamage;
+
+					baseHouseComLabel.setText("<html>Comp Base<br>"
+							+ "Health: " + compBaseHealth);
+
+					System.out.println("Troop Three Remove: " + compBaseHealth);
 				}
 			}
 
@@ -914,66 +954,118 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < troopOneCurrentAI + 1; i ++) {
 			if (troopOneCurrentAI > -1) {
 				troopOneAI.get(i).draw(g);
-				
-				try {
-				if (troopOneAI.get(i).getX() - troopOne.get(0).getX() >-10 && troopOneAI.get(i).getX() - troopOne.get(0).getX() < 10) {
-					troopOneAI.remove(i);
-					troopOneCurrentAI = troopOneCurrentAI -1;
-					System.out.println("Troop One Hit");
-				}
-				}
-				catch (IndexOutOfBoundsException e) {
-					System.out.println("Troop One Enemy");
-				}
-				
-//				if (troopOneCurrentAI > -1) {
-//					for (int k = 0; k < troopOneCurrent+1; k ++) {
-//						for (int j = 0; j < troopOneCurrent + 1; j++) {
-//							if (troopOneAI.get(k).getX() == troopOne.get(j).getX()) {
-//								troopOneAI.remove(k);
-//								troopOneCurrentAI = troopOneCurrentAI -1;
-//								System.out.println("Troops Hit");
-//							}
-//
-//						}
-//					}
-//				}
-			}
 
+				if (troopOneAI.get(i).getX() - 0 > -15 && troopOneAI.get(i).getX()- 0 < 15) {
+					troopOneAI.remove(i);
+					troopOneCurrentAI = troopOneCurrentAI - 1;
+					System.out.println("Troop OneAI Removed");
+
+
+					userBaseHealth = userBaseHealth - troopOneDamage;
+
+					baseHealthUserLabel.setText("<html>User Base<br>"
+							+ "Health: " + userBaseHealth);
+
+					System.out.println("Troop OneAI Remove: " + userBaseHealth);
+				}
+
+				else {
+					try {
+						if (troopOneAI.get(i).getX() - troopOne.get(troopOneCurrent).getX() >-10 && troopOneAI.get(i).getX() - troopOne.get(troopOneCurrent).getX() < 10) {
+							int troopOneNum = ((int) (Math.random() * 50) + 1);
+							int troopOneNumAI = ((int) (Math.random() * 50) + 1);
+
+							if (troopOneNum > troopOneNumAI) { 
+								troopOneAI.remove(i);
+								troopOneCurrentAI = troopOneCurrentAI -1;
+								System.out.println("Troop One Hit Troop OneAI-removed");
+							}
+							else if (troopOneNum < troopOneNumAI) {
+								troopOne.remove(troopOneCurrent);
+								troopOneCurrent = troopOneCurrent -1;
+								System.out.println("Troop One-removed Hit Troop OneAI");
+							}
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop One Enemy");
+					}
+
+					try {
+						for (int k = 0; k < troopTwo.size(); k ++) {
+							//this k loop works
+							if (troopOneAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
+								troopOneAI.remove(i);
+								troopOneCurrentAI = troopOneCurrentAI -1;
+								System.out.println("Troop Two Hit Troop OneAI");
+							}
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Two Enemy");
+					}
+
+					try {
+						if (troopOneAI.get(i).getX() - troopThree.get(troopThreeCurrent).getX() >-10 && troopOneAI.get(i).getX() - troopThree.get(troopThreeCurrent).getX() < 10) {
+							troopOneAI.remove(i);
+							troopOneCurrentAI = troopOneCurrentAI -1;
+							System.out.println("Troop Three Hit Troop OneAI");
+						}
+					}
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Troop Three Enemy");
+					}
+
+
+
+					//				if (troopOneCurrentAI > -1) {
+					//					for (int k = 0; k < troopOneCurrent+1; k ++) {
+					//						for (int j = 0; j < troopOneCurrent + 1; j++) {
+					//							if (troopOneAI.get(k).getX() == troopOne.get(j).getX()) {
+					//								troopOneAI.remove(k);
+					//								troopOneCurrentAI = troopOneCurrentAI -1;
+					//								System.out.println("Troops Hit");
+					//							}
+					//
+					//						}
+					//					}
+					//				}
+				}
+			}
 		}
 
 		for (int i = 0; i < troopTwoCurrentAI + 1; i ++) {
 			if (troopTwoCurrentAI > -1) {
 				troopTwoAI.get(i).draw(g);
-				
+
 				try {
 					if (troopTwoAI.get(i).getX() - troopTwo.get(0).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(0).getX() < 10) {
 						troopTwoAI.remove(i);
 						troopTwoCurrentAI = troopTwoCurrentAI -1;
 						System.out.println("Troop Two Hit");
 					}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Two Hit Enemy");
-					}
+				}
+				catch (IndexOutOfBoundsException e) {
+					System.out.println("Troop Two Hit Enemy");
+				}
 			}
 
 		}
 		for (int i = 0; i < troopThreeCurrentAI + 1; i ++) {
 			if (troopThreeCurrentAI > -1) {
 				troopThreeAI.get(i).draw(g);
-				
+
 				try {
 					if (troopThreeAI.get(i).getX() - troopThree.get(0).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(0).getX() < 10) {
 						troopThreeAI.remove(i);
 						troopThreeCurrentAI = troopThreeCurrentAI -1;
 						System.out.println("Troop Three Hit");
 					}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Three Hit Enemy");
-					}
-				
+				}
+				catch (IndexOutOfBoundsException e) {
+					System.out.println("Troop Three Hit Enemy");
+				}
+
 			}
 
 		}
