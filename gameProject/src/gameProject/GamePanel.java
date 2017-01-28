@@ -23,9 +23,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.Timer;
@@ -65,6 +70,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public static boolean turretTwoClicked = false;
 	public static boolean turretThreeClicked = false;
 
+	public static boolean turretOneActive = false;
+	public static boolean turretTwoActive = false;
+	public static boolean turretThreeActive = false;
+
 	public static boolean turretActive = false;
 	public static int turretRockCurrent = -1;
 
@@ -73,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public int troopThreeDamage = 10;
 
 	public static int userBaseHealth = 100;
-	public static int compBaseHealth = 100;
+	public static int compBaseHealth = 0;
 
 	JLabel turretOneLabel;
 	JLabel turretTwoLabel;
@@ -93,6 +102,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 	public static int turretRockDamage = 1;
+
+	public static JButton turret1BTN;
+	public static JButton turret2BTN;
+	public static JButton turret3BTN;
+
+	public static boolean pauseGame = false;
 
 
 
@@ -154,7 +169,21 @@ public class GamePanel extends JPanel implements Runnable{
 
 	JPanel baseHealthUserPanel;
 	JLabel baseHealthUserLabel;
-
+	
+	JPanel troop1Panel;
+	JButton troop1BTN;
+	JPanel troop2Panel;
+	JButton troop2BTN;
+	JPanel troop3Panel;
+	JButton troop3BTN;
+	
+	JPanel turret1Panel;
+	JPanel turret2Panel;
+	JPanel turret3Panel;
+	
+	JPanel playAgainPanel;
+	JButton playAgainBTN;
+	JButton quitBTN;
 
 
 	public static void main(String[] args) {
@@ -299,42 +328,47 @@ public class GamePanel extends JPanel implements Runnable{
 		timer = new Timer(3000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AICharacterChoice = ((int) (Math.random() * 11) + 1);
+				if (pauseGame == true) {
 
-				if (AICharacterChoice <=4) {
-					troopOneCurrentAI = troopOneCurrentAI +1;
-					troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
-					troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
-					troopOneAI.get(troopOneAI.size()-1).setYSpeed(0);
-
-					if (troopOneAI.get(troopOneAI.size()-1).getX() == 0) {
-						troopOneAI.remove(troopOneAI.size()-1);
-					}
-
-				}
-				else if (AICharacterChoice <=8) {
-					//Makes AI Troop Two appear
-					troopTwoCurrentAI = troopTwoCurrentAI +1;
-					troopTwoAI.add(new AITroopTwo(1200, 460, 0, width, 0, height));
-					troopTwoAI.get(troopTwoAI.size()-1).setXSpeed(-5);
-					troopTwoAI.get(troopTwoAI.size()-1).setYSpeed(0);
-
-					if (troopTwoAI.get(troopTwoAI.size()-1).getX() == 0) {
-						troopTwoAI.remove(troopTwoAI.size()-1);
-					}
 				}
 				else {
-					//Makes AI Troop Three appear
-					troopThreeCurrentAI = troopThreeCurrentAI +1;
-					troopThreeAI.add(new AITroopThree(1200, 520, 0, width, 0, height));
-					troopThreeAI.get(troopThreeAI.size()-1).setXSpeed(-5);
-					troopThreeAI.get(troopThreeAI.size()-1).setYSpeed(0);
+					AICharacterChoice = ((int) (Math.random() * 11) + 1);
 
-					if (troopThreeAI.get(troopThreeAI.size()-1).getX() == 0) {
-						troopThreeAI.remove(troopThreeAI.size()-1);
+					if (AICharacterChoice <=4) {
+						troopOneCurrentAI = troopOneCurrentAI +1;
+						troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
+						troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
+						troopOneAI.get(troopOneAI.size()-1).setYSpeed(0);
+
+						if (troopOneAI.get(troopOneAI.size()-1).getX() == 0) {
+							troopOneAI.remove(troopOneAI.size()-1);
+						}
+
 					}
-				}
+					else if (AICharacterChoice <=8) {
+						//Makes AI Troop Two appear
+						troopTwoCurrentAI = troopTwoCurrentAI +1;
+						troopTwoAI.add(new AITroopTwo(1200, 460, 0, width, 0, height));
+						troopTwoAI.get(troopTwoAI.size()-1).setXSpeed(-5);
+						troopTwoAI.get(troopTwoAI.size()-1).setYSpeed(0);
 
+						if (troopTwoAI.get(troopTwoAI.size()-1).getX() == 0) {
+							troopTwoAI.remove(troopTwoAI.size()-1);
+						}
+					}
+					else {
+						//Makes AI Troop Three appear
+						troopThreeCurrentAI = troopThreeCurrentAI +1;
+						troopThreeAI.add(new AITroopThree(1200, 520, 0, width, 0, height));
+						troopThreeAI.get(troopThreeAI.size()-1).setXSpeed(-5);
+						troopThreeAI.get(troopThreeAI.size()-1).setYSpeed(0);
+
+						if (troopThreeAI.get(troopThreeAI.size()-1).getX() == 0) {
+							troopThreeAI.remove(troopThreeAI.size()-1);
+						}
+					}
+
+				}
 			}
 		});
 		timer.start();
@@ -373,13 +407,13 @@ public class GamePanel extends JPanel implements Runnable{
 		//		JLabel picLabel = new JLabel(new ImageIcon(turretOneImage));
 		//		add(picLabel);
 
-		JPanel troop1Panel;
+		
 		troop1Panel=new JPanel();
 		troop1Panel.setBounds(75, 0, 100, 100);
 		add(troop1Panel);
 
 
-		JButton troop1BTN;
+	
 		troop1BTN = new JButton ("<html>Troop 1<br>" + "5 Coins");
 		troop1BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -400,45 +434,51 @@ public class GamePanel extends JPanel implements Runnable{
 
 		troop1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (totalMoney < 5) {
-					troop1BTN.setEnabled(false);
+				if (pauseGame == true) {
+
 				}
 				else {
-					troop1BTN.setEnabled(true);
+					if (totalMoney < 5) {
+						//troop1BTN.setEnabled(false);
+					}
+					else {
+						troop1BTN.setEnabled(true);
 
 
-					totalMoney = totalMoney - TROOP_ONE_MONEY;
-					//moneyLabel.setText(String.valueOf(totalMoney));
+						totalMoney = totalMoney - TROOP_ONE_MONEY;
+						//moneyLabel.setText(String.valueOf(totalMoney));
 
-					//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-					//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-					//				turretRock.get(turretRock.size()-1).setX(10);
-					//				turretRock.get(turretRock.size()-1).setY(10);
-					//				
-					troopOneCurrent = troopOneCurrent +1;
-
-
+						//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+						//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
+						//				turretRock.get(turretRock.size()-1).setX(10);
+						//				turretRock.get(turretRock.size()-1).setY(10);
+						//				
+						troopOneCurrent = troopOneCurrent +1;
 
 
 
-					troopOne.add(new TroopOne(0, 465, 0, width, 0, height));
-					troopOne.get(troopOne.size()-1).setXSpeed(5);
-					troopOne.get(troopOne.size()-1).setYSpeed(0);
 
-					setBackground(Color.WHITE);
+
+						troopOne.add(new TroopOne(0, 465, 0, width, 0, height));
+						troopOne.get(troopOne.size()-1).setXSpeed(5);
+						troopOne.get(troopOne.size()-1).setYSpeed(0);
+
+						setBackground(Color.WHITE);
+					}
+
 				}
 			}
 		});
 
 
 
-		JPanel troop2Panel;
+		
 		troop2Panel=new JPanel();
 		troop2Panel.setBounds(175, 0, 100, 100);
 		add(troop2Panel);
 
 
-		JButton troop2BTN;
+		
 		troop2BTN = new JButton ("<html>Troop 2<br>" + "15 Coins");
 		troop2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -450,39 +490,45 @@ public class GamePanel extends JPanel implements Runnable{
 		troop2BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (totalMoney < 15) {
-					troop2BTN.setEnabled(false);
+
+				if (pauseGame == true) {
+
 				}
 				else {
-					troop2BTN.setEnabled(true);
-
-					totalMoney = totalMoney - TROOP_TWO_MONEY;
-
-					troopTwoCurrent = troopTwoCurrent +1;
-					troopTwo.add(new TroopTwo(0, 460, 0, width, 0, height));
-					troopTwo.get(troopTwo.size()-1).setXSpeed(5);
-					troopTwo.get(troopTwo.size()-1).setYSpeed(0);
-
-					if (troopTwo.get(troopTwo.size()-1).getX() == 1200) {
-						troopTwo.remove(troopTwo.size()-1);
+					if (totalMoney < 15) {
+						//troop2BTN.setEnabled(false);
 					}
+					else {
+						troop2BTN.setEnabled(true);
+
+						totalMoney = totalMoney - TROOP_TWO_MONEY;
+
+						troopTwoCurrent = troopTwoCurrent +1;
+						troopTwo.add(new TroopTwo(0, 460, 0, width, 0, height));
+						troopTwo.get(troopTwo.size()-1).setXSpeed(5);
+						troopTwo.get(troopTwo.size()-1).setYSpeed(0);
+
+						if (troopTwo.get(troopTwo.size()-1).getX() == 1200) {
+							troopTwo.remove(troopTwo.size()-1);
+						}
 
 
 
 
-					setBackground(Color.WHITE);
+						setBackground(Color.WHITE);
+					}
 				}
 			}
 		});
 
 
-		JPanel troop3Panel;
+		
 		troop3Panel=new JPanel();
 		troop3Panel.setBounds(275, 0, 100, 100);
 		add(troop3Panel);
 
 
-		JButton troop3BTN;
+		
 		troop3BTN = new JButton ("<html>Troop 3<br>" + "25 Coins");
 		troop3BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -493,39 +539,43 @@ public class GamePanel extends JPanel implements Runnable{
 
 		troop3BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (pauseGame == true) {
 
-				if (totalMoney < 25) {
-					troop3BTN.setEnabled(false);
 				}
 				else {
-					troop3BTN.setEnabled(true);
-
-					totalMoney = totalMoney - TROOP_THREE_MONEY;
-
-					troopThreeCurrent = troopThreeCurrent +1;
-					troopThree.add(new TroopThree(0, 520, 0, width, 0, height));
-					troopThree.get(troopThree.size()-1).setXSpeed(5);
-					troopThree.get(troopThree.size()-1).setYSpeed(0);
-
-					if (troopThree.get(troopThree.size()-1).getX() == 1200) {
-						troopThree.remove(troopThree.size()-1);
+					if (totalMoney < 25) {
+						//troop3BTN.setEnabled(false);
 					}
+					else {
+						troop3BTN.setEnabled(true);
+
+						totalMoney = totalMoney - TROOP_THREE_MONEY;
+
+						troopThreeCurrent = troopThreeCurrent +1;
+						troopThree.add(new TroopThree(0, 520, 0, width, 0, height));
+						troopThree.get(troopThree.size()-1).setXSpeed(5);
+						troopThree.get(troopThree.size()-1).setYSpeed(0);
+
+						if (troopThree.get(troopThree.size()-1).getX() == 1200) {
+							troopThree.remove(troopThree.size()-1);
+						}
 
 
-					setBackground(Color.WHITE);
+						setBackground(Color.WHITE);
+					}
 				}
 			}
 		});
 
 
 
-		JPanel turret1Panel;
+		
 		turret1Panel=new JPanel();
 		turret1Panel.setBounds(465, 0, 100, 100);
 		add(turret1Panel);
 
 
-		JButton turret1BTN;
+
 		turret1BTN = new JButton ("<html>Turret 1<br>" + "75 Coins");
 		turret1BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -555,123 +605,101 @@ public class GamePanel extends JPanel implements Runnable{
 
 		turret1BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (pauseGame == true) {
 
-				if (totalMoney < 75) {
-					turret1BTN.setEnabled(false);
 				}
 				else {
-					turret1BTN.setEnabled(false);
-					totalMoney = totalMoney - TURRET_ONE_MONEY;
-
-					if (turretRockCurrent > -1) {
-						try {
-							try {
-								timer2.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-							try {
-								timer3.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-							try {
-								timer4.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-
-							for (int i = turretRockCurrent; i > -1; i --) {
-								turretRock.remove(i);
-							}
-						}
-						catch (IndexOutOfBoundsException o) {
-							System.out.println("Clearing the turrets");
-						}
-					}
-
-					timer2 = new Timer(4000, new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent ie) {
-
-							turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
-							turretRock.get(turretRock.size()-1).setXSpeed(10);
-							turretRock.get(turretRock.size()-1).setYSpeed(2);
-							turretRockCurrent++;
-							compBaseHealth = compBaseHealth - 1;
-							//turretRock.get(turretRock.size()-1).draw(g);
-							System.out.println("Rock Fire");
-						}
-					});
-					timer2.start();
-
-
-					//Have the turret shoot a rock about every three seconds
-					//				
-					//				Timer timer = new Timer(1000, new ActionListener() {
-					//	                @Override
-					//	                public void actionPerformed(ActionEvent e) {
-					//	                    x += 110;
-					//	                    if (x >= 1000) {
-					//	                        x = 1000;
-					//	                        ((Timer)e.getSource()).stop();
-					//	                    }
-					//	                    repaint();
-					//	                }
-					//	            });
-					//	            timer.start();
-
-					turretActive = true;
-
-					//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-					//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-					//				turretRock.get(turretRock.size()-1).setX(10);
-					//				turretRock.get(turretRock.size()-1).setY(10);
-
-
-					//making a new label each time, therefore doesn't remove all of them
-
-					turretOneClicked = true;
-
-					//				turretOneLabel = new JLabel(new ImageIcon(turretOneImage));
-					//				turretOneLabel.setBounds(0, 100, turretOneImage.getWidth(), turretOneImage.getHeight());
-					//				add(turretOneLabel);
-
-					turretOneLabel.setVisible(true);
-
-					if (turretTwoClicked)  {
-
-						//					refreshTurretLabel = new JLabel(new ImageIcon(refreshTurretImage));
-						//					refreshTurretLabel.setBounds(0, 100, refreshTurretImage.getWidth(), refreshTurretImage.getHeight());
-						//					add(refreshTurretLabel);
-
-						turretTwoLabel.setVisible(false);
+					if (totalMoney < 75) {
 
 					}
-					if (turretThreeClicked) {
-						turretThreeLabel.setVisible(false);
+					else {
+
+
+
+						turret1BTN.setEnabled(false);
+						totalMoney = totalMoney - TURRET_ONE_MONEY;
+
+						if (turretRockCurrent > -1) {
+							try {
+								try {
+									timer2.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+								try {
+									timer3.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+								try {
+									timer4.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+
+								for (int i = turretRockCurrent; i > -1; i --) {
+									turretRock.remove(i);
+								}
+							}
+							catch (IndexOutOfBoundsException o) {
+								System.out.println("Clearing the turrets");
+							}
+						}
+
+						timer2 = new Timer(4000, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent ie) {
+
+								turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
+								turretRock.get(turretRock.size()-1).setXSpeed(10);
+								turretRock.get(turretRock.size()-1).setYSpeed(2);
+								turretRockCurrent++;
+								compBaseHealth = compBaseHealth - 1;
+								//turretRock.get(turretRock.size()-1).draw(g);
+								System.out.println("Rock Fire");
+							}
+						});
+						timer2.start();
+
+
+						turretActive = true;
+
+
+
+						turretOneClicked = true;
+
+
+						turretOneLabel.setVisible(true);
+
+						if (turretTwoClicked)  {
+
+
+							turretTwoLabel.setVisible(false);
+
+						}
+						if (turretThreeClicked) {
+							turretThreeLabel.setVisible(false);
+						}
+
+
+
+
+						System.out.println("Turret 1 Clicked");
 					}
-
-					//turretOneClicked = false;
-
-
-					System.out.println("Turret 1 Clicked");
 				}
 			}
 		});
 
 
 
-		JPanel turret2Panel;
+		
 		turret2Panel=new JPanel();
 		turret2Panel.setBounds(565, 0, 100, 100);
 		add(turret2Panel);
 
-
-		JButton turret2BTN;
 		turret2BTN = new JButton ("<html>Troop 2<br>" + "175 Coins");
 		turret2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -682,94 +710,99 @@ public class GamePanel extends JPanel implements Runnable{
 
 		turret2BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (pauseGame == true) {
 
-				if (totalMoney < 175) {
-					turret2BTN.setEnabled(false);
 				}
+
 				else {
-					turret2BTN.setEnabled(false);
-					totalMoney = totalMoney - TURRET_TWO_MONEY;
-
-
-					if (turretRockCurrent > -1) {
-						try {
-							try {
-								timer2.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-							try {
-								timer3.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-							try {
-								timer4.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-
-							for (int i = turretRockCurrent; i > -1; i --) {
-								turretRock.remove(i);
-							}
-						}
-						catch (IndexOutOfBoundsException o) {
-							System.out.println("Clearing the turrets");
-						}
-					}
-
-					timer3 = new Timer(2000, new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent ie) {
-
-							turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
-							turretRock.get(turretRock.size()-1).setXSpeed(10);
-							turretRock.get(turretRock.size()-1).setYSpeed(2);
-							turretRockCurrent++;
-							compBaseHealth = compBaseHealth - 1;
-							//turretRock.get(turretRock.size()-1).draw(g);
-							System.out.println("Rock Fire");
-						}
-					});
-					timer3.start();
-
-					turretActive = true;
-
-					turretTwoClicked= true;
-
-					//				turretTwoLabel = new JLabel(new ImageIcon(turretTwoImage));
-					//				turretTwoLabel.setBounds(0, 100, turretTwoImage.getWidth(), turretTwoImage.getHeight());
-					//				add(turretTwoLabel);
-
-					turretTwoLabel.setVisible(true);
-
-					if (turretOneClicked ) {
-						turretOneLabel.setVisible(false);
+					if (totalMoney < 175) {
 
 					}
-					if (turretThreeClicked) {
-						turretThreeLabel.setVisible(false);
+					else {
+						turret2BTN.setEnabled(false);
+						totalMoney = totalMoney - TURRET_TWO_MONEY;
+
+
+						if (turretRockCurrent > -1) {
+							try {
+								try {
+									timer2.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+								try {
+									timer3.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+								try {
+									timer4.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+
+								for (int i = turretRockCurrent; i > -1; i --) {
+									turretRock.remove(i);
+								}
+							}
+							catch (IndexOutOfBoundsException o) {
+								System.out.println("Clearing the turrets");
+							}
+						}
+
+						timer3 = new Timer(2000, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent ie) {
+
+								turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
+								turretRock.get(turretRock.size()-1).setXSpeed(10);
+								turretRock.get(turretRock.size()-1).setYSpeed(2);
+								turretRockCurrent++;
+								compBaseHealth = compBaseHealth - 1;
+								//turretRock.get(turretRock.size()-1).draw(g);
+								System.out.println("Rock Fire");
+							}
+						});
+						timer3.start();
+
+						turretActive = true;
+
+						turretTwoClicked= true;
+
+						//				turretTwoLabel = new JLabel(new ImageIcon(turretTwoImage));
+						//				turretTwoLabel.setBounds(0, 100, turretTwoImage.getWidth(), turretTwoImage.getHeight());
+						//				add(turretTwoLabel);
+
+						turretTwoLabel.setVisible(true);
+
+						if (turretOneClicked ) {
+							turretOneLabel.setVisible(false);
+
+						}
+						if (turretThreeClicked) {
+							turretThreeLabel.setVisible(false);
+						}
+
+						//turretTwoClicked= false;
+
+						System.out.println("Turret 2 Clicked");
 					}
-
-					//turretTwoClicked= false;
-
-					System.out.println("Turret 2 Clicked");
 				}
 			}
 		});
 
 
 
-		JPanel turret3Panel;
+		
 		turret3Panel=new JPanel();
 		turret3Panel.setBounds(665, 0, 100, 100);
 		add(turret3Panel);
 
 
-		JButton turret3BTN;
+
 		turret3BTN = new JButton ("<html>Troop 3<br>" + "350 Coins");
 		turret3BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -780,85 +813,86 @@ public class GamePanel extends JPanel implements Runnable{
 
 		turret3BTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (pauseGame == true) {
 
-				if (totalMoney < 350) {
-					turret3BTN.setEnabled(false);
 				}
+
 				else {
-					turret3BTN.setEnabled(false);
-
-
-					totalMoney = totalMoney - TURRET_THREE_MONEY;
-
-					if (turretRockCurrent > -1) {
-						try {
-							try {
-								timer2.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-							try {
-								timer3.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-							try {
-								timer4.stop();
-							}
-							catch (NullPointerException w) {
-
-							}
-
-							for (int i = turretRockCurrent; i > -1; i --) {
-								turretRock.remove(i);
-							}
-						}
-						catch (IndexOutOfBoundsException o) {
-							System.out.println("Clearing the turrets");
-						}
-					}
-
-
-					timer4 = new Timer(1000, new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent ie) {
-
-							turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
-							turretRock.get(turretRock.size()-1).setXSpeed(10);
-							turretRock.get(turretRock.size()-1).setYSpeed(2);
-							turretRockCurrent++;
-							compBaseHealth = compBaseHealth - 1;
-							//turretRock.get(turretRock.size()-1).draw(g);
-							System.out.println("Rock Fire");
-						}
-					});
-					timer4.start();
-
-					turretActive = true;
-
-					turretThreeClicked = true;
-
-					//				turretThreeLabel = new JLabel(new ImageIcon(turretThreeImage));
-					//				turretThreeLabel.setBounds(0, 100, turretThreeImage.getWidth(), turretThreeImage.getHeight());
-					//				add(turretThreeLabel);
-
-					turretThreeLabel.setVisible(true);
-
-					if (turretOneClicked)  {
-						turretOneLabel.setVisible(false);
+					if (totalMoney < 350) {
 
 					}
-					if (turretTwoClicked) {
-						turretTwoLabel.setVisible(false);
+					else {
+						turret3BTN.setEnabled(false);
+
+
+						totalMoney = totalMoney - TURRET_THREE_MONEY;
+
+						if (turretRockCurrent > -1) {
+							try {
+								try {
+									timer2.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+								try {
+									timer3.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+								try {
+									timer4.stop();
+								}
+								catch (NullPointerException w) {
+
+								}
+
+								for (int i = turretRockCurrent; i > -1; i --) {
+									turretRock.remove(i);
+								}
+							}
+							catch (IndexOutOfBoundsException o) {
+								System.out.println("Clearing the turrets");
+							}
+						}
+
+
+						timer4 = new Timer(1000, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent ie) {
+
+								turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
+								turretRock.get(turretRock.size()-1).setXSpeed(10);
+								turretRock.get(turretRock.size()-1).setYSpeed(2);
+								turretRockCurrent++;
+								compBaseHealth = compBaseHealth - 1;
+								//turretRock.get(turretRock.size()-1).draw(g);
+								System.out.println("Rock Fire");
+							}
+						});
+						timer4.start();
+
+						turretActive = true;
+
+						turretThreeClicked = true;
+
+						turretThreeLabel.setVisible(true);
+
+						if (turretOneClicked)  {
+							turretOneLabel.setVisible(false);
+
+						}
+						if (turretTwoClicked) {
+							turretTwoLabel.setVisible(false);
+						}
+
+
+						//	turretThreeClicked = false;
+
+
+						System.out.println("Turret 3 Clicked");
 					}
-
-
-					//	turretThreeClicked = false;
-
-
-					System.out.println("Turret 3 Clicked");
 				}
 			}
 		});
@@ -882,18 +916,16 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 	}
+	@SuppressWarnings("deprecation")
 	public void paintComponent(Graphics g){
-		//		 try {                
-		//	          base = ImageIO.read(new File("/base.png"));
-		//	       } catch (IOException ex) {
-		//	            // handle exception...
-		//	       }
+
 		super.paintComponent(g);
+		if (pauseGame == true) {
+			
+		}
+		else {
 
 
-		//g.drawImage(turretRock,  300,  null);
-
-		//	turretRock.get(0).draw(g);
 
 		g.drawImage(castleImageLeft, -75, 180, null);
 		g.drawImage(castleImageRight, 1070, 180, null);
@@ -902,40 +934,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 		g.drawRect(0, 0, 1200, 100);
 
-		//Right side money boxes
-		//g.drawLine(1150, 0, 1150, 100);
-		//g.drawLine(1150, 50, 1265, 50);
 
 		g.drawString("Units:", 10, 20);
 		g.drawString("Turrets:", 400, 20);
 		g.drawString("Money:", 800, 20);
 		g.drawString("Base Health:", 1000, 20);
 
-		//		moneyPanel = new JPanel();
-		//		moneyPanel.setBounds(875, 0, 100, 100);
-		//		//moneyPanel.setBackground(new Color(181,164,13));
-		//		//moneyPanel.setBackground(new Color(205,185,10));
-		//		moneyPanel.setBackground(Color.LIGHT_GRAY);
-		//		add(moneyPanel);
-		//
-		//		moneyLabel = new JLabel();
-		//		moneyLabel.setBounds(875, 0, 100, 100);
-		//		setLayout(null);
-		//		moneyLabel.setFont(new Font("Arial", Font.PLAIN, 45));
-		//
-		//		BufferedImage coinImage = null;
-		//		try {                
-		//			coinImage = ImageIO.read(new File("src/coinImage.png"));
-		//		} catch (IOException ex) {
-		//			System.out.println("Error with Image");
-		//		}
-		//
-		//		JLabel coinImageLabel = new JLabel(new ImageIcon(coinImage));
-		//
-		//		moneyPanel.add(coinImageLabel);
-		//
-		//		//moneyLabel.setText(String.valueOf(totalMoney));
-		//		moneyPanel.add(moneyLabel);
+
 
 		baseHealthUserLabel.setText("<html>User Base<br>"
 				+ "Health: " + userBaseHealth);
@@ -945,14 +950,6 @@ public class GamePanel extends JPanel implements Runnable{
 				+ "Health: " + compBaseHealth);
 
 
-		//		Timer timer5 = new Timer(1000, new ActionListener() {
-		//			@Override
-		//			public void actionPerformed(ActionEvent ie) {
-		//				System.out.println(totalMoney);
-		//				moneyLabel.setText(String.valueOf(totalMoney));
-		//				
-		//			}
-		//			});
 
 
 		for (int i = 0; i < turretRockCurrent + 1; i++) {
@@ -998,6 +995,10 @@ public class GamePanel extends JPanel implements Runnable{
 					troopOne.remove(troopOneCurrent);
 					troopOneCurrent = troopOneCurrent - 1;
 					compBaseHealth = compBaseHealth - troopOneDamage;
+
+					if (compBaseHealth == 0) {
+						//stop all the moving object and stop the buttons
+					}
 
 
 
@@ -1393,6 +1394,266 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 		moneyLabel.setText(String.valueOf(totalMoney));
+		
+		
+		if (compBaseHealth < 1) {
+			pauseGame = true;
+			
+			baseHouseComPanel.setBounds(300, 0, 500, 100);
+			baseHealthUserPanel.setBounds(300, 100, 500, 100);
+
+			baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+			
+			baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+			baseHouseComLabel.setText("<html>Comp Base<br>"
+					+ "Health: " + "0");
+			
+			JPanel namePanel = new JPanel();
+			namePanel.setBounds(300, 300, 500, 50);
+			add(namePanel);
+			
+			
+			
+			
+			
+			JTextField nameText = new JTextField();
+			nameText.setBounds(300, 300, 300, 50);
+			nameText.setPreferredSize(new Dimension(300,35));
+			namePanel.add(nameText);
+			
+			JButton nameSubmit;
+			nameSubmit = new JButton();
+			nameSubmit.setBounds(350, 300, 50, 50);
+			nameSubmit.setText("Enter");
+			namePanel.add(nameSubmit);
+			
+			nameSubmit.addActionListener(new ActionListener(){
+				   public void actionPerformed(ActionEvent ae){
+				      String textFieldValue = nameText.getText();
+				      nameSubmit.setEnabled(false);
+				      
+				      
+				   
+				      
+				      System.out.println(textFieldValue);
+				      try {
+				    	  File newTextFile = new File("src/gameProject/userNameTextFile");
+				    	  
+			
+			
+
+				            FileWriter fw = new FileWriter(newTextFile);
+				            fw.write(textFieldValue + ", Comp Base: " + compBaseHealth + ", User Base: " + userBaseHealth);
+				            fw.close();
+				     
+
+				        } catch (IOException iox) {
+				            //do stuff with exception
+				            iox.printStackTrace();
+				        }
+				      // .... do some operation on value ...
+				      
+				      
+				      playAgainPanel = new JPanel();
+						playAgainPanel.setBounds(400, 450, 300, 100);
+						
+						
+						add(playAgainPanel);
+						playAgainPanel.setVisible(true);
+						
+						
+						playAgainBTN = new JButton();
+						playAgainBTN.setPreferredSize(new Dimension(150,50));
+						playAgainBTN.setBounds(400, 450, 150, 45);
+						playAgainBTN.setVisible(true);
+						playAgainBTN.setText("Play Again");
+						playAgainPanel.add(playAgainBTN);
+						
+						playAgainBTN.update(g);
+						
+						
+						
+						
+						quitBTN = new JButton();
+						quitBTN.setPreferredSize(new Dimension(150,50));
+						quitBTN.setBounds(400, 450, 150, 45);
+						quitBTN.setVisible(true);
+						quitBTN.setText("Quit Game");
+						playAgainPanel.add(quitBTN);
+						quitBTN.update(g);
+				   }
+				});
+			
+			
+			try {
+
+				try {
+					timer.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+
+				try {
+					timer2.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+				try {
+					timer3.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+
+				try {
+					timer4.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+
+
+				turret1BTN.setEnabled(false);
+				turret2BTN.setEnabled(false);
+				turret3BTN.setEnabled(false);
+				
+				troop1Panel.setVisible(false);
+				troop1BTN.setVisible(false);
+				troop2Panel.setVisible(false);
+				troop2BTN.setVisible(false);
+				troop3Panel.setVisible(false);
+				troop3BTN.setVisible(false);
+				turret1Panel.setVisible(false);
+				turret2Panel.setVisible(false);
+				turret3Panel.setVisible(false);
+				turretOneLabel.setVisible(false);
+				turretTwoLabel.setVisible(false);
+				turretThreeLabel.setVisible(false);
+				
+				
+
+
+				//stop all the movement
+				for (int h = 0; h < troopOneCurrent + 1; h++) {
+					troopOne.remove(h);
+				}
+				for (int h = 0; h < troopTwoCurrent + 1; h++) {
+					troopTwo.remove(h);
+				}
+				for (int h = 0; h < troopThreeCurrent + 1; h++) {
+					troopThree.remove(h);
+				}
+				for (int h = 0; h < troopOneCurrentAI + 1; h++) {
+					troopOneAI.remove(h);
+				}
+				for (int h = 0; h < troopTwoCurrentAI + 1; h++) {
+					troopTwoAI.remove(h);
+				}
+				for (int h = 0; h < troopThreeCurrentAI + 1; h++) {
+					troopThreeAI.remove(h);
+				}
+				for (int h = 0; h < turretRockCurrent + 1; h++) {
+					turretRock.remove(h);
+				}
+				troopOneCurrentAI = -1;
+				troopTwoCurrentAI = -1;
+				troopThreeCurrentAI = -1;
+
+
+
+			}
+			catch (IndexOutOfBoundsException ip) {
+				System.out.println("Clear the screen");
+			}
+		}
+		if (userBaseHealth < 1) {
+			pauseGame = true;
+			baseHealthUserLabel.setText("<html>User Base<br>"
+					+ "Health: " + "0");
+
+			try {
+				//stop all the movement
+				try {
+					timer.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+
+				try {
+					timer2.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+				try {
+					timer3.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+
+				try {
+					timer4.stop();
+				}
+				catch (NullPointerException w) {
+
+				}
+
+
+				turret1BTN.setEnabled(false);
+				turret2BTN.setEnabled(false);
+				turret3BTN.setEnabled(false);
+				
+				troop1Panel.setVisible(false);
+				troop1BTN.setVisible(false);
+				troop2Panel.setVisible(false);
+				troop2BTN.setVisible(false);
+				troop3Panel.setVisible(false);
+				troop3BTN.setVisible(false);
+				turret1Panel.setVisible(false);
+				turret2Panel.setVisible(false);
+				turret3Panel.setVisible(false);
+				turretOneLabel.setVisible(false);
+				turretTwoLabel.setVisible(false);
+				turretThreeLabel.setVisible(false);
+
+				for (int h = 0; h < troopOneCurrent + 1; h++) {
+					troopOne.remove(h);
+				}
+				for (int h = 0; h < troopTwoCurrent + 1; h++) {
+					troopTwo.remove(h);
+				}
+				for (int h = 0; h < troopThreeCurrent + 1; h++) {
+					troopThree.remove(h);
+				}
+				for (int h = 0; h < troopOneCurrentAI + 1; h++) {
+					troopOneAI.remove(h);
+				}
+				for (int h = 0; h < troopTwoCurrentAI + 1; h++) {
+					troopTwoAI.remove(h);
+				}
+				for (int h = 0; h < troopThreeCurrentAI + 1; h++) {
+					troopThreeAI.remove(h);
+				}
+				for (int h = 0; h < turretRockCurrent + 1; h++) {
+					turretRock.remove(h);
+				}
+
+				troopOneCurrentAI = -1;
+				troopTwoCurrentAI = -1;
+				troopThreeCurrentAI = -1;
+
+
+
+			}
+			catch (IndexOutOfBoundsException ii) {
+				System.out.println("Clear the screen");
+			}
+		}
+	}
 	}
 
 	public void run()
