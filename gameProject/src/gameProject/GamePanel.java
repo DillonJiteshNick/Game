@@ -1427,13 +1427,41 @@ public class GamePanel extends JPanel implements Runnable{
 			nameSubmit.setText("Enter");
 			namePanel.add(nameSubmit);
 			
+			playAgainPanel = new JPanel();
+			playAgainPanel.setBounds(400, 450, 300, 100);
+			
+			
+			add(playAgainPanel);
+			playAgainPanel.setVisible(true);
+			
+			
+			playAgainBTN = new JButton();
+			playAgainBTN.setPreferredSize(new Dimension(150,50));
+			playAgainBTN.setBounds(400, 450, 150, 45);
+			playAgainBTN.setEnabled(false);
+			playAgainBTN.setText("Play Again");
+			playAgainPanel.add(playAgainBTN);
+			
+			playAgainBTN.update(g);
+			
+			
+			
+			
+			quitBTN = new JButton();
+			quitBTN.setPreferredSize(new Dimension(150,50));
+			quitBTN.setBounds(400, 450, 150, 45);
+			quitBTN.setEnabled(false);
+			quitBTN.setText("Quit Game");
+			playAgainPanel.add(quitBTN);
+			quitBTN.update(g);
+			
 			nameSubmit.addActionListener(new ActionListener(){
 				   public void actionPerformed(ActionEvent ae){
 				      String textFieldValue = nameText.getText();
 				      nameSubmit.setEnabled(false);
 				      
-				      
-				   
+				      playAgainBTN.setEnabled(true);
+				      quitBTN.setEnabled(true);
 				      
 				      System.out.println(textFieldValue);
 				      try {
@@ -1454,33 +1482,7 @@ public class GamePanel extends JPanel implements Runnable{
 				      // .... do some operation on value ...
 				      
 				      
-				      playAgainPanel = new JPanel();
-						playAgainPanel.setBounds(400, 450, 300, 100);
-						
-						
-						add(playAgainPanel);
-						playAgainPanel.setVisible(true);
-						
-						
-						playAgainBTN = new JButton();
-						playAgainBTN.setPreferredSize(new Dimension(150,50));
-						playAgainBTN.setBounds(400, 450, 150, 45);
-						playAgainBTN.setVisible(true);
-						playAgainBTN.setText("Play Again");
-						playAgainPanel.add(playAgainBTN);
-						
-						playAgainBTN.update(g);
-						
-						
-						
-						
-						quitBTN = new JButton();
-						quitBTN.setPreferredSize(new Dimension(150,50));
-						quitBTN.setBounds(400, 450, 150, 45);
-						quitBTN.setVisible(true);
-						quitBTN.setText("Quit Game");
-						playAgainPanel.add(quitBTN);
-						quitBTN.update(g);
+				      
 				   }
 				});
 			
