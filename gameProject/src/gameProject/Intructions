@@ -1,0 +1,13 @@
+Instructions:
+
+This is a strategy game called Endless War. Essentially the user tries to defeat the 'Comp' base before they have their base destroyed.
+There are three types of troops- each of a different strength and money, and there are three types of turrets that shoot rocks at the
+enemy's base. Each troop also is worth a different amount and shoots at a corresponding. At the end of the game the user can choose to submit
+their name to the file, which is saved to a text file along with the 'Comp' base and their user base scores.
+
+Please enjoy this game... it was meant to be played in a full sitting and not paused or interrupted.
+
+Best of luck and let's hope you have a Stronghold on this game!
+
+The game code was all written by Nicholas Dietrich
+Please ask Dillon and Jitesh for their contributions.

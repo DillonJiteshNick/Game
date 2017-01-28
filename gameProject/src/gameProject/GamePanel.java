@@ -30,15 +30,23 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 @SuppressWarnings("serial")
@@ -93,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public static JLabel moneyLabel;
 	public static JPanel moneyPanel;
 
-	public static int totalMoney = 200;
+	public static int totalMoney = 250;
 	public int TROOP_ONE_MONEY = 5;
 	public int TROOP_TWO_MONEY = 15;
 	public int TROOP_THREE_MONEY = 25;
@@ -191,6 +199,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 	JPanel startBTNPanel;
 	JPanel startBTN;
+	Clip music = null;
+	
+
 
 
 	public static void main(String[] args) {
@@ -236,7 +247,32 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public GamePanel(){
 
+		AudioInputStream audioInputStream = null;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(new File("src/Medieval_Music_-_Medieval_Travelers.wav"));
+		} catch (UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Clip music = null;
+		try {
+			music = AudioSystem.getClip();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			music.open(audioInputStream);
+		} catch (LineUnavailableException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		music.loop(Clip.LOOP_CONTINUOUSLY);
+		music.start();
+		//music.loop();
+		
 
+		
 
 //		startBTNPanel=new JPanel();
 //		startBTNPanel.setBounds(0, 0, 1200, 600);
@@ -985,34 +1021,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 			}
-			public void mouseExited(MouseEvent e) {
-				//timer.stop();
-				//				troopOneDamage = 0;
-				//				troopTwoDamage = 0;
-				//				troopThreeDamage = 0;
-				//pauseGame = true;
-				System.out.println("Mouse Exited");
-				//mouseOut = true;
-				//while (mouseOut == true) {
-				//				try {
-				//					gameThread.sleep(1000);
-				//				} catch (InterruptedException e1) {
-				//					// TODO Auto-generated catch block
-				//					e1.printStackTrace();
-				//				}
-				//}
-			}
-			public void mouseEntered(MouseEvent i) {
-				//timer.start();
-
-				troopOneDamage = 2;
-				troopTwoDamage = 5;
-				troopThreeDamage = 10;
-				//mouseOut = false;
-				pauseGame = false;
-				System.out.println("Mouse Entered");
-			}
 		});
+			
+			
 
 
 		//
@@ -1157,7 +1168,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 			for (int i = 0; i < troopThreeCurrent + 1; i ++) {
 				if (troopThreeCurrent > -1) {
+					try {
 					troopThree.get(i).draw(g);
+					}
+					catch (IndexOutOfBoundsException io) {
+						
+					}
 
 					moneyLabel.setText(String.valueOf(totalMoney));
 
@@ -1578,6 +1594,8 @@ public class GamePanel extends JPanel implements Runnable{
 				quitBTN.setText("Quit Game");
 				playAgainPanel.add(quitBTN);
 				quitBTN.update(g);
+				playAgainBTN.setEnabled(true);
+				quitBTN.setEnabled(true);
 
 				nameSubmit.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent ae){
@@ -1606,6 +1624,8 @@ public class GamePanel extends JPanel implements Runnable{
 						quitBTN.addActionListener(new ActionListener(){
 							public void actionPerformed(ActionEvent i){
 								System.exit(0);
+								music.stop();
+							
 							}
 						});
 
@@ -1650,7 +1670,7 @@ public class GamePanel extends JPanel implements Runnable{
 								turretOneLabel.setVisible(false);
 								turretTwoLabel.setVisible(false);
 								turretThreeLabel.setVisible(false);
-								totalMoney = 200;
+								totalMoney = 250;
 
 
 								AICharacterChoice = ((int) (Math.random() * 11) + 1);
