@@ -1,9 +1,21 @@
 package gameProject;
 
 
-//Have a counter for number of troops defeated and how many of your troops died
-//Put this at the end, save to a file, and then sort
+/**
+ * 
+ * @author nicholasdietrich
+ * @version 5- January 25, 2017
+ * ISU4U Final Culminating Assignment
+ * 
+ * This is the GamePanel class- it contains the most of the code and should be run from
+ * This class contains most of the timers and the variables used in the game
+ * It creates the main JFrame and paints the objects that are added to it
+ * 
+ * The instructions are in the text file called 'Instructions'
+ * 
+ */
 
+//Imports
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -52,15 +64,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable{
 
-	//public static int AIChoice = (int) (Math.random() * 10);
+	//Global variables
 	public static int AICharacterChoice = ((int) (Math.random() * 11) + 1);
 
 	Timer timer;
 	Timer timer2;
 	Timer timer3;
 	Timer timer4;
-	//int counter = 30;
-	//Timer timer;
+
 	int counter=30;
 	public static BufferedImage base;
 	public static boolean mouseButtonDown = false;
@@ -94,10 +105,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public static int userBaseHealth = 100;
 	public static int compBaseHealth = 100;
 
-	JLabel turretOneLabel;
-	JLabel turretTwoLabel;
-	JLabel turretThreeLabel;
-	JLabel refreshTurretLabel;
+	public JLabel turretOneLabel;
+	public JLabel turretTwoLabel;
+	public JLabel turretThreeLabel;
+	public JLabel refreshTurretLabel;
 	public static JLabel moneyLabel;
 	public static JPanel moneyPanel;
 
@@ -123,21 +134,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-	//ArrayList<JLabel> troopOneLabel = new ArrayList<JLabel>();
-
-
-
-
 	int width = 1350;
 	int height = 700;
-	//Dimension width2 = Toolkit.getDefaultToolkit().getScreenSize();
 
 
 	final int pauseDuration = 50;
 
-	//static int numTroopOne = 1;
-
-	//TroopOne[] troopOne = new TroopOne[numTroopOne];
+	//Making the arralists of the troop objetcs
 	ArrayList<TroopOne> troopOne = new ArrayList<TroopOne>();
 
 	ArrayList<TroopTwo> troopTwo = new ArrayList<TroopTwo>();
@@ -150,20 +153,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-
-
-
-
-
+	//Making the array list of the turret rock shooter object
 	ArrayList<turretShooter> turretRock = new ArrayList<turretShooter>();
 
-	//static int numTroopTwo = 1;
-
-	//TroopTwo[] troopTwo = new TroopTwo[numTroopTwo];
-
-	//static int numTroopThree = 1;
-
-	//TroopThree[] troopThree = new TroopThree[numTroopThree];
 
 	private BufferedImage castleImageLeft;
 	private BufferedImage castleImageRight;
@@ -179,74 +171,63 @@ public class GamePanel extends JPanel implements Runnable{
 	public JPanel baseHouseComPanel;
 	public JLabel baseHouseComLabel;
 
-	JPanel baseHealthUserPanel;
-	JLabel baseHealthUserLabel;
+	public JPanel baseHealthUserPanel;
+	public JLabel baseHealthUserLabel;
 
-	JPanel troop1Panel;
-	JButton troop1BTN;
-	JPanel troop2Panel;
-	JButton troop2BTN;
-	JPanel troop3Panel;
-	JButton troop3BTN;
+	public	JPanel troop1Panel;
+	public 	JButton troop1BTN;
+	public	JPanel troop2Panel;
+	public JButton troop2BTN;
+	public JPanel troop3Panel;
+	public JButton troop3BTN;
 
-	JPanel turret1Panel;
-	JPanel turret2Panel;
-	JPanel turret3Panel;
+	public JPanel turret1Panel;
+	public JPanel turret2Panel;
+	public JPanel turret3Panel;
 
-	JPanel playAgainPanel;
-	JButton playAgainBTN;
-	JButton quitBTN;
+	public JPanel playAgainPanel;
+	public JButton playAgainBTN;
+	public JButton quitBTN;
 
-	JPanel startBTNPanel;
-	JPanel startBTN;
-	Clip music = null;
-	
-
+	public JPanel startBTNPanel;
+	public JPanel startBTN;
+	public Clip music = null;
 
 
+
+	/**
+	 * 
+	 * Main method where the game frame is made
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
-
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		//setBounds(0,0,screenSize.width, screenSize.height);
-		//setVisible(true);
-
-		// pack()
-		//		JFrame introFrame = new JFrame("Endless War");
-		//		introFrame.setVisible(true);
-		//		introFrame.setSize(new Dimension(1200, 700));
-		//		introFrame.setAutoRequestFocus(false);
-		//		introFrame.setVisible(true);
-		//		Container w = introFrame.getContentPane();
-		//		//w.add(new GamePanel());
-		//		introFrame.pack();
-
-
+		//making the game frame and setting its dimensions
 
 		JFrame frame = new JFrame("Endless War");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//frame.setBounds(0, 0, screenSize.width, screenSize.height);
-		frame.setSize(new Dimension(1200, 700));
+
+		frame.setSize(new Dimension(1200, 600));
 		frame.setAutoRequestFocus(false);
 		frame.setVisible(true);
 		Container c = frame.getContentPane();
 		c.add(new GamePanel());
 		frame.pack();
-		/*this.setPreferredSize(new Dimension(500, 300));
-		this.setBackground(Color.WHITE);*/
+
 
 
 
 	}
 
-	//or if it is the same coordinates of the image- get image coordinates, then it is a click and hit
-
-
-
+	/**
+	 * 
+	 * GamePanel constructor- contains the audio, the timers, the button clicks, the labels, and most of the code
+	 */
 
 	public GamePanel(){
 
+		//Background music
 		AudioInputStream audioInputStream = null;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(new File("src/Medieval_Music_-_Medieval_Travelers.wav"));
@@ -254,7 +235,7 @@ public class GamePanel extends JPanel implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Clip music = null;
+
 		try {
 			music = AudioSystem.getClip();
 		} catch (LineUnavailableException e) {
@@ -269,42 +250,13 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		music.loop(Clip.LOOP_CONTINUOUSLY);
 		music.start();
-		//music.loop();
-		
-
-		
-
-//		startBTNPanel=new JPanel();
-//		startBTNPanel.setBounds(0, 0, 1200, 600);
-//		add(startBTNPanel);
-//
-//
-//		JButton startBTN;
-//		startBTN = new JButton ("Play");
-//		startBTN.setFont(new Font("Arial", Font.PLAIN, 375));
-//		setLayout(null);
-//		startBTN.setPreferredSize(new Dimension(1200, 600));
-//
-//
-//		startBTNPanel.add(startBTN);
-//		//timer.stop();
-//
-//		startBTN.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				remove(startBTNPanel);
-//				//timer.start();
-//			}
-//		});
 
 
-
-
-
+		//Money panel- where the money is labeled and set in the top right corner
 
 		moneyPanel = new JPanel();
 		moneyPanel.setBounds(875, 0, 100, 100);
-		//moneyPanel.setBackground(new Color(181,164,13));
-		//moneyPanel.setBackground(new Color(205,185,10));
+
 		moneyPanel.setBackground(Color.LIGHT_GRAY);
 		add(moneyPanel);
 
@@ -328,9 +280,10 @@ public class GamePanel extends JPanel implements Runnable{
 		moneyPanel.add(moneyLabel);
 
 
+		//Base house and user house- health labels set and coloured
 		baseHouseComPanel = new JPanel();
 		baseHouseComPanel.setBounds(1100, 50, 85, 50);
-		//moneyPanel.setBackground(new Color(181,164,13));
+
 		baseHouseComPanel.setBackground(Color.LIGHT_GRAY);
 		add(baseHouseComPanel);
 
@@ -347,7 +300,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		baseHealthUserPanel = new JPanel();
 		baseHealthUserPanel.setBounds(1100, 0, 85, 50);
-		//moneyPanel.setBackground(new Color(181,164,13));
+
 		baseHealthUserPanel.setBackground(Color.LIGHT_GRAY);
 		add(baseHealthUserPanel);
 
@@ -362,6 +315,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+		//Bases are added to the game field
 
 		try {                
 			castleImageLeft = ImageIO.read(new File("src/CastleGood.png"));
@@ -401,22 +355,32 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+		//Cursor is changed to the cross-haired one
 		Cursor cursor = Cursor.getDefaultCursor();
 
-		//Change the cursor
+
 		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR); 
 		setCursor(cursor);
 
+		//Main timer for the AI troop spawn- it fires and adds a new random AI troop to the field
 		timer = new Timer(3000, new ActionListener() {
 			@Override
+			/**
+			 * 
+			 * Timer action listener
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (pauseGame == true) {
 
 				}
 				else {
+
+					//Setting the odds for the type of AI troop
 					AICharacterChoice = ((int) (Math.random() * 11) + 1);
 
 					if (AICharacterChoice <=4) {
+						//Makes AI troop One appear- initializes and makes a new troopOneAI- adds it to the array list
+						//Same for all of the other AI troops added- their speeds and the curret AI is set
 						troopOneCurrentAI = troopOneCurrentAI +1;
 						troopOneAI.add(new AITroopOne(1200, 465, 0, width, 0, height));
 						troopOneAI.get(troopOneAI.size()-1).setXSpeed(-5);
@@ -453,10 +417,12 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 			}
 		});
+		//Timer is started
 		timer.start();
 
 
 
+		//Start panel and button for the introduction screen
 		startBTNPanel=new JPanel();
 		startBTNPanel.setBounds(0, 0, 1200, 600);
 		startBTNPanel.setBackground(Color.YELLOW);
@@ -476,9 +442,13 @@ public class GamePanel extends JPanel implements Runnable{
 		remove(moneyPanel);
 		remove(baseHouseComPanel);
 		remove(baseHealthUserPanel);
-		
+
 
 		startBTN.addActionListener(new ActionListener() {
+			/**
+			 * When clicked the button clears itself and makes the game active- along with re-adding the panels that
+			 * were removed
+			 */
 			public void actionPerformed(ActionEvent e) {
 				add(baseHouseComPanel);
 				add(baseHealthUserPanel);
@@ -495,21 +465,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		//addMouseListener(mouseListener);
+
 		this.setPreferredSize(new Dimension(1200, 700));
 		this.setBackground(Color.WHITE);
 
 
 
-		//		JPanel imagePanel = new JPanel();
-		//		imagePanel.setBounds(0, 0, 100, 100);
-		//		add(imagePanel);
-		//		
-		//		imagePanel.add(turretOneImage);
-
-		//		JLabel picLabel = new JLabel(new ImageIcon(turretOneImage));
-		//		add(picLabel);
-
+		//Making the troop panels and butons that are clicked on to add a troop
 
 		troop1Panel=new JPanel();
 		troop1Panel.setBounds(75, 0, 100, 100);
@@ -527,35 +489,29 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-
-		//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-
-
-
-
-
+		//Like for all troops when clicked a new one is added to its array list and initialized- the current number
+		//is increased- but the user must have enough money for this to occur
 
 		troop1BTN.addActionListener(new ActionListener() {
+			/**
+			 * 
+			 * When pressed the new troop is added to teh game field
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (pauseGame == true) {
 
 				}
 				else {
 					if (totalMoney < 5) {
-						//troop1BTN.setEnabled(false);
+
 					}
 					else {
 						troop1BTN.setEnabled(true);
 
 
 						totalMoney = totalMoney - TROOP_ONE_MONEY;
-						//moneyLabel.setText(String.valueOf(totalMoney));
 
-						//				turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-						//				//turretRock.add(new turretShooter(0, 465, 0, width, 0, height));
-						//				turretRock.get(turretRock.size()-1).setX(10);
-						//				turretRock.get(turretRock.size()-1).setY(10);
-						//				
 						troopOneCurrent = troopOneCurrent +1;
 
 
@@ -582,6 +538,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+		//Same as troop one
 		troop2BTN = new JButton ("<html>Troop 2<br>" + "15 Coins");
 		troop2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -599,7 +556,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 				else {
 					if (totalMoney < 15) {
-						//troop2BTN.setEnabled(false);
+
 					}
 					else {
 						troop2BTN.setEnabled(true);
@@ -625,7 +582,7 @@ public class GamePanel extends JPanel implements Runnable{
 		});
 
 
-
+		//Same as troop one
 		troop3Panel=new JPanel();
 		troop3Panel.setBounds(275, 0, 100, 100);
 		add(troop3Panel);
@@ -647,7 +604,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 				else {
 					if (totalMoney < 25) {
-						//troop3BTN.setEnabled(false);
+
 					}
 					else {
 						troop3BTN.setEnabled(true);
@@ -673,6 +630,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+		//Turret panels- adds the specific turret to the game field based on the button pressed
+		//and if enough money is available
 		turret1Panel=new JPanel();
 		turret1Panel.setBounds(465, 0, 100, 100);
 		add(turret1Panel);
@@ -707,6 +666,10 @@ public class GamePanel extends JPanel implements Runnable{
 		turretThreeLabel.setVisible(false);
 
 		turret1BTN.addActionListener(new ActionListener() {
+			/**
+			 * 
+			 * Just like the troop- the turret image is added to the field
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (pauseGame == true) {
 
@@ -752,16 +715,22 @@ public class GamePanel extends JPanel implements Runnable{
 							}
 						}
 
+						//This is the timer that adds the turret rocks to the array list and fires them across the field
 						timer2 = new Timer(4000, new ActionListener() {
 							@Override
+							/**
+							 * 
+							 * Fires every four seconds and increases the value of the current turretRock
+							 */
 							public void actionPerformed(ActionEvent ie) {
 
 								turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
 								turretRock.get(turretRock.size()-1).setXSpeed(10);
 								turretRock.get(turretRock.size()-1).setYSpeed(2);
 								turretRockCurrent++;
+								//Destroys comp base health by 1 each fire
 								compBaseHealth = compBaseHealth - 1;
-								//turretRock.get(turretRock.size()-1).draw(g);
+
 								System.out.println("Rock Fire");
 							}
 						});
@@ -798,6 +767,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+
+		//Same as turret one
 
 		turret2Panel=new JPanel();
 		turret2Panel.setBounds(565, 0, 100, 100);
@@ -856,8 +827,13 @@ public class GamePanel extends JPanel implements Runnable{
 							}
 						}
 
+						//Same as turret one rock- but fires every two seconds and is more money to add
 						timer3 = new Timer(2000, new ActionListener() {
 							@Override
+							/**
+							 * 
+							 * timer for turret two
+							 */
 							public void actionPerformed(ActionEvent ie) {
 
 								turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
@@ -865,7 +841,7 @@ public class GamePanel extends JPanel implements Runnable{
 								turretRock.get(turretRock.size()-1).setYSpeed(2);
 								turretRockCurrent++;
 								compBaseHealth = compBaseHealth - 1;
-								//turretRock.get(turretRock.size()-1).draw(g);
+
 								System.out.println("Rock Fire");
 							}
 						});
@@ -874,10 +850,6 @@ public class GamePanel extends JPanel implements Runnable{
 						turretActive = true;
 
 						turretTwoClicked= true;
-
-						//				turretTwoLabel = new JLabel(new ImageIcon(turretTwoImage));
-						//				turretTwoLabel.setBounds(0, 100, turretTwoImage.getWidth(), turretTwoImage.getHeight());
-						//				add(turretTwoLabel);
 
 						turretTwoLabel.setVisible(true);
 
@@ -889,8 +861,6 @@ public class GamePanel extends JPanel implements Runnable{
 							turretThreeLabel.setVisible(false);
 						}
 
-						//turretTwoClicked= false;
-
 						System.out.println("Turret 2 Clicked");
 					}
 				}
@@ -900,6 +870,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+
+		//Same as turret one
 		turret3Panel=new JPanel();
 		turret3Panel.setBounds(665, 0, 100, 100);
 		add(turret3Panel);
@@ -961,8 +933,12 @@ public class GamePanel extends JPanel implements Runnable{
 						}
 
 
+						//same as the other turrets- just fires every one second and is more expensive to purchase
 						timer4 = new Timer(1000, new ActionListener() {
 							@Override
+							/**
+							 * timer for turret three
+							 */
 							public void actionPerformed(ActionEvent ie) {
 
 								turretRock.add(new turretShooter(20, 90, 0, width, 0, height));
@@ -970,7 +946,7 @@ public class GamePanel extends JPanel implements Runnable{
 								turretRock.get(turretRock.size()-1).setYSpeed(2);
 								turretRockCurrent++;
 								compBaseHealth = compBaseHealth - 1;
-								//turretRock.get(turretRock.size()-1).draw(g);
+
 								System.out.println("Rock Fire");
 							}
 						});
@@ -991,9 +967,6 @@ public class GamePanel extends JPanel implements Runnable{
 						}
 
 
-						//	turretThreeClicked = false;
-
-
 						System.out.println("Turret 3 Clicked");
 					}
 				}
@@ -1003,16 +976,17 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+		//Ensure game frame sizing
 
-		//	this.setPreferredSize(new Dimension(width, height));
 		this.setPreferredSize(new Dimension(1200, 600));
 
 
 
-
+		//Start the game thread
 		Thread gameThread = new Thread(this);
 		gameThread.start();
 
+		//Mouse listener- for debugging purposes
 		addMouseListener(new MouseAdapter() { 
 			public void mouseClicked(MouseEvent e) { 	
 				System.out.println("Image Hit");
@@ -1022,31 +996,28 @@ public class GamePanel extends JPanel implements Runnable{
 
 			}
 		});
-			
-			
 
-
-		//
-		//
-		//		startBTNPanel.setBounds(0, 0, 1200, 600);
-		//		startBTN.setBounds(0, 0, 1200, 600);
-		//		startBTNPanel.add(startBTN);
-		//
 
 	}
 
-
+	//Paint component- this is where all the added troops or turret rocks are actually drawn on teh game frame
 
 	@SuppressWarnings("deprecation")
+	/**
+	 * Paint component
+	 * 
+	 */
 	public void paintComponent(Graphics g){
 
 		super.paintComponent(g);
+		//Ensure the game is active- for when the game ends
 		if (pauseGame == true) {
 
 		}
 		else {
 
 
+			//Draw the base of the frame- the lines taht separate compartments and the labels
 
 			g.drawImage(castleImageLeft, -75, 180, null);
 			g.drawImage(castleImageRight, 1070, 180, null);
@@ -1063,6 +1034,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+			//Labels for the user and comp base health
+			
 			baseHealthUserLabel.setText("<html>User Base<br>"
 					+ "Health: " + userBaseHealth);
 
@@ -1073,6 +1046,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+			//Draws the turret rocks- this is what accesses the current value and draws it on the screen
 			for (int i = 0; i < turretRockCurrent + 1; i++) {
 				try {
 					turretRock.get(i).draw(g);
@@ -1083,33 +1057,22 @@ public class GamePanel extends JPanel implements Runnable{
 					System.out.println("Turret Rock Shoot");
 				}
 
-				//try {
-
-				//}
-				//			catch (IndexOutOfBoundsException io) {
-				//				System.out.println("Rock Hit Base");
-				//			}
+			
 			}
 
 
-
-
-
-
-
-
-
-
+			//Draws troop one on the screen- this just recognizes what the speed is- it just draws the troop
 			for (int i = 0; i < troopOneCurrent + 1; i ++) {
+				//Ensure that there is actually a current troop to draw
 				if (troopOneCurrent > -1) {
 					troopOne.get(i).draw(g);
 
 					moneyLabel.setText(String.valueOf(totalMoney));
 
-					//moneyLabel.setText(String.valueOf(totalMoney));
 					System.out.println(totalMoney);
 
 
+					//Removes the troop when it hits the comp base- so the current number is low, doesn't waste space
 					if (troopOne.get(troopOneCurrent).getX() - 1200 > -15 && troopOne.get(troopOneCurrent).getX()- 1200 < 15) {
 
 
@@ -1118,7 +1081,8 @@ public class GamePanel extends JPanel implements Runnable{
 						compBaseHealth = compBaseHealth - troopOneDamage;
 
 						if (compBaseHealth == 0) {
-							//stop all the moving object and stop the buttons
+							//For debugging purposes
+							System.out.println("Comp Base 0");
 						}
 
 
@@ -1135,14 +1099,15 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 
 
-
+			//Draws troop two on the screen- this just recognizes what the speed is- it just draws the troop
+			//This is the same as troop one- just for troop two
 			for (int i = 0; i < troopTwoCurrent + 1; i ++) {
 				if (troopTwoCurrent > -1) {
 					troopTwo.get(i).draw(g);
 
 					moneyLabel.setText(String.valueOf(totalMoney));
 
-					//moneyLabel.setText("" + totalMoney);
+					
 
 
 					if (troopTwo.get(troopTwoCurrent).getX() - 1200 > -15 && troopTwo.get(troopTwoCurrent).getX()- 1200 < 15) {
@@ -1166,13 +1131,15 @@ public class GamePanel extends JPanel implements Runnable{
 
 			}
 
+			//Draws troop three on the screen- this just recognizes what the speed is- it just draws the troop
+			//This is the same as troop one and two- just for troop three
 			for (int i = 0; i < troopThreeCurrent + 1; i ++) {
 				if (troopThreeCurrent > -1) {
 					try {
-					troopThree.get(i).draw(g);
+						troopThree.get(i).draw(g);
 					}
 					catch (IndexOutOfBoundsException io) {
-						
+
 					}
 
 					moneyLabel.setText(String.valueOf(totalMoney));
@@ -1199,13 +1166,16 @@ public class GamePanel extends JPanel implements Runnable{
 
 			}
 
+			
+			//Like the user's troops- this draws the AI troops on the game field
+			//Draws troop one AI on the screen- this just recognizes what the speed is- it just draws the troop
 			for (int i = 0; i < troopOneCurrentAI + 1; i ++) {
 				if (troopOneCurrentAI > -1) {
 					troopOneAI.get(i).draw(g);
 
 					moneyLabel.setText(String.valueOf(totalMoney));
 
-					//moneyLabel.setText("" + totalMoney);
+					
 
 					if (troopOneAI.get(i).getX() - 0 > -15 && troopOneAI.get(i).getX()- 0 < 15) {
 						troopOneAI.remove(i);
@@ -1224,11 +1194,15 @@ public class GamePanel extends JPanel implements Runnable{
 					else {
 						try {
 							for (int k = 0; k < troopOne.size(); k ++) {
-								//this k loop works
+								
+								//Checks for collisions with the user's troops- and acts on it
+								
 								if (troopOneAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopOne.get(k).getX() < 10) {
 									int troopOneNum = ((int) (Math.random() * 50) + 1);
 									int troopOneNumAI = ((int) (Math.random() * 50) + 1);
 
+									//sets a random number for each troop- corresponding to their value
+									//either removes the user of AI troop
 									if (troopOneNum > troopOneNumAI) { 
 										troopOneAI.remove(i);
 										troopOneCurrentAI = troopOneCurrentAI -1;
@@ -1250,7 +1224,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 						try {
 							for (int k = 0; k < troopTwo.size(); k ++) {
-								//this k loop works
+								
+								//sets a random number for each troop- corresponding to their value
+								//either removes the user of AI troop
 								if (troopOneAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
 									int troopTwoNum = ((int) (Math.random() * 75) + 1);
 									int troopOneNumAI = ((int) (Math.random() * 25) + 1);
@@ -1278,7 +1254,8 @@ public class GamePanel extends JPanel implements Runnable{
 						try {
 
 							for (int k = 0; k < troopThree.size(); k ++) {
-								//something is wrong with troop three
+								//sets a random number for each troop- corresponding to their value
+								//either removes the user of AI troop
 								if (troopOneAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopOneAI.get(i).getX() - troopThree.get(k).getX() < 20) {
 									int troopThreeNum = ((int) (Math.random() * 90) + 1);
 									int troopOneNumAI = ((int) (Math.random() * 10) + 1);
@@ -1307,8 +1284,10 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 			}
 
+			//Same as troop one AI- just for troop two
 			for (int i = 0; i < troopTwoCurrentAI + 1; i ++) {
 				if (troopTwoCurrentAI > -1) {
+					//Updates the money and teh base values
 					troopTwoAI.get(i).draw(g);
 
 					moneyLabel.setText(String.valueOf(totalMoney));
@@ -1330,7 +1309,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 						try {
 							for (int k = 0; k <troopOne.size(); k++) {
-								//this k loop works
+								//sets a random number for each troop- corresponding to their value
+								//either removes the user of AI troop
 								if (troopTwoAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopOne.get(k).getX() < 10) {
 									int troopOneNum = ((int)(Math.random() * 25) + 1);
 									int troopTwoNumAI = ((int)(Math.random() * 75) + 1);
@@ -1359,7 +1339,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 						try {
 							for (int k = 0; k <troopTwo.size(); k++) {
-								//this k loop works
+								//sets a random number for each troop- corresponding to their value
+								//either removes the user of AI troop
 								if (troopTwoAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
 									int troopTwoNum = ((int)(Math.random() * 50) + 1);
 									int troopTwoNumAI = ((int)(Math.random() * 50) + 1);
@@ -1386,7 +1367,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 						try {
 							for (int k = 0; k <troopThree.size(); k++) {
-								//something is wrong with troop three
+								//sets a random number for each troop- corresponding to their value
+								//either removes the user of AI troop
 								if (troopTwoAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopTwoAI.get(i).getX() - troopThree.get(k).getX() < 20) {
 									int troopThreeNum = ((int)(Math.random() * 75) + 1);
 									int troopTwoNumAI = ((int)(Math.random() * 25) + 1);
@@ -1417,6 +1399,8 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 
 			}
+			
+			//Same as troop one and two- but for troop three
 			for (int i = 0; i < troopThreeCurrentAI + 1; i ++) {
 				if (troopThreeCurrentAI > -1) {
 					troopThreeAI.get(i).draw(g);
@@ -1438,6 +1422,8 @@ public class GamePanel extends JPanel implements Runnable{
 					else {
 
 						try {
+							//sets a random number for each troop- corresponding to their value
+							//either removes the user of AI troop
 							for (int k = 0; k < troopOne.size(); k++) {
 								if (troopThreeAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopOne.get(k).getX() < 10) {
 									int troopOneNum = ((int)(Math.random() * 10) + 1);
@@ -1465,6 +1451,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 						try {
+							//sets a random number for each troop- corresponding to their value
+							//either removes the user of AI troop
 							for (int k = 0; k < troopTwo.size(); k++) {
 								if (troopThreeAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
 									int troopTwoNum = ((int)(Math.random() * 25) + 1);
@@ -1491,6 +1479,8 @@ public class GamePanel extends JPanel implements Runnable{
 						}
 
 						try {
+							//sets a random number for each troop- corresponding to their value
+							//either removes the user of AI troop
 							for (int k = 0; k < troopThree.size(); k++) {
 								if (troopThreeAI.get(i).getX() - troopThree.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(k).getX() < 10) {
 									int troopThreeNum = ((int)(Math.random() * 50) + 1);
@@ -1523,10 +1513,12 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 
 
+			//Ensure the labels and the text are updated- when the paint of the troop or rocks are not drawing
 
 			moneyLabel.setText(String.valueOf(totalMoney));
 
 
+			//Game over part- when either base reaches a health of 0
 			if (compBaseHealth < 1 || userBaseHealth < 1) {
 				pauseGame = true;
 
@@ -1548,11 +1540,11 @@ public class GamePanel extends JPanel implements Runnable{
 					userBaseHealth = 0;
 				}
 
+				
+				//JPanel and JButtons for the name submit, play agian, or quit part
 				JPanel namePanel = new JPanel();
 				namePanel.setBounds(300, 300, 500, 50);
 				add(namePanel);
-
-
 
 
 
@@ -1598,6 +1590,9 @@ public class GamePanel extends JPanel implements Runnable{
 				quitBTN.setEnabled(true);
 
 				nameSubmit.addActionListener(new ActionListener(){
+					/**
+					 * When the name submit button is pressed
+					 */
 					public void actionPerformed(ActionEvent ae){
 						String textFieldValue = nameText.getText();
 						nameSubmit.setEnabled(false);
@@ -1621,16 +1616,28 @@ public class GamePanel extends JPanel implements Runnable{
 						}
 						// .... do some operation on value ...
 
+						//Quit game
 						quitBTN.addActionListener(new ActionListener(){
+							/**
+							 * 
+							 * Quit game action performed
+							 */
 							public void actionPerformed(ActionEvent i){
 								System.exit(0);
 								music.stop();
-							
+
 							}
 						});
 
+						
+						//Play again
 						playAgainBTN.addActionListener(new ActionListener(){
+							/**
+							 * 
+							 * P{lay again action performed
+							 */
 							public void actionPerformed(ActionEvent i){
+								//reset of variables, labels, and buttons
 								troopOneCurrent = -1;
 								troopTwoCurrent = -1;
 								troopThreeCurrent = -1;
@@ -1675,11 +1682,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 								AICharacterChoice = ((int) (Math.random() * 11) + 1);
 
+								//Restart the timer that was stopped when the base reached 0- for the next game
 								timer.start();
-								//timer2.start();
-								//timer3.start();
-								//timer4.start();
-
+								
 								remove(namePanel);
 								namePanel.remove(nameText);
 								namePanel.remove(nameSubmit);
@@ -1687,7 +1692,7 @@ public class GamePanel extends JPanel implements Runnable{
 								playAgainPanel.remove(playAgainBTN);
 								playAgainPanel.remove(quitBTN);
 
-								//back to orginal
+								
 								baseHouseComPanel.setBounds(1100, 50, 85, 50);
 								baseHealthUserPanel.setBounds(1100, 0, 85, 50);
 
@@ -1706,6 +1711,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 				try {
+					
+					//Game over part- stop everything that is moving and make the game over screen- with the text box and name submit- stop the timers
 
 					try {
 						timer.stop();
@@ -1792,6 +1799,10 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 
+	/**
+	 * 
+	 * run method- the game is run and the thread is repainted- in correspondence to the pause duration
+	 */
 	public void run()
 	{
 		while (true) {
@@ -1824,21 +1835,24 @@ public class GamePanel extends JPanel implements Runnable{
 		mouseButtonDown = false;
 		repaint ();
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public static int[] getPositionArray ()
 	{
 		return positionArray;
 	}
 
+	/**
+	 * 
+	 * @param positionArray
+	 */
 	public void setPostionArray(int [] positionArray)
 	{
 		positionArray = GamePanel.positionArray;
 	}
 
-
-	/**
-	 * 
-	 * Paint component- draw the Nacks on the frame in their set location
-	 */
 
 
 }
