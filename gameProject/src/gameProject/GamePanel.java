@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public int troopThreeDamage = 10;
 
 	public static int userBaseHealth = 100;
-	public static int compBaseHealth = 0;
+	public static int compBaseHealth = 100;
 
 	JLabel turretOneLabel;
 	JLabel turretTwoLabel;
@@ -169,18 +169,18 @@ public class GamePanel extends JPanel implements Runnable{
 
 	JPanel baseHealthUserPanel;
 	JLabel baseHealthUserLabel;
-	
+
 	JPanel troop1Panel;
 	JButton troop1BTN;
 	JPanel troop2Panel;
 	JButton troop2BTN;
 	JPanel troop3Panel;
 	JButton troop3BTN;
-	
+
 	JPanel turret1Panel;
 	JPanel turret2Panel;
 	JPanel turret3Panel;
-	
+
 	JPanel playAgainPanel;
 	JButton playAgainBTN;
 	JButton quitBTN;
@@ -407,13 +407,13 @@ public class GamePanel extends JPanel implements Runnable{
 		//		JLabel picLabel = new JLabel(new ImageIcon(turretOneImage));
 		//		add(picLabel);
 
-		
+
 		troop1Panel=new JPanel();
 		troop1Panel.setBounds(75, 0, 100, 100);
 		add(troop1Panel);
 
 
-	
+
 		troop1BTN = new JButton ("<html>Troop 1<br>" + "5 Coins");
 		troop1BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -472,13 +472,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		
+
 		troop2Panel=new JPanel();
 		troop2Panel.setBounds(175, 0, 100, 100);
 		add(troop2Panel);
 
 
-		
+
 		troop2BTN = new JButton ("<html>Troop 2<br>" + "15 Coins");
 		troop2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -522,13 +522,13 @@ public class GamePanel extends JPanel implements Runnable{
 		});
 
 
-		
+
 		troop3Panel=new JPanel();
 		troop3Panel.setBounds(275, 0, 100, 100);
 		add(troop3Panel);
 
 
-		
+
 		troop3BTN = new JButton ("<html>Troop 3<br>" + "25 Coins");
 		troop3BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
@@ -569,7 +569,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		
+
 		turret1Panel=new JPanel();
 		turret1Panel.setBounds(465, 0, 100, 100);
 		add(turret1Panel);
@@ -695,7 +695,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		
+
 		turret2Panel=new JPanel();
 		turret2Panel.setBounds(565, 0, 100, 100);
 		add(turret2Panel);
@@ -796,7 +796,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		
+
 		turret3Panel=new JPanel();
 		turret3Panel.setBounds(665, 0, 100, 100);
 		add(turret3Panel);
@@ -921,741 +921,739 @@ public class GamePanel extends JPanel implements Runnable{
 
 		super.paintComponent(g);
 		if (pauseGame == true) {
-			
+
 		}
 		else {
 
 
 
-		g.drawImage(castleImageLeft, -75, 180, null);
-		g.drawImage(castleImageRight, 1070, 180, null);
+			g.drawImage(castleImageLeft, -75, 180, null);
+			g.drawImage(castleImageRight, 1070, 180, null);
 
 
 
-		g.drawRect(0, 0, 1200, 100);
+			g.drawRect(0, 0, 1200, 100);
 
 
-		g.drawString("Units:", 10, 20);
-		g.drawString("Turrets:", 400, 20);
-		g.drawString("Money:", 800, 20);
-		g.drawString("Base Health:", 1000, 20);
+			g.drawString("Units:", 10, 20);
+			g.drawString("Turrets:", 400, 20);
+			g.drawString("Money:", 800, 20);
+			g.drawString("Base Health:", 1000, 20);
 
 
 
-		baseHealthUserLabel.setText("<html>User Base<br>"
-				+ "Health: " + userBaseHealth);
-
-
-		baseHouseComLabel.setText("<html>Comp Base<br>"
-				+ "Health: " + compBaseHealth);
-
-
-
-
-		for (int i = 0; i < turretRockCurrent + 1; i++) {
-			try {
-				turretRock.get(i).draw(g);
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-			}
-			catch (IndexOutOfBoundsException n) {
-				System.out.println("Turret Rock Shoot");
-			}
-
-			//try {
-
-			//}
-			//			catch (IndexOutOfBoundsException io) {
-			//				System.out.println("Rock Hit Base");
-			//			}
-		}
-
-
-
-
-
-
-
-
-
-
-		for (int i = 0; i < troopOneCurrent + 1; i ++) {
-			if (troopOneCurrent > -1) {
-				troopOne.get(i).draw(g);
-
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-				//moneyLabel.setText(String.valueOf(totalMoney));
-				System.out.println(totalMoney);
-
-
-				if (troopOne.get(troopOneCurrent).getX() - 1200 > -15 && troopOne.get(troopOneCurrent).getX()- 1200 < 15) {
-
-
-					troopOne.remove(troopOneCurrent);
-					troopOneCurrent = troopOneCurrent - 1;
-					compBaseHealth = compBaseHealth - troopOneDamage;
-
-					if (compBaseHealth == 0) {
-						//stop all the moving object and stop the buttons
-					}
-
-
-
-
-
-
-					System.out.println("Troop One Removed: " + compBaseHealth);
-				}
-
-			}
-
-
-		}
-
-
-
-		for (int i = 0; i < troopTwoCurrent + 1; i ++) {
-			if (troopTwoCurrent > -1) {
-				troopTwo.get(i).draw(g);
-
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-				//moneyLabel.setText("" + totalMoney);
-
-
-				if (troopTwo.get(troopTwoCurrent).getX() - 1200 > -15 && troopTwo.get(troopTwoCurrent).getX()- 1200 < 15) {
-					troopTwo.remove(troopTwo.size()-1);
-					troopTwoCurrent = troopTwoCurrent - 1;
-					System.out.println("Troop Two Removed");
-
-					compBaseHealth = compBaseHealth - troopTwoDamage;
-
-					baseHouseComLabel.setText("<html>Comp Base<br>"
-							+ "Health: " + compBaseHealth);
-
-
-					System.out.println("Troop Two Remove: " + compBaseHealth);
-
-
-
-				}
-
-			}
-
-		}
-
-		for (int i = 0; i < troopThreeCurrent + 1; i ++) {
-			if (troopThreeCurrent > -1) {
-				troopThree.get(i).draw(g);
-
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-				if (troopThree.get(troopThreeCurrent).getX() - 1200 > -15 && troopThree.get(troopThreeCurrent).getX()- 1200 < 15) {
-					troopThree.remove(troopThree.size()-1);
-					troopThreeCurrent = troopThreeCurrent - 1;
-					System.out.println("Troop Three Removed");
-
-
-					compBaseHealth = compBaseHealth - troopThreeDamage;
-
-					baseHouseComLabel.setText("<html>Comp Base<br>"
-							+ "Health: " + compBaseHealth);
-
-					System.out.println("Troop Three Remove: " + compBaseHealth);
-				}
-			}
-
-		}
-
-		for (int i = 0; i < troopOneCurrentAI + 1; i ++) {
-			if (troopOneCurrentAI > -1) {
-				troopOneAI.get(i).draw(g);
-
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-				//moneyLabel.setText("" + totalMoney);
-
-				if (troopOneAI.get(i).getX() - 0 > -15 && troopOneAI.get(i).getX()- 0 < 15) {
-					troopOneAI.remove(i);
-					troopOneCurrentAI = troopOneCurrentAI - 1;
-					System.out.println("Troop OneAI Removed");
-
-
-					userBaseHealth = userBaseHealth - troopOneDamage;
-
-					baseHealthUserLabel.setText("<html>User Base<br>"
-							+ "Health: " + userBaseHealth);
-
-					System.out.println("Troop OneAI Remove: " + userBaseHealth);
-				}
-
-				else {
-					try {
-						for (int k = 0; k < troopOne.size(); k ++) {
-							//this k loop works
-							if (troopOneAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopOne.get(k).getX() < 10) {
-								int troopOneNum = ((int) (Math.random() * 50) + 1);
-								int troopOneNumAI = ((int) (Math.random() * 50) + 1);
-
-								if (troopOneNum > troopOneNumAI) { 
-									troopOneAI.remove(i);
-									troopOneCurrentAI = troopOneCurrentAI -1;
-									System.out.println("Troop One Hit Troop OneAI-removed");
-									totalMoney = totalMoney + TROOP_ONE_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-								else if (troopOneNum < troopOneNumAI) {
-									troopOne.remove(k);
-									troopOneCurrent = troopOneCurrent -1;
-									System.out.println("Troop One-removed Hit Troop OneAI");
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop One Enemy");
-					}
-
-					try {
-						for (int k = 0; k < troopTwo.size(); k ++) {
-							//this k loop works
-							if (troopOneAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
-								int troopTwoNum = ((int) (Math.random() * 75) + 1);
-								int troopOneNumAI = ((int) (Math.random() * 25) + 1);
-
-								if (troopTwoNum > troopOneNumAI) {
-									troopOneAI.remove(i);
-									troopOneCurrentAI = troopOneCurrentAI -1;
-									System.out.println("Troop Two Hit Troop OneAI");
-									totalMoney = totalMoney + TROOP_ONE_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-								else if (troopTwoNum < troopOneNumAI){
-									troopTwo.remove(k);
-									troopTwoCurrent = troopTwoCurrent - 1;
-									System.out.println("Troop Two-removed Hit Troop OneAI");
-								}
-
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Two Enemy");
-					}
-
-					try {
-
-						for (int k = 0; k < troopThree.size(); k ++) {
-							//something is wrong with troop three
-							if (troopOneAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopOneAI.get(i).getX() - troopThree.get(k).getX() < 20) {
-								int troopThreeNum = ((int) (Math.random() * 90) + 1);
-								int troopOneNumAI = ((int) (Math.random() * 10) + 1);
-
-								if (troopThreeNum > troopOneNumAI) {
-									troopOneAI.remove(i);
-									troopOneCurrentAI = troopOneCurrentAI -1;
-									System.out.println("Troop Three Hit Troop OneAI");
-									totalMoney = totalMoney + TROOP_ONE_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-								else if (troopThreeNum < troopOneNumAI){ {
-									troopThree.remove(k);
-									troopThreeCurrent = troopThreeCurrent - 1;
-									System.out.println("Troop Three-removed Hit Troop OneAI");
-								}
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Three Enemy");
-					}
-
-				}
-			}
-		}
-
-		for (int i = 0; i < troopTwoCurrentAI + 1; i ++) {
-			if (troopTwoCurrentAI > -1) {
-				troopTwoAI.get(i).draw(g);
-
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-				if (troopTwoAI.get(i).getX() - 0 > -15 && troopTwoAI.get(i).getX()- 0 < 15) {
-					troopTwoAI.remove(i);
-					troopTwoCurrentAI = troopTwoCurrentAI - 1;
-					System.out.println("Troop TwoAI Removed");
-
-
-					userBaseHealth = userBaseHealth - troopTwoDamage;
-
-					baseHealthUserLabel.setText("<html>User Base<br>"
-							+ "Health: " + userBaseHealth);
-
-					System.out.println("Troop TwoAI Remove: " + userBaseHealth);
-				}
-				else {
-
-					try {
-						for (int k = 0; k <troopOne.size(); k++) {
-							//this k loop works
-							if (troopTwoAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopOne.get(k).getX() < 10) {
-								int troopOneNum = ((int)(Math.random() * 25) + 1);
-								int troopTwoNumAI = ((int)(Math.random() * 75) + 1);
-
-								if (troopOneNum > troopTwoNumAI) {
-									troopTwoAI.remove(i);
-									troopTwoCurrentAI = troopTwoCurrentAI -1;
-									System.out.println("Troop TwoAI Hit");
-									totalMoney = totalMoney + TROOP_TWO_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-
-								else if (troopOneNum < troopTwoNumAI) {
-									troopOne.remove(k);
-									troopOneCurrent = troopOneCurrent -1;
-									System.out.println("Troop One Hit");
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Two Enemy");
-					}
-
-
-
-					try {
-						for (int k = 0; k <troopTwo.size(); k++) {
-							//this k loop works
-							if (troopTwoAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
-								int troopTwoNum = ((int)(Math.random() * 50) + 1);
-								int troopTwoNumAI = ((int)(Math.random() * 50) + 1);
-
-								if (troopTwoNum > troopTwoNumAI) {
-									troopTwoAI.remove(i);
-									troopTwoCurrentAI = troopTwoCurrentAI -1;
-									System.out.println("Troop TwoAI Hit");
-									totalMoney = totalMoney + TROOP_TWO_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-
-								else if (troopTwoNum < troopTwoNumAI) {
-									troopTwo.remove(k);
-									troopTwoCurrent = troopTwoCurrent -1;
-									System.out.println("Troop Two Hit");
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Two Enemy");
-					}
-
-					try {
-						for (int k = 0; k <troopThree.size(); k++) {
-							//something is wrong with troop three
-							if (troopTwoAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopTwoAI.get(i).getX() - troopThree.get(k).getX() < 20) {
-								int troopThreeNum = ((int)(Math.random() * 75) + 1);
-								int troopTwoNumAI = ((int)(Math.random() * 25) + 1);
-
-								if (troopThreeNum > troopTwoNumAI) {
-									troopTwoAI.remove(i);
-									troopTwoCurrentAI = troopTwoCurrentAI -1;
-									System.out.println("Troop TwoAI Hit");
-									totalMoney = totalMoney + TROOP_TWO_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-
-								else if (troopThreeNum < troopTwoNumAI) {
-									troopThree.remove(k);
-									troopThreeCurrent = troopThreeCurrent -1;
-									System.out.println("Troop Three Hit");
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Two Enemy");
-					}
-
-
-
-				}
-			}
-
-		}
-		for (int i = 0; i < troopThreeCurrentAI + 1; i ++) {
-			if (troopThreeCurrentAI > -1) {
-				troopThreeAI.get(i).draw(g);
-
-				moneyLabel.setText(String.valueOf(totalMoney));
-
-				if (troopThreeAI.get(i).getX() - 0 >-15 && troopThreeAI.get(i).getX() - 0 < 15) {
-					troopThreeAI.remove(i);
-					troopThreeCurrentAI = troopThreeCurrentAI -1;
-					System.out.println("Troop ThreeAI Removed");
-
-					userBaseHealth = userBaseHealth - troopThreeDamage;
-
-					baseHealthUserLabel.setText("<html>User Base<br>"
-							+ "Health: " + userBaseHealth);
-					System.out.println("Troop ThreeAI Remove: " + userBaseHealth);
-
-				}
-				else {
-
-					try {
-						for (int k = 0; k < troopOne.size(); k++) {
-							if (troopThreeAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopOne.get(k).getX() < 10) {
-								int troopOneNum = ((int)(Math.random() * 10) + 1);
-								int troopThreeNumAI = ((int)(Math.random() * 90) + 1);
-
-								if (troopOneNum > troopThreeNumAI) {
-									troopThreeAI.remove(i);
-									troopThreeCurrentAI = troopThreeCurrentAI -1;
-									System.out.println("Troop ThreeAI Hit");
-									totalMoney = totalMoney + TROOP_THREE_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-								else if (troopOneNum < troopThreeNumAI) {
-									troopOne.remove(k);
-									troopOneCurrent = troopOneCurrent - 1;
-									System.out.println("Troop One Hit");
-
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Three Hit Enemy");
-					}
-
-
-					try {
-						for (int k = 0; k < troopTwo.size(); k++) {
-							if (troopThreeAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
-								int troopTwoNum = ((int)(Math.random() * 25) + 1);
-								int troopThreeNumAI = ((int)(Math.random() * 75) + 1);
-
-								if (troopTwoNum > troopThreeNumAI) {
-									troopThreeAI.remove(i);
-									troopThreeCurrentAI = troopThreeCurrentAI -1;
-									System.out.println("Troop ThreeAI Hit");
-									totalMoney = totalMoney + TROOP_THREE_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-								else if (troopTwoNum < troopThreeNumAI) {
-									troopTwo.remove(k);
-									troopTwoCurrent = troopTwoCurrent - 1;
-									System.out.println("Troop Two Hit");
-
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Three Hit Enemy");
-					}
-
-					try {
-						for (int k = 0; k < troopThree.size(); k++) {
-							if (troopThreeAI.get(i).getX() - troopThree.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(k).getX() < 10) {
-								int troopThreeNum = ((int)(Math.random() * 50) + 1);
-								int troopThreeNumAI = ((int)(Math.random() * 50) + 1);
-
-								if (troopThreeNum > troopThreeNumAI) {
-									troopThreeAI.remove(i);
-									troopThreeCurrentAI = troopThreeCurrentAI -1;
-									System.out.println("Troop ThreeAI Hit");
-									totalMoney = totalMoney + TROOP_THREE_MONEY;
-									moneyLabel.setText(String.valueOf(totalMoney));
-								}
-								else if (troopThreeNum < troopThreeNumAI) {
-									troopThree.remove(k);
-									troopThreeCurrent = troopThreeCurrent - 1;
-									System.out.println("Troop Three Hit");
-
-								}
-							}
-						}
-					}
-					catch (IndexOutOfBoundsException e) {
-						System.out.println("Troop Three Hit Enemy");
-					}
-
-				}
-
-			}
-
-		}
-
-
-
-		moneyLabel.setText(String.valueOf(totalMoney));
-		
-		
-		if (compBaseHealth < 1) {
-			pauseGame = true;
-			
-			baseHouseComPanel.setBounds(300, 0, 500, 100);
-			baseHealthUserPanel.setBounds(300, 100, 500, 100);
-
-			baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 40));
-			
-			baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 40));
-			baseHouseComLabel.setText("<html>Comp Base<br>"
-					+ "Health: " + "0");
-			
-			JPanel namePanel = new JPanel();
-			namePanel.setBounds(300, 300, 500, 50);
-			add(namePanel);
-			
-			
-			
-			
-			
-			JTextField nameText = new JTextField();
-			nameText.setBounds(300, 300, 300, 50);
-			nameText.setPreferredSize(new Dimension(300,35));
-			namePanel.add(nameText);
-			
-			JButton nameSubmit;
-			nameSubmit = new JButton();
-			nameSubmit.setBounds(350, 300, 50, 50);
-			nameSubmit.setText("Enter");
-			namePanel.add(nameSubmit);
-			
-			playAgainPanel = new JPanel();
-			playAgainPanel.setBounds(400, 450, 300, 100);
-			
-			
-			add(playAgainPanel);
-			playAgainPanel.setVisible(true);
-			
-			
-			playAgainBTN = new JButton();
-			playAgainBTN.setPreferredSize(new Dimension(150,50));
-			playAgainBTN.setBounds(400, 450, 150, 45);
-			playAgainBTN.setEnabled(false);
-			playAgainBTN.setText("Play Again");
-			playAgainPanel.add(playAgainBTN);
-			
-			playAgainBTN.update(g);
-			
-			
-			
-			
-			quitBTN = new JButton();
-			quitBTN.setPreferredSize(new Dimension(150,50));
-			quitBTN.setBounds(400, 450, 150, 45);
-			quitBTN.setEnabled(false);
-			quitBTN.setText("Quit Game");
-			playAgainPanel.add(quitBTN);
-			quitBTN.update(g);
-			
-			nameSubmit.addActionListener(new ActionListener(){
-				   public void actionPerformed(ActionEvent ae){
-				      String textFieldValue = nameText.getText();
-				      nameSubmit.setEnabled(false);
-				      
-				      playAgainBTN.setEnabled(true);
-				      quitBTN.setEnabled(true);
-				      
-				      System.out.println(textFieldValue);
-				      try {
-				    	  File newTextFile = new File("src/gameProject/userNameTextFile");
-				    	  
-			
-			
-
-				            FileWriter fw = new FileWriter(newTextFile);
-				            fw.write(textFieldValue + ", Comp Base: " + compBaseHealth + ", User Base: " + userBaseHealth);
-				            fw.close();
-				     
-
-				        } catch (IOException iox) {
-				            //do stuff with exception
-				            iox.printStackTrace();
-				        }
-				      // .... do some operation on value ...
-				      
-				      
-				      
-				   }
-				});
-			
-			
-			try {
-
-				try {
-					timer.stop();
-				}
-				catch (NullPointerException w) {
-
-				}
-
-				try {
-					timer2.stop();
-				}
-				catch (NullPointerException w) {
-
-				}
-				try {
-					timer3.stop();
-				}
-				catch (NullPointerException w) {
-
-				}
-
-				try {
-					timer4.stop();
-				}
-				catch (NullPointerException w) {
-
-				}
-
-
-				turret1BTN.setEnabled(false);
-				turret2BTN.setEnabled(false);
-				turret3BTN.setEnabled(false);
-				
-				troop1Panel.setVisible(false);
-				troop1BTN.setVisible(false);
-				troop2Panel.setVisible(false);
-				troop2BTN.setVisible(false);
-				troop3Panel.setVisible(false);
-				troop3BTN.setVisible(false);
-				turret1Panel.setVisible(false);
-				turret2Panel.setVisible(false);
-				turret3Panel.setVisible(false);
-				turretOneLabel.setVisible(false);
-				turretTwoLabel.setVisible(false);
-				turretThreeLabel.setVisible(false);
-				
-				
-
-
-				//stop all the movement
-				for (int h = 0; h < troopOneCurrent + 1; h++) {
-					troopOne.remove(h);
-				}
-				for (int h = 0; h < troopTwoCurrent + 1; h++) {
-					troopTwo.remove(h);
-				}
-				for (int h = 0; h < troopThreeCurrent + 1; h++) {
-					troopThree.remove(h);
-				}
-				for (int h = 0; h < troopOneCurrentAI + 1; h++) {
-					troopOneAI.remove(h);
-				}
-				for (int h = 0; h < troopTwoCurrentAI + 1; h++) {
-					troopTwoAI.remove(h);
-				}
-				for (int h = 0; h < troopThreeCurrentAI + 1; h++) {
-					troopThreeAI.remove(h);
-				}
-				for (int h = 0; h < turretRockCurrent + 1; h++) {
-					turretRock.remove(h);
-				}
-				troopOneCurrentAI = -1;
-				troopTwoCurrentAI = -1;
-				troopThreeCurrentAI = -1;
-
-
-
-			}
-			catch (IndexOutOfBoundsException ip) {
-				System.out.println("Clear the screen");
-			}
-		}
-		if (userBaseHealth < 1) {
-			pauseGame = true;
 			baseHealthUserLabel.setText("<html>User Base<br>"
-					+ "Health: " + "0");
+					+ "Health: " + userBaseHealth);
 
-			try {
-				//stop all the movement
+
+			baseHouseComLabel.setText("<html>Comp Base<br>"
+					+ "Health: " + compBaseHealth);
+
+
+
+
+			for (int i = 0; i < turretRockCurrent + 1; i++) {
 				try {
-					timer.stop();
+					turretRock.get(i).draw(g);
+					moneyLabel.setText(String.valueOf(totalMoney));
+
 				}
-				catch (NullPointerException w) {
+				catch (IndexOutOfBoundsException n) {
+					System.out.println("Turret Rock Shoot");
+				}
+
+				//try {
+
+				//}
+				//			catch (IndexOutOfBoundsException io) {
+				//				System.out.println("Rock Hit Base");
+				//			}
+			}
+
+
+
+
+
+
+
+
+
+
+			for (int i = 0; i < troopOneCurrent + 1; i ++) {
+				if (troopOneCurrent > -1) {
+					troopOne.get(i).draw(g);
+
+					moneyLabel.setText(String.valueOf(totalMoney));
+
+					//moneyLabel.setText(String.valueOf(totalMoney));
+					System.out.println(totalMoney);
+
+
+					if (troopOne.get(troopOneCurrent).getX() - 1200 > -15 && troopOne.get(troopOneCurrent).getX()- 1200 < 15) {
+
+
+						troopOne.remove(troopOneCurrent);
+						troopOneCurrent = troopOneCurrent - 1;
+						compBaseHealth = compBaseHealth - troopOneDamage;
+
+						if (compBaseHealth == 0) {
+							//stop all the moving object and stop the buttons
+						}
+
+
+
+
+
+
+						System.out.println("Troop One Removed: " + compBaseHealth);
+					}
 
 				}
 
-				try {
-					timer2.stop();
-				}
-				catch (NullPointerException w) {
 
-				}
-				try {
-					timer3.stop();
-				}
-				catch (NullPointerException w) {
-
-				}
-
-				try {
-					timer4.stop();
-				}
-				catch (NullPointerException w) {
-
-				}
+			}
 
 
-				turret1BTN.setEnabled(false);
-				turret2BTN.setEnabled(false);
-				turret3BTN.setEnabled(false);
+
+			for (int i = 0; i < troopTwoCurrent + 1; i ++) {
+				if (troopTwoCurrent > -1) {
+					troopTwo.get(i).draw(g);
+
+					moneyLabel.setText(String.valueOf(totalMoney));
+
+					//moneyLabel.setText("" + totalMoney);
+
+
+					if (troopTwo.get(troopTwoCurrent).getX() - 1200 > -15 && troopTwo.get(troopTwoCurrent).getX()- 1200 < 15) {
+						troopTwo.remove(troopTwo.size()-1);
+						troopTwoCurrent = troopTwoCurrent - 1;
+						System.out.println("Troop Two Removed");
+
+						compBaseHealth = compBaseHealth - troopTwoDamage;
+
+						baseHouseComLabel.setText("<html>Comp Base<br>"
+								+ "Health: " + compBaseHealth);
+
+
+						System.out.println("Troop Two Remove: " + compBaseHealth);
+
+
+
+					}
+
+				}
+
+			}
+
+			for (int i = 0; i < troopThreeCurrent + 1; i ++) {
+				if (troopThreeCurrent > -1) {
+					troopThree.get(i).draw(g);
+
+					moneyLabel.setText(String.valueOf(totalMoney));
+
+					if (troopThree.get(troopThreeCurrent).getX() - 1200 > -15 && troopThree.get(troopThreeCurrent).getX()- 1200 < 15) {
+						troopThree.remove(troopThree.size()-1);
+						troopThreeCurrent = troopThreeCurrent - 1;
+						System.out.println("Troop Three Removed");
+
+
+						compBaseHealth = compBaseHealth - troopThreeDamage;
+
+						baseHouseComLabel.setText("<html>Comp Base<br>"
+								+ "Health: " + compBaseHealth);
+
+						System.out.println("Troop Three Remove: " + compBaseHealth);
+					}
+				}
+
+			}
+
+			for (int i = 0; i < troopOneCurrentAI + 1; i ++) {
+				if (troopOneCurrentAI > -1) {
+					troopOneAI.get(i).draw(g);
+
+					moneyLabel.setText(String.valueOf(totalMoney));
+
+					//moneyLabel.setText("" + totalMoney);
+
+					if (troopOneAI.get(i).getX() - 0 > -15 && troopOneAI.get(i).getX()- 0 < 15) {
+						troopOneAI.remove(i);
+						troopOneCurrentAI = troopOneCurrentAI - 1;
+						System.out.println("Troop OneAI Removed");
+
+
+						userBaseHealth = userBaseHealth - troopOneDamage;
+
+						baseHealthUserLabel.setText("<html>User Base<br>"
+								+ "Health: " + userBaseHealth);
+
+						System.out.println("Troop OneAI Remove: " + userBaseHealth);
+					}
+
+					else {
+						try {
+							for (int k = 0; k < troopOne.size(); k ++) {
+								//this k loop works
+								if (troopOneAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopOne.get(k).getX() < 10) {
+									int troopOneNum = ((int) (Math.random() * 50) + 1);
+									int troopOneNumAI = ((int) (Math.random() * 50) + 1);
+
+									if (troopOneNum > troopOneNumAI) { 
+										troopOneAI.remove(i);
+										troopOneCurrentAI = troopOneCurrentAI -1;
+										System.out.println("Troop One Hit Troop OneAI-removed");
+										totalMoney = totalMoney + TROOP_ONE_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+									else if (troopOneNum < troopOneNumAI) {
+										troopOne.remove(k);
+										troopOneCurrent = troopOneCurrent -1;
+										System.out.println("Troop One-removed Hit Troop OneAI");
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop One Enemy");
+						}
+
+						try {
+							for (int k = 0; k < troopTwo.size(); k ++) {
+								//this k loop works
+								if (troopOneAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopOneAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
+									int troopTwoNum = ((int) (Math.random() * 75) + 1);
+									int troopOneNumAI = ((int) (Math.random() * 25) + 1);
+
+									if (troopTwoNum > troopOneNumAI) {
+										troopOneAI.remove(i);
+										troopOneCurrentAI = troopOneCurrentAI -1;
+										System.out.println("Troop Two Hit Troop OneAI");
+										totalMoney = totalMoney + TROOP_ONE_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+									else if (troopTwoNum < troopOneNumAI){
+										troopTwo.remove(k);
+										troopTwoCurrent = troopTwoCurrent - 1;
+										System.out.println("Troop Two-removed Hit Troop OneAI");
+									}
+
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Two Enemy");
+						}
+
+						try {
+
+							for (int k = 0; k < troopThree.size(); k ++) {
+								//something is wrong with troop three
+								if (troopOneAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopOneAI.get(i).getX() - troopThree.get(k).getX() < 20) {
+									int troopThreeNum = ((int) (Math.random() * 90) + 1);
+									int troopOneNumAI = ((int) (Math.random() * 10) + 1);
+
+									if (troopThreeNum > troopOneNumAI) {
+										troopOneAI.remove(i);
+										troopOneCurrentAI = troopOneCurrentAI -1;
+										System.out.println("Troop Three Hit Troop OneAI");
+										totalMoney = totalMoney + TROOP_ONE_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+									else if (troopThreeNum < troopOneNumAI){ {
+										troopThree.remove(k);
+										troopThreeCurrent = troopThreeCurrent - 1;
+										System.out.println("Troop Three-removed Hit Troop OneAI");
+									}
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Three Enemy");
+						}
+
+					}
+				}
+			}
+
+			for (int i = 0; i < troopTwoCurrentAI + 1; i ++) {
+				if (troopTwoCurrentAI > -1) {
+					troopTwoAI.get(i).draw(g);
+
+					moneyLabel.setText(String.valueOf(totalMoney));
+
+					if (troopTwoAI.get(i).getX() - 0 > -15 && troopTwoAI.get(i).getX()- 0 < 15) {
+						troopTwoAI.remove(i);
+						troopTwoCurrentAI = troopTwoCurrentAI - 1;
+						System.out.println("Troop TwoAI Removed");
+
+
+						userBaseHealth = userBaseHealth - troopTwoDamage;
+
+						baseHealthUserLabel.setText("<html>User Base<br>"
+								+ "Health: " + userBaseHealth);
+
+						System.out.println("Troop TwoAI Remove: " + userBaseHealth);
+					}
+					else {
+
+						try {
+							for (int k = 0; k <troopOne.size(); k++) {
+								//this k loop works
+								if (troopTwoAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopOne.get(k).getX() < 10) {
+									int troopOneNum = ((int)(Math.random() * 25) + 1);
+									int troopTwoNumAI = ((int)(Math.random() * 75) + 1);
+
+									if (troopOneNum > troopTwoNumAI) {
+										troopTwoAI.remove(i);
+										troopTwoCurrentAI = troopTwoCurrentAI -1;
+										System.out.println("Troop TwoAI Hit");
+										totalMoney = totalMoney + TROOP_TWO_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+
+									else if (troopOneNum < troopTwoNumAI) {
+										troopOne.remove(k);
+										troopOneCurrent = troopOneCurrent -1;
+										System.out.println("Troop One Hit");
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Two Enemy");
+						}
+
+
+
+						try {
+							for (int k = 0; k <troopTwo.size(); k++) {
+								//this k loop works
+								if (troopTwoAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopTwoAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
+									int troopTwoNum = ((int)(Math.random() * 50) + 1);
+									int troopTwoNumAI = ((int)(Math.random() * 50) + 1);
+
+									if (troopTwoNum > troopTwoNumAI) {
+										troopTwoAI.remove(i);
+										troopTwoCurrentAI = troopTwoCurrentAI -1;
+										System.out.println("Troop TwoAI Hit");
+										totalMoney = totalMoney + TROOP_TWO_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+
+									else if (troopTwoNum < troopTwoNumAI) {
+										troopTwo.remove(k);
+										troopTwoCurrent = troopTwoCurrent -1;
+										System.out.println("Troop Two Hit");
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Two Enemy");
+						}
+
+						try {
+							for (int k = 0; k <troopThree.size(); k++) {
+								//something is wrong with troop three
+								if (troopTwoAI.get(i).getX() - troopThree.get(k).getX() >-20 && troopTwoAI.get(i).getX() - troopThree.get(k).getX() < 20) {
+									int troopThreeNum = ((int)(Math.random() * 75) + 1);
+									int troopTwoNumAI = ((int)(Math.random() * 25) + 1);
+
+									if (troopThreeNum > troopTwoNumAI) {
+										troopTwoAI.remove(i);
+										troopTwoCurrentAI = troopTwoCurrentAI -1;
+										System.out.println("Troop TwoAI Hit");
+										totalMoney = totalMoney + TROOP_TWO_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+
+									else if (troopThreeNum < troopTwoNumAI) {
+										troopThree.remove(k);
+										troopThreeCurrent = troopThreeCurrent -1;
+										System.out.println("Troop Three Hit");
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Two Enemy");
+						}
+
+
+
+					}
+				}
+
+			}
+			for (int i = 0; i < troopThreeCurrentAI + 1; i ++) {
+				if (troopThreeCurrentAI > -1) {
+					troopThreeAI.get(i).draw(g);
+
+					moneyLabel.setText(String.valueOf(totalMoney));
+
+					if (troopThreeAI.get(i).getX() - 0 >-15 && troopThreeAI.get(i).getX() - 0 < 15) {
+						troopThreeAI.remove(i);
+						troopThreeCurrentAI = troopThreeCurrentAI -1;
+						System.out.println("Troop ThreeAI Removed");
+
+						userBaseHealth = userBaseHealth - troopThreeDamage;
+
+						baseHealthUserLabel.setText("<html>User Base<br>"
+								+ "Health: " + userBaseHealth);
+						System.out.println("Troop ThreeAI Remove: " + userBaseHealth);
+
+					}
+					else {
+
+						try {
+							for (int k = 0; k < troopOne.size(); k++) {
+								if (troopThreeAI.get(i).getX() - troopOne.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopOne.get(k).getX() < 10) {
+									int troopOneNum = ((int)(Math.random() * 10) + 1);
+									int troopThreeNumAI = ((int)(Math.random() * 90) + 1);
+
+									if (troopOneNum > troopThreeNumAI) {
+										troopThreeAI.remove(i);
+										troopThreeCurrentAI = troopThreeCurrentAI -1;
+										System.out.println("Troop ThreeAI Hit");
+										totalMoney = totalMoney + TROOP_THREE_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+									else if (troopOneNum < troopThreeNumAI) {
+										troopOne.remove(k);
+										troopOneCurrent = troopOneCurrent - 1;
+										System.out.println("Troop One Hit");
+
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Three Hit Enemy");
+						}
+
+
+						try {
+							for (int k = 0; k < troopTwo.size(); k++) {
+								if (troopThreeAI.get(i).getX() - troopTwo.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopTwo.get(k).getX() < 10) {
+									int troopTwoNum = ((int)(Math.random() * 25) + 1);
+									int troopThreeNumAI = ((int)(Math.random() * 75) + 1);
+
+									if (troopTwoNum > troopThreeNumAI) {
+										troopThreeAI.remove(i);
+										troopThreeCurrentAI = troopThreeCurrentAI -1;
+										System.out.println("Troop ThreeAI Hit");
+										totalMoney = totalMoney + TROOP_THREE_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+									else if (troopTwoNum < troopThreeNumAI) {
+										troopTwo.remove(k);
+										troopTwoCurrent = troopTwoCurrent - 1;
+										System.out.println("Troop Two Hit");
+
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Three Hit Enemy");
+						}
+
+						try {
+							for (int k = 0; k < troopThree.size(); k++) {
+								if (troopThreeAI.get(i).getX() - troopThree.get(k).getX() >-10 && troopThreeAI.get(i).getX() - troopThree.get(k).getX() < 10) {
+									int troopThreeNum = ((int)(Math.random() * 50) + 1);
+									int troopThreeNumAI = ((int)(Math.random() * 50) + 1);
+
+									if (troopThreeNum > troopThreeNumAI) {
+										troopThreeAI.remove(i);
+										troopThreeCurrentAI = troopThreeCurrentAI -1;
+										System.out.println("Troop ThreeAI Hit");
+										totalMoney = totalMoney + TROOP_THREE_MONEY;
+										moneyLabel.setText(String.valueOf(totalMoney));
+									}
+									else if (troopThreeNum < troopThreeNumAI) {
+										troopThree.remove(k);
+										troopThreeCurrent = troopThreeCurrent - 1;
+										System.out.println("Troop Three Hit");
+
+									}
+								}
+							}
+						}
+						catch (IndexOutOfBoundsException e) {
+							System.out.println("Troop Three Hit Enemy");
+						}
+
+					}
+
+				}
+
+			}
+
+
+
+			moneyLabel.setText(String.valueOf(totalMoney));
+
+
+			if (compBaseHealth < 1 || userBaseHealth < 1) {
+				pauseGame = true;
+
+				baseHouseComPanel.setBounds(300, 0, 500, 100);
+				baseHealthUserPanel.setBounds(300, 100, 500, 100);
 				
-				troop1Panel.setVisible(false);
-				troop1BTN.setVisible(false);
-				troop2Panel.setVisible(false);
-				troop2BTN.setVisible(false);
-				troop3Panel.setVisible(false);
-				troop3BTN.setVisible(false);
-				turret1Panel.setVisible(false);
-				turret2Panel.setVisible(false);
-				turret3Panel.setVisible(false);
-				turretOneLabel.setVisible(false);
-				turretTwoLabel.setVisible(false);
-				turretThreeLabel.setVisible(false);
 
-				for (int h = 0; h < troopOneCurrent + 1; h++) {
-					troopOne.remove(h);
+				baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+
+				baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+				if (compBaseHealth < 1) {
+					baseHouseComLabel.setText("<html>Comp Base<br>"
+							+ "Health: " + "0");
+					compBaseHealth = 0;
 				}
-				for (int h = 0; h < troopTwoCurrent + 1; h++) {
-					troopTwo.remove(h);
-				}
-				for (int h = 0; h < troopThreeCurrent + 1; h++) {
-					troopThree.remove(h);
-				}
-				for (int h = 0; h < troopOneCurrentAI + 1; h++) {
-					troopOneAI.remove(h);
-				}
-				for (int h = 0; h < troopTwoCurrentAI + 1; h++) {
-					troopTwoAI.remove(h);
-				}
-				for (int h = 0; h < troopThreeCurrentAI + 1; h++) {
-					troopThreeAI.remove(h);
-				}
-				for (int h = 0; h < turretRockCurrent + 1; h++) {
-					turretRock.remove(h);
+				if (userBaseHealth < 1) {
+					baseHealthUserLabel.setText("<html>User Base<br>"
+							+ "Health: " + "0");
+					userBaseHealth = 0;
 				}
 
-				troopOneCurrentAI = -1;
-				troopTwoCurrentAI = -1;
-				troopThreeCurrentAI = -1;
+				JPanel namePanel = new JPanel();
+				namePanel.setBounds(300, 300, 500, 50);
+				add(namePanel);
 
 
 
+
+
+				JTextField nameText = new JTextField();
+				nameText.setBounds(300, 300, 300, 50);
+				nameText.setPreferredSize(new Dimension(300,35));
+				namePanel.add(nameText);
+
+				JButton nameSubmit;
+				nameSubmit = new JButton();
+				nameSubmit.setBounds(350, 300, 50, 50);
+				nameSubmit.setText("Enter");
+				namePanel.add(nameSubmit);
+
+				playAgainPanel = new JPanel();
+				playAgainPanel.setBounds(400, 450, 300, 100);
+
+
+				add(playAgainPanel);
+				playAgainPanel.setVisible(true);
+
+
+				playAgainBTN = new JButton();
+				playAgainBTN.setPreferredSize(new Dimension(150,50));
+				playAgainBTN.setBounds(400, 450, 150, 45);
+				playAgainBTN.setEnabled(false);
+				playAgainBTN.setText("Play Again");
+				playAgainPanel.add(playAgainBTN);
+
+				playAgainBTN.update(g);
+
+
+
+
+				quitBTN = new JButton();
+				quitBTN.setPreferredSize(new Dimension(150,50));
+				quitBTN.setBounds(400, 450, 150, 45);
+				quitBTN.setEnabled(false);
+				quitBTN.setText("Quit Game");
+				playAgainPanel.add(quitBTN);
+				quitBTN.update(g);
+
+				nameSubmit.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent ae){
+						String textFieldValue = nameText.getText();
+						nameSubmit.setEnabled(false);
+
+						playAgainBTN.setEnabled(true);
+						quitBTN.setEnabled(true);
+
+						System.out.println(textFieldValue);
+						try {
+							File newTextFile = new File("src/gameProject/userNameTextFile");
+
+							FileWriter fw = new FileWriter(newTextFile);
+							fw.write(textFieldValue + ", Comp Base: " + compBaseHealth + ", User Base: " + userBaseHealth);
+							fw.close();
+
+
+						} catch (IOException iox) {
+							//do stuff with exception
+							iox.printStackTrace();
+						}
+						// .... do some operation on value ...
+
+						quitBTN.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent i){
+						System.exit(0);
+							}
+						});
+						
+						playAgainBTN.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent i){
+								troopOneCurrent = -1;
+								troopTwoCurrent = -1;
+								troopThreeCurrent = -1;
+
+								troopOneCurrentAI = -1;
+								troopTwoCurrentAI = -1;
+								troopThreeCurrentAI = -1;
+
+								turretOneClicked = false;
+								turretTwoClicked = false;
+								turretThreeClicked = false;
+
+								turretOneActive = false;
+								turretTwoActive = false;
+								turretThreeActive = false;
+
+								turretActive = false;
+								turretRockCurrent = -1;
+								
+								
+								userBaseHealth = 100;
+								compBaseHealth = 100;
+								
+								turret1BTN.setEnabled(true);
+								turret2BTN.setEnabled(true);
+								turret3BTN.setEnabled(true);
+
+								troop1Panel.setVisible(true);
+								troop1BTN.setVisible(true);
+								troop2Panel.setVisible(true);
+								troop2BTN.setVisible(true);
+								troop3Panel.setVisible(true);
+								troop3BTN.setVisible(true);
+								turret1Panel.setVisible(true);
+								turret2Panel.setVisible(true);
+								turret3Panel.setVisible(true);
+								turretOneLabel.setVisible(false);
+								turretTwoLabel.setVisible(false);
+								turretThreeLabel.setVisible(false);
+								totalMoney = 200;
+
+								
+								AICharacterChoice = ((int) (Math.random() * 11) + 1);
+								
+								timer.start();
+								//timer2.start();
+								//timer3.start();
+								//timer4.start();
+								
+								remove(namePanel);
+								namePanel.remove(nameText);
+								namePanel.remove(nameSubmit);
+								remove(playAgainPanel);
+								playAgainPanel.remove(playAgainBTN);
+								playAgainPanel.remove(quitBTN);
+								
+								//back to orginal
+								baseHouseComPanel.setBounds(1100, 50, 85, 50);
+								baseHealthUserPanel.setBounds(1100, 0, 85, 50);
+
+								baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+
+								baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+								
+								
+								pauseGame = false;
+								
+								
+							}
+						});
+					}
+				});
+
+
+				try {
+
+					try {
+						timer.stop();
+					}
+					catch (NullPointerException w) {
+
+					}
+
+					try {
+						timer2.stop();
+					}
+					catch (NullPointerException w) {
+
+					}
+					try {
+						timer3.stop();
+					}
+					catch (NullPointerException w) {
+
+					}
+
+					try {
+						timer4.stop();
+					}
+					catch (NullPointerException w) {
+
+					}
+
+
+					turret1BTN.setEnabled(false);
+					turret2BTN.setEnabled(false);
+					turret3BTN.setEnabled(false);
+
+					troop1Panel.setVisible(false);
+					troop1BTN.setVisible(false);
+					troop2Panel.setVisible(false);
+					troop2BTN.setVisible(false);
+					troop3Panel.setVisible(false);
+					troop3BTN.setVisible(false);
+					turret1Panel.setVisible(false);
+					turret2Panel.setVisible(false);
+					turret3Panel.setVisible(false);
+					turretOneLabel.setVisible(false);
+					turretTwoLabel.setVisible(false);
+					turretThreeLabel.setVisible(false);
+
+
+
+
+					//stop all the movement
+					for (int h = 0; h < troopOneCurrent + 1; h++) {
+						troopOne.remove(h);
+					}
+					for (int h = 0; h < troopTwoCurrent + 1; h++) {
+						troopTwo.remove(h);
+					}
+					for (int h = 0; h < troopThreeCurrent + 1; h++) {
+						troopThree.remove(h);
+					}
+					for (int h = 0; h < troopOneCurrentAI + 1; h++) {
+						troopOneAI.remove(h);
+					}
+					for (int h = 0; h < troopTwoCurrentAI + 1; h++) {
+						troopTwoAI.remove(h);
+					}
+					for (int h = 0; h < troopThreeCurrentAI + 1; h++) {
+						troopThreeAI.remove(h);
+					}
+					for (int h = 0; h < turretRockCurrent + 1; h++) {
+						turretRock.remove(h);
+					}
+					troopOneCurrentAI = -1;
+					troopTwoCurrentAI = -1;
+					troopThreeCurrentAI = -1;
+
+
+
+				}
+				catch (IndexOutOfBoundsException ip) {
+					System.out.println("Clear the screen");
+				}
 			}
-			catch (IndexOutOfBoundsException ii) {
-				System.out.println("Clear the screen");
-			}
+
 		}
-	}
 	}
 
 	public void run()
