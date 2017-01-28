@@ -1,3 +1,8 @@
+Author: Nicholas Dietrich
+January 25, 2017
+EndlessWar
+GamePanel.java- is the main game class
+
 Instructions:
 
 This is a strategy game called Endless War. Essentially the user tries to defeat the 'Comp' base before they have their base destroyed.
