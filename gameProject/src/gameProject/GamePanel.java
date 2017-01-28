@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -188,6 +189,9 @@ public class GamePanel extends JPanel implements Runnable{
 	JButton playAgainBTN;
 	JButton quitBTN;
 
+	JPanel startBTNPanel;
+	JPanel startBTN;
+
 
 	public static void main(String[] args) {
 
@@ -231,6 +235,35 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 	public GamePanel(){
+
+
+
+//		startBTNPanel=new JPanel();
+//		startBTNPanel.setBounds(0, 0, 1200, 600);
+//		add(startBTNPanel);
+//
+//
+//		JButton startBTN;
+//		startBTN = new JButton ("Play");
+//		startBTN.setFont(new Font("Arial", Font.PLAIN, 375));
+//		setLayout(null);
+//		startBTN.setPreferredSize(new Dimension(1200, 600));
+//
+//
+//		startBTNPanel.add(startBTN);
+//		//timer.stop();
+//
+//		startBTN.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				remove(startBTNPanel);
+//				//timer.start();
+//			}
+//		});
+
+
+
+
+
 
 		moneyPanel = new JPanel();
 		moneyPanel.setBounds(875, 0, 100, 100);
@@ -388,7 +421,36 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+		startBTNPanel=new JPanel();
+		startBTNPanel.setBounds(0, 0, 1200, 600);
+		startBTNPanel.setBackground(Color.YELLOW);
+		add(startBTNPanel);
 
+
+		JButton startBTN;
+		startBTN = new JButton ("<html>___Play___<br> Endless War");
+		startBTN.setBackground(Color.YELLOW);
+		startBTN.setFont(new Font("Arial", Font.PLAIN, 200));
+		setLayout(null);
+		startBTN.setPreferredSize(new Dimension(1200, 600));
+
+
+		startBTNPanel.add(startBTN);
+		timer.stop();
+		remove(moneyPanel);
+		remove(baseHouseComPanel);
+		remove(baseHealthUserPanel);
+		
+
+		startBTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				add(baseHouseComPanel);
+				add(baseHealthUserPanel);
+				add(moneyPanel);
+				remove(startBTNPanel);
+				timer.start();
+			}
+		});
 
 
 
@@ -953,8 +1015,12 @@ public class GamePanel extends JPanel implements Runnable{
 		});
 
 
-
-
+		//
+		//
+		//		startBTNPanel.setBounds(0, 0, 1200, 600);
+		//		startBTN.setBounds(0, 0, 1200, 600);
+		//		startBTNPanel.add(startBTN);
+		//
 
 	}
 
