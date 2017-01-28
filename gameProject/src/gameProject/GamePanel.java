@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.Timer;
 import java.util.logging.Level;
@@ -1476,8 +1477,9 @@ public class GamePanel extends JPanel implements Runnable{
 						try {
 							File newTextFile = new File("src/gameProject/userNameTextFile");
 
-							FileWriter fw = new FileWriter(newTextFile);
-							fw.write(textFieldValue + ", Comp Base: " + compBaseHealth + ", User Base: " + userBaseHealth);
+							//FileWriter fw = new FileWriter(newTextFile);
+							PrintWriter fw = new PrintWriter(new FileWriter(newTextFile, true));
+							fw.write(textFieldValue + ", Comp Base: " + compBaseHealth + ", User Base: " + userBaseHealth +"\n");
 							fw.close();
 
 
