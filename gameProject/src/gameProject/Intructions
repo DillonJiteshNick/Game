@@ -14,5 +14,7 @@ Please enjoy this game... it was meant to be played in a full sitting and not pa
 
 Best of luck and let's hope you have a Stronghold on this game!
 
-The game code was all written by Nicholas Dietrich
-Please ask Dillon and Jitesh for their contributions.
+The game code was written by Nicholas Dietrich, Jitesh created the frame and set the base layout for the game
+
+Jitesh created the testing document and cases.
+Ask Dillon for his contrubutions... He tried to make an AI class that was not used.
