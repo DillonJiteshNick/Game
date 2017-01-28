@@ -110,6 +110,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public static boolean pauseGame = false;
 
+	boolean mouseOut = false;
+
 
 
 	//ArrayList<JLabel> troopOneLabel = new ArrayList<JLabel>();
@@ -195,6 +197,16 @@ public class GamePanel extends JPanel implements Runnable{
 		//setVisible(true);
 
 		// pack()
+		//		JFrame introFrame = new JFrame("Endless War");
+		//		introFrame.setVisible(true);
+		//		introFrame.setSize(new Dimension(1200, 700));
+		//		introFrame.setAutoRequestFocus(false);
+		//		introFrame.setVisible(true);
+		//		Container w = introFrame.getContentPane();
+		//		//w.add(new GamePanel());
+		//		introFrame.pack();
+
+
 
 		JFrame frame = new JFrame("Endless War");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -383,17 +395,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		MouseAdapter mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) { 	
-				System.out.println("Image Hit");
-
-				System.out.println("X Click: " + e.getX() + " Y Click: " + e.getY());
 
 
-			}
-		};
-
-		addMouseListener(mouseListener);
+		//addMouseListener(mouseListener);
 		this.setPreferredSize(new Dimension(1200, 700));
 		this.setBackground(Color.WHITE);
 
@@ -911,12 +915,51 @@ public class GamePanel extends JPanel implements Runnable{
 		Thread gameThread = new Thread(this);
 		gameThread.start();
 
+		addMouseListener(new MouseAdapter() { 
+			public void mouseClicked(MouseEvent e) { 	
+				System.out.println("Image Hit");
+
+				System.out.println("X Click: " + e.getX() + " Y Click: " + e.getY());
+
+
+			}
+			public void mouseExited(MouseEvent e) {
+				//timer.stop();
+				//				troopOneDamage = 0;
+				//				troopTwoDamage = 0;
+				//				troopThreeDamage = 0;
+				//pauseGame = true;
+				System.out.println("Mouse Exited");
+				//mouseOut = true;
+				//while (mouseOut == true) {
+				//				try {
+				//					gameThread.sleep(1000);
+				//				} catch (InterruptedException e1) {
+				//					// TODO Auto-generated catch block
+				//					e1.printStackTrace();
+				//				}
+				//}
+			}
+			public void mouseEntered(MouseEvent i) {
+				//timer.start();
+
+				troopOneDamage = 2;
+				troopTwoDamage = 5;
+				troopThreeDamage = 10;
+				//mouseOut = false;
+				pauseGame = false;
+				System.out.println("Mouse Entered");
+			}
+		});
 
 
 
 
 
 	}
+
+
+
 	@SuppressWarnings("deprecation")
 	public void paintComponent(Graphics g){
 
@@ -1052,18 +1095,23 @@ public class GamePanel extends JPanel implements Runnable{
 
 					moneyLabel.setText(String.valueOf(totalMoney));
 
-					if (troopThree.get(troopThreeCurrent).getX() - 1200 > -15 && troopThree.get(troopThreeCurrent).getX()- 1200 < 15) {
-						troopThree.remove(troopThree.size()-1);
-						troopThreeCurrent = troopThreeCurrent - 1;
-						System.out.println("Troop Three Removed");
+					try {
+						if (troopThree.get(troopThreeCurrent).getX() - 1200 > -15 && troopThree.get(troopThreeCurrent).getX()- 1200 < 15) {
+							troopThree.remove(troopThree.size()-1);
+							troopThreeCurrent = troopThreeCurrent - 1;
+							System.out.println("Troop Three Removed");
 
 
-						compBaseHealth = compBaseHealth - troopThreeDamage;
+							compBaseHealth = compBaseHealth - troopThreeDamage;
 
-						baseHouseComLabel.setText("<html>Comp Base<br>"
-								+ "Health: " + compBaseHealth);
+							baseHouseComLabel.setText("<html>Comp Base<br>"
+									+ "Health: " + compBaseHealth);
 
-						System.out.println("Troop Three Remove: " + compBaseHealth);
+							System.out.println("Troop Three Remove: " + compBaseHealth);
+						}
+					}
+					catch (IndexOutOfBoundsException io) {
+
 					}
 				}
 
@@ -1402,7 +1450,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 				baseHouseComPanel.setBounds(300, 0, 500, 100);
 				baseHealthUserPanel.setBounds(300, 100, 500, 100);
-				
+
 
 				baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 40));
 
@@ -1491,10 +1539,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 						quitBTN.addActionListener(new ActionListener(){
 							public void actionPerformed(ActionEvent i){
-						System.exit(0);
+								System.exit(0);
 							}
 						});
-						
+
 						playAgainBTN.addActionListener(new ActionListener(){
 							public void actionPerformed(ActionEvent i){
 								troopOneCurrent = -1;
@@ -1515,11 +1563,11 @@ public class GamePanel extends JPanel implements Runnable{
 
 								turretActive = false;
 								turretRockCurrent = -1;
-								
-								
+
+
 								userBaseHealth = 100;
 								compBaseHealth = 100;
-								
+
 								turret1BTN.setEnabled(true);
 								turret2BTN.setEnabled(true);
 								turret3BTN.setEnabled(true);
@@ -1538,21 +1586,21 @@ public class GamePanel extends JPanel implements Runnable{
 								turretThreeLabel.setVisible(false);
 								totalMoney = 200;
 
-								
+
 								AICharacterChoice = ((int) (Math.random() * 11) + 1);
-								
+
 								timer.start();
 								//timer2.start();
 								//timer3.start();
 								//timer4.start();
-								
+
 								remove(namePanel);
 								namePanel.remove(nameText);
 								namePanel.remove(nameSubmit);
 								remove(playAgainPanel);
 								playAgainPanel.remove(playAgainBTN);
 								playAgainPanel.remove(quitBTN);
-								
+
 								//back to orginal
 								baseHouseComPanel.setBounds(1100, 50, 85, 50);
 								baseHealthUserPanel.setBounds(1100, 0, 85, 50);
@@ -1560,11 +1608,11 @@ public class GamePanel extends JPanel implements Runnable{
 								baseHouseComLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 
 								baseHealthUserLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-								
-								
+
+
 								pauseGame = false;
-								
-								
+
+
 							}
 						});
 					}
