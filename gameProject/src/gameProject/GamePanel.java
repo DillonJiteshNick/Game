@@ -774,7 +774,7 @@ public class GamePanel extends JPanel implements Runnable{
 		turret2Panel.setBounds(565, 0, 100, 100);
 		add(turret2Panel);
 
-		turret2BTN = new JButton ("<html>Troop 2<br>" + "175 Coins");
+		turret2BTN = new JButton ("<html>Turret 2<br>" + "175 Coins");
 		turret2BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
 		turret2BTN.setPreferredSize(new Dimension(100, 100));
@@ -878,7 +878,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-		turret3BTN = new JButton ("<html>Troop 3<br>" + "350 Coins");
+		turret3BTN = new JButton ("<html>Turret 3<br>" + "350 Coins");
 		turret3BTN.setFont(new Font("Arial", Font.PLAIN, 12));
 		setLayout(null);
 		turret3BTN.setPreferredSize(new Dimension(100, 100));
